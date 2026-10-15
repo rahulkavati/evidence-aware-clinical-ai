@@ -26,27 +26,65 @@ flowchart TD
     I --> K
 ```
 
+
+
+
+
+## Experimental Architecture
+
+```mermaid
+flowchart TD
+    A["PhysioNet 2019<br/>Hourly ICU patient records"] --> B["Preprocessing and patient-level splits"]
+    B --> C["Train clinical prediction models<br/>Logistic Regression / XGBoost"]
+    C --> D["Calibrate and evaluate uncertainty"]
+    D --> E["Evidence evaluation policy"]
+    B --> F["Historical patient replay"]
+    F --> E
+    E --> G{"Next action"}
+    G -->|Reliable enough| H["Predict"]
+    G -->|Useful measurement available| I["Acquire"]
+    G -->|No justified prediction or acquisition| J["Abstain"]
+    I --> K["Reveal eligible historical observation"]
+    K --> E
+    H --> L["Evaluation"]
+    J --> L
+    L --> M["Performance · Utility · Cost · Selective risk"]
+```
+
+
+
+
+
 ## Planned Components
 
+
+
 ### Data Processing
+
 Load and preprocess hourly ICU patient observations.
 
 ### Clinical Prediction
+
 Train Logistic Regression and XGBoost baselines.
 
 ### Uncertainty Estimation
+
 Evaluate calibration and predictive uncertainty.
 
 ### Evidence Evaluation
+
 Determine whether additional information may improve prediction reliability.
 
 ### Acquisition Simulator
+
 Simulate measurement acquisition using historical observations.
 
 ### Decision Regulation
+
 Choose between predicting, acquiring information, or abstaining.
 
 ### Evaluation
+
 Compare prediction quality, acquisition cost, and decision reliability.
 
 ## Research Status
