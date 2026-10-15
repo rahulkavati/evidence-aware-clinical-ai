@@ -91,3 +91,8 @@ This project investigates an initial capability toward Metacognitive Healthcare 
 
 This repository is intended for research and educational purposes only. It is not a medical device or a clinical decision-support system validated for patient care.
   
+## Research Documentation
+
+- [Baseline Comparison](docs/literature/baseline_comparison.md)
+- [Research Methodology](docs/research_methodology.md)
+- [System Architecture](docs/architecture/system_design.md)
