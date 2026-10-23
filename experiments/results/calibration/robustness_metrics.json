@@ -1,0 +1,619 @@
+{
+  "dataset": "data/processed/val.parquet",
+  "evaluation_split": "patient-disjoint validation selection subset",
+  "predictor_count": 108,
+  "excluded_predictors": [
+    "SepsisLabel",
+    "hospital",
+    "patient_id"
+  ],
+  "split": {
+    "random_state": 42,
+    "calibration_patients": 3025,
+    "selection_patients": 3025,
+    "calibration_hourly_rows": 117069,
+    "selection_hourly_rows": 116968
+  },
+  "bootstrap": {
+    "method": "patient-cluster bootstrap; resample patient IDs with replacement and weight all their hourly rows",
+    "resamples": 200,
+    "random_state": 42,
+    "interval": "95% percentile"
+  },
+  "metrics": {
+    "overall": {
+      "raw": {
+        "observations": 116968,
+        "positive_labels": 2090,
+        "auroc": 0.8372207220291366,
+        "auprc": 0.09916389382835623,
+        "brier_score": 0.01795736851524243,
+        "ece_10_bins": 0.004582341509817077,
+        "bootstrap_95_percentile_ci": {
+          "brier_score": {
+            "lower_95": 0.0159170586249002,
+            "upper_95": 0.020022805376653494
+          },
+          "ece_10_bins": {
+            "lower_95": 0.0031826489631212687,
+            "upper_95": 0.008280647001448793
+          }
+        }
+      },
+      "sigmoid": {
+        "observations": 116968,
+        "positive_labels": 2090,
+        "auroc": 0.8372207220291366,
+        "auprc": 0.09916389382835623,
+        "brier_score": 0.01698486754521067,
+        "ece_10_bins": 0.00160751892690906,
+        "bootstrap_95_percentile_ci": {
+          "brier_score": {
+            "lower_95": 0.014996837125651268,
+            "upper_95": 0.0189096302444405
+          },
+          "ece_10_bins": {
+            "lower_95": 0.0009783393571951731,
+            "upper_95": 0.0040773885574734
+          }
+        }
+      },
+      "isotonic": {
+        "observations": 116968,
+        "positive_labels": 2090,
+        "auroc": 0.8359393418489064,
+        "auprc": 0.09336643896675753,
+        "brier_score": 0.01676909930392521,
+        "ece_10_bins": 0.001345377673828085,
+        "bootstrap_95_percentile_ci": {
+          "brier_score": {
+            "lower_95": 0.014854916349561955,
+            "upper_95": 0.018533340033204084
+          },
+          "ece_10_bins": {
+            "lower_95": 0.0006221068387167741,
+            "upper_95": 0.003916990370970218
+          }
+        }
+      }
+    },
+    "hospital_A": {
+      "raw": {
+        "observations": 58182,
+        "positive_labels": 1258,
+        "auroc": 0.8442682313483215,
+        "auprc": 0.1140699081863412,
+        "brier_score": 0.021120136704755287,
+        "ece_10_bins": 0.005505084653425058,
+        "bootstrap_95_percentile_ci": {
+          "brier_score": {
+            "lower_95": 0.01778443385482415,
+            "upper_95": 0.024728940953947152
+          },
+          "ece_10_bins": {
+            "lower_95": 0.002746986174614306,
+            "upper_95": 0.009779483112007182
+          }
+        }
+      },
+      "sigmoid": {
+        "observations": 58182,
+        "positive_labels": 1258,
+        "auroc": 0.8442682313483215,
+        "auprc": 0.1140699081863412,
+        "brier_score": 0.0203738276985967,
+        "ece_10_bins": 0.003375686865705131,
+        "bootstrap_95_percentile_ci": {
+          "brier_score": {
+            "lower_95": 0.017345472479178854,
+            "upper_95": 0.02360607996650995
+          },
+          "ece_10_bins": {
+            "lower_95": 0.0013190814245859638,
+            "upper_95": 0.006850559001013232
+          }
+        }
+      },
+      "isotonic": {
+        "observations": 58182,
+        "positive_labels": 1258,
+        "auroc": 0.842924494813546,
+        "auprc": 0.1103600108752607,
+        "brier_score": 0.019957887569637775,
+        "ece_10_bins": 0.0018308921858856044,
+        "bootstrap_95_percentile_ci": {
+          "brier_score": {
+            "lower_95": 0.017093796877178193,
+            "upper_95": 0.023086202971951547
+          },
+          "ece_10_bins": {
+            "lower_95": 0.0011160574116742441,
+            "upper_95": 0.0053324477831855534
+          }
+        }
+      }
+    },
+    "hospital_B": {
+      "raw": {
+        "observations": 58786,
+        "positive_labels": 832,
+        "auroc": 0.8204612212338168,
+        "auprc": 0.08774901859909956,
+        "brier_score": 0.014827096361970615,
+        "ece_10_bins": 0.005936804475873479,
+        "bootstrap_95_percentile_ci": {
+          "brier_score": {
+            "lower_95": 0.011576230023887676,
+            "upper_95": 0.018525233701374173
+          },
+          "ece_10_bins": {
+            "lower_95": 0.002824466577710227,
+            "upper_95": 0.012142949674921303
+          }
+        }
+      },
+      "sigmoid": {
+        "observations": 58786,
+        "positive_labels": 832,
+        "auroc": 0.8204612212338168,
+        "auprc": 0.08774901859909956,
+        "brier_score": 0.013630727449876647,
+        "ece_10_bins": 0.0028590989095844776,
+        "bootstrap_95_percentile_ci": {
+          "brier_score": {
+            "lower_95": 0.010825054059239144,
+            "upper_95": 0.01658627348715741
+          },
+          "ece_10_bins": {
+            "lower_95": 0.0009072356652867439,
+            "upper_95": 0.006818768100173136
+          }
+        }
+      },
+      "isotonic": {
+        "observations": 58786,
+        "positive_labels": 832,
+        "auroc": 0.8191220561035144,
+        "auprc": 0.07561112663702785,
+        "brier_score": 0.013613074419162027,
+        "ece_10_bins": 0.0031504386043311973,
+        "bootstrap_95_percentile_ci": {
+          "brier_score": {
+            "lower_95": 0.01104577739795726,
+            "upper_95": 0.016282330844965408
+          },
+          "ece_10_bins": {
+            "lower_95": 0.001692692245895964,
+            "upper_95": 0.007187415922426237
+          }
+        }
+      }
+    }
+  },
+  "high_risk_diagnostics": [
+    {
+      "scope": "overall",
+      "method": "raw",
+      "range": "[0.1, 0.2)",
+      "count": 2881,
+      "mean_predicted_probability": 0.14112041783814874,
+      "observed_positive_frequency": 0.13988198542172856,
+      "unique_patients": 292,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "overall",
+      "method": "raw",
+      "range": "[0.2, 0.5)",
+      "count": 1852,
+      "mean_predicted_probability": 0.3027038167413831,
+      "observed_positive_frequency": 0.12742980561555076,
+      "unique_patients": 109,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "overall",
+      "method": "raw",
+      "range": "[0.5, 0.8)",
+      "count": 332,
+      "mean_predicted_probability": 0.6095312849943897,
+      "observed_positive_frequency": 0.1897590361445783,
+      "unique_patients": 31,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "overall",
+      "method": "raw",
+      "range": "[0.8, 1.0]",
+      "count": 56,
+      "mean_predicted_probability": 0.8667948011841092,
+      "observed_positive_frequency": 0.10714285714285714,
+      "unique_patients": 9,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "overall",
+      "method": "sigmoid",
+      "range": "[0.1, 0.2)",
+      "count": 2335,
+      "mean_predicted_probability": 0.13773548713194164,
+      "observed_positive_frequency": 0.13319057815845825,
+      "unique_patients": 164,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "overall",
+      "method": "sigmoid",
+      "range": "[0.2, 0.5)",
+      "count": 851,
+      "mean_predicted_probability": 0.28589821610567623,
+      "observed_positive_frequency": 0.17038777908343125,
+      "unique_patients": 58,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "overall",
+      "method": "sigmoid",
+      "range": "[0.5, 0.8)",
+      "count": 75,
+      "mean_predicted_probability": 0.6117676521991783,
+      "observed_positive_frequency": 0.16,
+      "unique_patients": 11,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "overall",
+      "method": "sigmoid",
+      "range": "[0.8, 1.0]",
+      "count": 0,
+      "mean_predicted_probability": null,
+      "observed_positive_frequency": null,
+      "unique_patients": 0,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "overall",
+      "method": "isotonic",
+      "range": "[0.1, 0.2)",
+      "count": 5159,
+      "mean_predicted_probability": 0.13056935010076054,
+      "observed_positive_frequency": 0.11920914905989533,
+      "unique_patients": 369,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "overall",
+      "method": "isotonic",
+      "range": "[0.2, 0.5)",
+      "count": 1184,
+      "mean_predicted_probability": 0.23151309432059125,
+      "observed_positive_frequency": 0.15878378378378377,
+      "unique_patients": 71,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "overall",
+      "method": "isotonic",
+      "range": "[0.5, 0.8)",
+      "count": 0,
+      "mean_predicted_probability": null,
+      "observed_positive_frequency": null,
+      "unique_patients": 0,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "overall",
+      "method": "isotonic",
+      "range": "[0.8, 1.0]",
+      "count": 0,
+      "mean_predicted_probability": null,
+      "observed_positive_frequency": null,
+      "unique_patients": 0,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "raw",
+      "range": "[0.1, 0.2)",
+      "count": 1576,
+      "mean_predicted_probability": 0.14171186779261694,
+      "observed_positive_frequency": 0.17766497461928935,
+      "unique_patients": 153,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "raw",
+      "range": "[0.2, 0.5)",
+      "count": 949,
+      "mean_predicted_probability": 0.3004315554530402,
+      "observed_positive_frequency": 0.1475237091675448,
+      "unique_patients": 52,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "raw",
+      "range": "[0.5, 0.8)",
+      "count": 118,
+      "mean_predicted_probability": 0.6125109544244863,
+      "observed_positive_frequency": 0.2288135593220339,
+      "unique_patients": 12,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "raw",
+      "range": "[0.8, 1.0]",
+      "count": 44,
+      "mean_predicted_probability": 0.8715616356242787,
+      "observed_positive_frequency": 0.022727272727272728,
+      "unique_patients": 3,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "sigmoid",
+      "range": "[0.1, 0.2)",
+      "count": 1256,
+      "mean_predicted_probability": 0.1361385982493134,
+      "observed_positive_frequency": 0.16878980891719744,
+      "unique_patients": 82,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "sigmoid",
+      "range": "[0.2, 0.5)",
+      "count": 383,
+      "mean_predicted_probability": 0.27601439755563967,
+      "observed_positive_frequency": 0.185378590078329,
+      "unique_patients": 27,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "sigmoid",
+      "range": "[0.5, 0.8)",
+      "count": 51,
+      "mean_predicted_probability": 0.6319858715608739,
+      "observed_positive_frequency": 0.0784313725490196,
+      "unique_patients": 4,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "sigmoid",
+      "range": "[0.8, 1.0]",
+      "count": 0,
+      "mean_predicted_probability": null,
+      "observed_positive_frequency": null,
+      "unique_patients": 0,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "isotonic",
+      "range": "[0.1, 0.2)",
+      "count": 2751,
+      "mean_predicted_probability": 0.13027485590854673,
+      "observed_positive_frequency": 0.1530352599054889,
+      "unique_patients": 199,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "isotonic",
+      "range": "[0.2, 0.5)",
+      "count": 563,
+      "mean_predicted_probability": 0.23151813598339765,
+      "observed_positive_frequency": 0.16163410301953818,
+      "unique_patients": 32,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "isotonic",
+      "range": "[0.5, 0.8)",
+      "count": 0,
+      "mean_predicted_probability": null,
+      "observed_positive_frequency": null,
+      "unique_patients": 0,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_A",
+      "method": "isotonic",
+      "range": "[0.8, 1.0]",
+      "count": 0,
+      "mean_predicted_probability": null,
+      "observed_positive_frequency": null,
+      "unique_patients": 0,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "raw",
+      "range": "[0.1, 0.2)",
+      "count": 1305,
+      "mean_predicted_probability": 0.1404061457092278,
+      "observed_positive_frequency": 0.09425287356321839,
+      "unique_patients": 139,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "raw",
+      "range": "[0.2, 0.5)",
+      "count": 903,
+      "mean_predicted_probability": 0.3050918299890436,
+      "observed_positive_frequency": 0.10631229235880399,
+      "unique_patients": 57,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "raw",
+      "range": "[0.5, 0.8)",
+      "count": 214,
+      "mean_predicted_probability": 0.6078882897011587,
+      "observed_positive_frequency": 0.16822429906542055,
+      "unique_patients": 19,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "raw",
+      "range": "[0.8, 1.0]",
+      "count": 12,
+      "mean_predicted_probability": 0.8493164082368215,
+      "observed_positive_frequency": 0.4166666666666667,
+      "unique_patients": 6,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "sigmoid",
+      "range": "[0.1, 0.2)",
+      "count": 1079,
+      "mean_predicted_probability": 0.13959433091005194,
+      "observed_positive_frequency": 0.0917516218721038,
+      "unique_patients": 82,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "sigmoid",
+      "range": "[0.2, 0.5)",
+      "count": 468,
+      "mean_predicted_probability": 0.2939868966711975,
+      "observed_positive_frequency": 0.1581196581196581,
+      "unique_patients": 31,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "sigmoid",
+      "range": "[0.5, 0.8)",
+      "count": 24,
+      "mean_predicted_probability": 0.5688039360555747,
+      "observed_positive_frequency": 0.3333333333333333,
+      "unique_patients": 7,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "sigmoid",
+      "range": "[0.8, 1.0]",
+      "count": 0,
+      "mean_predicted_probability": null,
+      "observed_positive_frequency": null,
+      "unique_patients": 0,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "isotonic",
+      "range": "[0.1, 0.2)",
+      "count": 2408,
+      "mean_predicted_probability": 0.13090579259360946,
+      "observed_positive_frequency": 0.08056478405315615,
+      "unique_patients": 170,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "isotonic",
+      "range": "[0.2, 0.5)",
+      "count": 621,
+      "mean_predicted_probability": 0.2315085235377249,
+      "observed_positive_frequency": 0.15619967793880837,
+      "unique_patients": 39,
+      "small_sample": false,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "isotonic",
+      "range": "[0.5, 0.8)",
+      "count": 0,
+      "mean_predicted_probability": null,
+      "observed_positive_frequency": null,
+      "unique_patients": 0,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    },
+    {
+      "scope": "hospital_B",
+      "method": "isotonic",
+      "range": "[0.8, 1.0]",
+      "count": 0,
+      "mean_predicted_probability": null,
+      "observed_positive_frequency": null,
+      "unique_patients": 0,
+      "small_sample": true,
+      "small_sample_threshold": "fewer than 100 hourly rows or 30 patients"
+    }
+  ],
+  "comparison_check": {
+    "file": "calibration_comparison.json",
+    "status": "passed",
+    "absolute_differences": {
+      "raw": {
+        "auroc": 0.0,
+        "auprc": 0.0,
+        "brier_score": 3.503667390936105e-10,
+        "ece_10_bins": 5.080744314850394e-10
+      },
+      "sigmoid": {
+        "auroc": 2.0825088320464147e-09,
+        "auprc": 1.3462539913411398e-07,
+        "brier_score": 1.249468972730483e-09,
+        "ece_10_bins": 4.414368436761462e-10
+      },
+      "isotonic": {
+        "auroc": 0.0,
+        "auprc": 0.0,
+        "brier_score": 6.766675171576697e-10,
+        "ece_10_bins": 5.0858301077483237e-11
+      }
+    },
+    "tolerance": {
+      "relative": 1e-06,
+      "absolute": 1e-06
+    }
+  }
+}

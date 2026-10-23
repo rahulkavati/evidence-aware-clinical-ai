@@ -46,6 +46,19 @@ def expected_calibration_error(y, probabilities, bins=10):
     return float(ece)
 
 
+def split_patient_ids(patient_labels, random_state=RANDOM_STATE):
+    """Split patient IDs into calibration and selection cohorts."""
+    calibration_ids, selection_ids = train_test_split(
+        patient_labels.index.to_numpy(),
+        test_size=0.5,
+        random_state=random_state,
+        stratify=patient_labels.to_numpy(),
+    )
+    if set(calibration_ids).intersection(selection_ids):
+        raise AssertionError("Calibration and selection patients must be disjoint")
+    return calibration_ids, selection_ids
+
+
 def evaluate(y, p):
     return {
         "auroc": float(roc_auc_score(y, p)),
@@ -75,12 +88,7 @@ def main():
     # Split by patient, not hourly observation.
     patient_labels = df.groupby("patient_id")["SepsisLabel"].max()
 
-    calibration_ids, selection_ids = train_test_split(
-        patient_labels.index.to_numpy(),
-        test_size=0.5,
-        random_state=RANDOM_STATE,
-        stratify=patient_labels.to_numpy(),
-    )
+    calibration_ids, selection_ids = split_patient_ids(patient_labels)
 
     calibration_mask = df["patient_id"].isin(calibration_ids)
     selection_mask = df["patient_id"].isin(selection_ids)
