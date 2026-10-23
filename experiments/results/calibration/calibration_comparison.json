@@ -1,0 +1,26 @@
+{
+  "dataset": "PhysioNet 2019",
+  "evaluation_split": "patient-disjoint validation selection subset",
+  "calibration_patients": 3025,
+  "selection_patients": 3025,
+  "calibration_hourly_rows": 117069,
+  "selection_hourly_rows": 116968,
+  "raw": {
+    "auroc": 0.8372207220291366,
+    "auprc": 0.09916389382835623,
+    "brier_score": 0.01795736886560917,
+    "ece_10_bins": 0.004582341001742645
+  },
+  "sigmoid": {
+    "auroc": 0.8372207241116454,
+    "auprc": 0.09916402845375537,
+    "brier_score": 0.01698486879467964,
+    "ece_10_bins": 0.0016075193683459037
+  },
+  "isotonic": {
+    "auroc": 0.8359393418489064,
+    "auprc": 0.09336643896675753,
+    "brier_score": 0.016769099980592728,
+    "ece_10_bins": 0.001345377724686386
+  }
+}
