@@ -1,1 +1,9 @@
-docs/raw/*
+# Data directories
+data/raw/
+data/processed/
+data/interim/
+
+# Experiment artifacts
+outputs/
+mlruns/
+colab_package/
