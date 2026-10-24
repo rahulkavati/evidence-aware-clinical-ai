@@ -58,7 +58,7 @@ def build_temporal_features(
     if df["ICULOS"].duplicated().any():
         raise ValueError("Duplicate ICU hours detected")
 
-    result = pd.DataFrame(index=df.index)
+    result_data = {}
 
     hours = df["ICULOS"].to_numpy(dtype=float)
 
@@ -78,20 +78,18 @@ def build_temporal_features(
 
         age = df["ICULOS"] - last_seen_hours
 
-        result[f"{feature}_last"] = last_values
-        result[f"{feature}_observed"] = (
-            last_seen_hours.notna().astype("int8")
-        )
-        result[f"{feature}_age"] = age
+        result_data[f"{feature}_last"] = last_values
+        result_data[f"{feature}_observed"] = last_seen_hours.notna().astype("int8")
+        result_data[f"{feature}_age"] = age
 
     for feature in STATIC_FEATURES:
-        result[feature] = pd.to_numeric(
+        result_data[feature] = pd.to_numeric(
             df[feature], errors="coerce"
         )
 
-    result["ICULOS"] = df["ICULOS"]
+    result_data["ICULOS"] = df["ICULOS"]
 
     # Target retained separately for supervised training.
-    result["SepsisLabel"] = df["SepsisLabel"]
+    result_data["SepsisLabel"] = df["SepsisLabel"]
 
-    return result.reset_index(drop=True)
+    return pd.DataFrame(result_data, index=df.index).reset_index(drop=True)
