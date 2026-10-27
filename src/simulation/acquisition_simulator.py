@@ -9,7 +9,7 @@ import pandas as pd
 
 from src.data.build_temporal_features import (
     LAB_FEATURES,
-    build_temporal_features,
+    build_checkpoint_feature_vector,
 )
 
 
@@ -49,6 +49,9 @@ class AcquisitionSimulator:
             raise ValueError(f"Invalid laboratory features: {invalid}")
 
         self.acquired = []
+        self.model_features = list(self.model.feature_names_in_)
+        self._feature_vector_cache = {}
+        self._risk_cache = {}
 
         # Ground truth is retained privately by the simulator.
         self.original_history = self.history.copy()
@@ -71,21 +74,24 @@ class AcquisitionSimulator:
         ])
 
     def predict_risk(self):
-        visible = self.visible_history()
-        features = build_temporal_features(visible)
-
-        current = features.loc[
-            features["ICULOS"] == self.checkpoint
-        ]
-
-        model_features = list(self.model.feature_names_in_)
-        raw = float(
-            self.model.predict_proba(
-                current[model_features]
-            )[0, 1]
+        state = frozenset(self.hidden)
+        if state in self._risk_cache:
+            return self._risk_cache[state]
+        if state not in self._feature_vector_cache:
+            self._feature_vector_cache[state] = build_checkpoint_feature_vector(
+                self.original_history,
+                self.checkpoint,
+                self.model_features,
+                hidden_features=state,
+            )
+        current = pd.DataFrame(
+            [self._feature_vector_cache[state]],
+            columns=self.model_features,
         )
+        raw = float(self.model.predict_proba(current)[0, 1])
 
         if self.calibrator is None:
+            self._risk_cache[state] = raw
             return raw
 
         # Sigmoid calibrator fitted on log-odds.
@@ -93,11 +99,13 @@ class AcquisitionSimulator:
         clipped = np.clip(raw, eps, 1 - eps)
         logit = np.log(clipped / (1 - clipped))
 
-        return float(
+        calibrated = float(
             self.calibrator.predict_proba(
                 np.array([[logit]])
             )[0, 1]
         )
+        self._risk_cache[state] = calibrated
+        return calibrated
 
     def acquire(self, feature: str):
         if feature not in self.eligible_features():

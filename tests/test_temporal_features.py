@@ -7,6 +7,7 @@ import pandas as pd
 from src.data.build_temporal_features import (
     DYNAMIC_FEATURES,
     STATIC_FEATURES,
+    build_checkpoint_feature_vector,
     build_temporal_features,
 )
 
@@ -74,6 +75,56 @@ class TestTemporalFeatures(unittest.TestCase):
             original.iloc[:3],
             modified.iloc[:3],
         )
+
+    def test_direct_checkpoint_vector_matches_temporal_builder(self):
+        patient = self.make_patient()
+        model_features = [
+            column
+            for column in build_temporal_features(patient).columns
+            if column != "SepsisLabel"
+        ]
+        checkpoint = 3
+
+        vector = build_checkpoint_feature_vector(
+            patient,
+            checkpoint,
+            model_features,
+        )
+        expected = (
+            build_temporal_features(patient)
+            .loc[lambda frame: frame["ICULOS"] == checkpoint, model_features]
+            .iloc[0]
+            .to_numpy(dtype=float)
+        )
+
+        np.testing.assert_allclose(vector, expected, equal_nan=True)
+
+    def test_direct_checkpoint_vector_matches_hidden_observations(self):
+        patient = self.make_patient()
+        patient["HR"] = [80, np.nan, 100, np.nan]
+        model_features = [
+            column
+            for column in build_temporal_features(patient).columns
+            if column != "SepsisLabel"
+        ]
+        patient["Lactate"] = [1.5, np.nan, 2.5, np.nan]
+        hidden_history = patient.copy()
+        hidden_history["Lactate"] = np.nan
+        expected = (
+            build_temporal_features(hidden_history)
+            .loc[lambda frame: frame["ICULOS"] == 3, model_features]
+            .iloc[0]
+            .to_numpy(dtype=float)
+        )
+
+        vector = build_checkpoint_feature_vector(
+            patient,
+            3,
+            model_features,
+            hidden_features={"Lactate"},
+        )
+
+        np.testing.assert_allclose(vector, expected, equal_nan=True)
 
 
 if __name__ == "__main__":

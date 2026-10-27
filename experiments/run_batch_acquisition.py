@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
 import random
 from collections import defaultdict
 from pathlib import Path
+from time import perf_counter
 from typing import Any, Iterable
 
 import joblib
@@ -19,9 +21,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn.metrics import average_precision_score, brier_score_loss, roc_auc_score
+from threadpoolctl import threadpool_limits
 
 from src.acquisition.baseline_policies import fixed_order_policy, random_policy
-from src.data.build_temporal_features import build_temporal_features
+from src.data.build_temporal_features import (
+    build_checkpoint_feature_vector,
+    build_temporal_features,
+    mask_checkpoint_feature_vector,
+)
 from src.simulation.acquisition_simulator import AcquisitionSimulator
 
 SPLIT_FILE = Path("outputs/splits/val.csv")
@@ -497,7 +504,7 @@ def _write_markdown(result: dict[str, Any]) -> None:
     )
 
 
-def run_batch(
+def run_batch_scalar_reference(
     patients: pd.DataFrame,
     model: Any,
     calibrator: Any,
@@ -627,6 +634,285 @@ def run_batch(
     return _make_result_rows(records)
 
 
+def _prepare_patient_states(
+    patient_manifest: Any,
+    patient_index: int,
+    model_features: list[str],
+    random_replicates: int,
+    global_seed: int,
+) -> dict[str, Any]:
+    io_started = perf_counter()
+    patient = pd.read_csv(patient_manifest.file_path, sep="|")
+    io_seconds = perf_counter() - io_started
+    feature_seconds = 0.0
+    state_vectors: dict[tuple[int, tuple[str, ...]], np.ndarray] = {}
+    observations: list[tuple[Any, ...]] = []
+    decisions: list[tuple[Any, ...]] = []
+
+    for checkpoint in CHECKPOINTS:
+        if not (patient["ICULOS"] == checkpoint).any():
+            continue
+        label = checkpoint_label(patient, checkpoint)
+        history = historical_frame(patient, checkpoint)
+        available = historically_available_features(history)
+
+        feature_started = perf_counter()
+        visible_vector = build_checkpoint_feature_vector(
+            history,
+            checkpoint,
+            model_features,
+        )
+        feature_seconds += perf_counter() - feature_started
+
+        def get_state_key(hidden: Iterable[str]) -> tuple[int, tuple[str, ...]]:
+            nonlocal feature_seconds
+            hidden_key = tuple(sorted(set(hidden)))
+            local_key = (checkpoint, hidden_key)
+            if local_key not in state_vectors:
+                feature_started = perf_counter()
+                state_vectors[local_key] = mask_checkpoint_feature_vector(
+                    visible_vector,
+                    model_features,
+                    hidden_key,
+                )
+                feature_seconds += perf_counter() - feature_started
+            return local_key
+
+        initial_hidden = initial_hidden_features()
+        no_acquisition_key = get_state_key(initial_hidden)
+        reference_key = get_state_key(())
+        scope_names = ("All", str(patient_manifest.hospital))
+        for scope in scope_names:
+            observations.append(
+                (
+                    (checkpoint, scope, "no_acquisition", 0, None),
+                    label,
+                    no_acquisition_key,
+                    0,
+                    len(available),
+                )
+            )
+            observations.append(
+                (
+                    (checkpoint, scope, "no_masking_reference", 0, None),
+                    label,
+                    reference_key,
+                    0,
+                    len(available),
+                )
+            )
+
+        fixed_order = acquisition_order(available, "fixed_order")
+        decisions.append(
+            (patient_index, checkpoint, "fixed_order", None, fixed_order)
+        )
+        for budget in ACQUISITION_BUDGETS:
+            selected = limit_acquisitions(fixed_order, budget)
+            hidden = set(initial_hidden) - set(selected)
+            state_key = get_state_key(hidden)
+            for scope in scope_names:
+                observations.append(
+                    (
+                        (checkpoint, scope, "fixed_order", budget, None),
+                        label,
+                        state_key,
+                        len(selected),
+                        len(available),
+                    )
+                )
+
+        for replicate in range(random_replicates):
+            rng = random.Random(
+                stable_random_seed(
+                    global_seed,
+                    patient_manifest.hospital,
+                    patient_manifest.patient_id,
+                    checkpoint,
+                    replicate,
+                )
+            )
+            order = acquisition_order(available, "random", rng)
+            decisions.append(
+                (patient_index, checkpoint, "random", replicate, order)
+            )
+            for budget in ACQUISITION_BUDGETS:
+                selected = limit_acquisitions(order, budget)
+                hidden = set(initial_hidden) - set(selected)
+                state_key = get_state_key(hidden)
+                for scope in scope_names:
+                    observations.append(
+                        (
+                            (checkpoint, scope, "random", budget, replicate),
+                            label,
+                            state_key,
+                            len(selected),
+                            len(available),
+                        )
+                    )
+
+    return {
+        "patient_index": patient_index,
+        "state_vectors": state_vectors,
+        "observations": observations,
+        "decisions": decisions,
+        "io_seconds": io_seconds,
+        "feature_seconds": feature_seconds,
+    }
+
+
+def run_batch(
+    patients: pd.DataFrame,
+    model: Any,
+    calibrator: Any,
+    random_replicates: int = RANDOM_REPLICATES,
+    global_seed: int = GLOBAL_SEED,
+    workers: int = 1,
+    profile: dict[str, float] | None = None,
+    return_diagnostics: bool = False,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]] | tuple[
+    list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]
+]:
+    """Prepare unique states, then run one deterministic batch prediction."""
+    if random_replicates < 5:
+        raise ValueError("At least five random-policy replicates are required")
+    if workers not in (1, 2, 4):
+        raise ValueError("workers must be one of 1, 2, or 4")
+    started = perf_counter()
+    model_features = list(model.feature_names_in_)
+    if EXCLUDED_FEATURES.intersection(model_features):
+        raise ValueError("Patient identifiers, hospital, or label found in model features")
+
+    manifests = list(patients.itertuples(index=False))
+    if workers == 1:
+        prepared = [
+            _prepare_patient_states(
+                manifest,
+                index,
+                model_features,
+                random_replicates,
+                global_seed,
+            )
+            for index, manifest in enumerate(manifests)
+        ]
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            futures = [
+                executor.submit(
+                    _prepare_patient_states,
+                    manifest,
+                    index,
+                    model_features,
+                    random_replicates,
+                    global_seed,
+                )
+                for index, manifest in enumerate(manifests)
+            ]
+            prepared = [future.result() for future in futures]
+
+    io_seconds = sum(item["io_seconds"] for item in prepared)
+    feature_seconds = sum(item["feature_seconds"] for item in prepared)
+    state_refs: list[tuple[int, int, tuple[str, ...]]] = []
+    state_rows: list[np.ndarray] = []
+    all_observations: list[tuple[Any, ...]] = []
+    all_decisions: list[tuple[Any, ...]] = []
+    for patient in prepared:
+        patient_index = patient["patient_index"]
+        for (checkpoint, hidden_key), vector in patient["state_vectors"].items():
+            state_refs.append((patient_index, checkpoint, hidden_key))
+            state_rows.append(vector)
+        all_observations.extend(
+            (patient_index, *observation)
+            for observation in patient["observations"]
+        )
+        all_decisions.extend(patient["decisions"])
+
+    feature_started = perf_counter()
+    model_input = pd.DataFrame(np.vstack(state_rows), columns=model_features)
+    feature_seconds += perf_counter() - feature_started
+
+    model_inference_started = perf_counter()
+    original_n_jobs = None
+    if hasattr(model, "get_params") and "n_jobs" in model.get_params(deep=False):
+        original_n_jobs = model.get_params(deep=False)["n_jobs"]
+        model.set_params(n_jobs=1)
+    try:
+        with threadpool_limits(limits=1):
+            raw_probabilities = np.asarray(
+                model.predict_proba(model_input)[:, 1],
+                dtype=float,
+            )
+    finally:
+        if original_n_jobs is not None:
+            model.set_params(n_jobs=original_n_jobs)
+    if not np.isfinite(raw_probabilities).all() or (
+        (raw_probabilities < 0.0) | (raw_probabilities > 1.0)
+    ).any():
+        raise ValueError("XGBoost produced invalid probabilities")
+    clipped = np.clip(raw_probabilities, 1e-7, 1.0 - 1e-7)
+    logits = np.log(clipped / (1.0 - clipped))
+    probabilities = np.asarray(
+        calibrator.predict_proba(logits.reshape(-1, 1))[:, 1],
+        dtype=float,
+    )
+    if not np.isfinite(probabilities).all() or (
+        (probabilities < 0.0) | (probabilities > 1.0)
+    ).any():
+        raise ValueError("Sigmoid calibrator produced invalid probabilities")
+    inference_seconds = perf_counter() - model_inference_started
+
+    probability_by_state = dict(zip(state_refs, probabilities.tolist()))
+    records: dict[tuple[Any, ...], dict[str, list[Any]]] = defaultdict(
+        lambda: {
+            "labels": [],
+            "probabilities": [],
+            "acquired_counts": [],
+            "available_counts": [],
+            "acquisition_patients": [],
+        }
+    )
+    evaluation_started = perf_counter()
+    for (
+        patient_index,
+        group_key,
+        label,
+        local_state_key,
+        acquired_count,
+        available_count,
+    ) in all_observations:
+        state_key = (patient_index, local_state_key[0], local_state_key[1])
+        _record_group(
+            records,
+            group_key,
+            label,
+            probability_by_state[state_key],
+            acquired_count,
+            available_count,
+        )
+    results, random_summary = _make_result_rows(records)
+    evaluation_seconds = perf_counter() - evaluation_started
+    elapsed = perf_counter() - started
+
+    timing = {
+        "file_io_seconds": io_seconds,
+        "pandas_feature_engineering_seconds": feature_seconds,
+        "model_inference_and_calibration_seconds": inference_seconds,
+        "evaluation_seconds": evaluation_seconds,
+        "wall_seconds": elapsed,
+    }
+    if profile is not None:
+        profile.update(timing)
+        profile["unique_states"] = float(len(state_refs))
+        profile["batched_model_calls"] = 1.0
+        profile["patient_files_read"] = float(len(manifests))
+    if return_diagnostics:
+        return results, random_summary, {
+            "probability_by_state": probability_by_state,
+            "decisions": all_decisions,
+            "timing": timing,
+        }
+    return results, random_summary
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -642,6 +928,13 @@ def main() -> None:
     )
     parser.add_argument("--seed", type=int, default=GLOBAL_SEED)
     parser.add_argument("--random-replicates", type=int, default=RANDOM_REPLICATES)
+    parser.add_argument(
+        "--workers",
+        type=int,
+        choices=(1, 2, 4),
+        default=1,
+        help="Patient preprocessing workers; XGBoost uses one CPU thread.",
+    )
     args = parser.parse_args()
 
     patients = pd.read_csv(SPLIT_FILE)
@@ -664,12 +957,15 @@ def main() -> None:
     if EXCLUDED_FEATURES.intersection(features):
         raise ValueError("Patient identifiers, hospital, or label found in model features")
     calibrator = joblib.load(CALIBRATOR_FILE)
+    profile: dict[str, float] = {}
     result_rows, random_summary = run_batch(
         patients,
         model,
         calibrator,
         random_replicates=args.random_replicates,
         global_seed=args.seed,
+        workers=args.workers,
+        profile=profile,
     )
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -722,6 +1018,7 @@ def main() -> None:
                 "configuration": output["configuration"],
                 "result_rows": len(result_rows),
                 "random_replicate_summary": random_summary,
+                "performance_profile": profile,
             },
             indent=2,
         )
