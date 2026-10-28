@@ -173,7 +173,7 @@ def generate_training_outcomes(
     checkpoints: tuple[int, ...] = CHECKPOINTS,
 ) -> list[dict[str, Any]]:
     """Generate feature outcomes using only the disjoint policy training cohort."""
-    outcome_metadata: list[tuple[str, int, float, int]] = []
+    outcome_metadata: list[tuple[str, int, str, int, int, int]] = []
     vectors: list[np.ndarray] = []
     initial_hidden = initial_hidden_features()
     if not TRAIN_DATA_FILE.exists():
@@ -219,7 +219,16 @@ def generate_training_outcomes(
                 )
                 after_index = len(vectors)
                 vectors.append(after_vector)
-                outcome_metadata.append((feature, label, before_index, after_index))
+                outcome_metadata.append(
+                    (
+                        str(patient_id),
+                        int(checkpoint),
+                        feature,
+                        label,
+                        before_index,
+                        after_index,
+                    )
+                )
     if not vectors:
         return []
     probabilities = np.asarray(
@@ -233,15 +242,215 @@ def generate_training_outcomes(
     ).any():
         raise ValueError("Independent predictor produced invalid probabilities")
     outcomes = []
-    for feature, label, before_index, after_index in outcome_metadata:
+    for (
+        patient_id,
+        checkpoint,
+        feature,
+        label,
+        before_index,
+        after_index,
+    ) in outcome_metadata:
         outcomes.append(
             {
+                "patient_id": str(patient_id),
+                "checkpoint": int(checkpoint),
                 "feature": feature,
                 "loss_before": (probabilities[before_index] - label) ** 2,
                 "loss_after": (probabilities[after_index] - label) ** 2,
             }
         )
     return outcomes
+
+
+def diagnose_policy_records(
+    outcomes: list[dict[str, Any]],
+    policy: FeatureVOIPolicy,
+    *,
+    cost_weight: float = 0.0,
+) -> list[dict[str, Any]]:
+    """Summarize raw and fitted feature-level VOI estimates without refitting."""
+    diagnostics = []
+    grouped: dict[str, list[float]] = defaultdict(list)
+    for record in outcomes:
+        benefit = float(record["loss_before"] - record["loss_after"])
+        if not np.isfinite(benefit):
+            raise ValueError("Non-finite diagnostic benefit")
+        grouped[str(record["feature"])].append(benefit)
+    for feature in CANDIDATE_LABS:
+        benefits = np.asarray(grouped.get(feature, []), dtype=float)
+        count = int(len(benefits))
+        mean = float(np.mean(benefits)) if count else None
+        std = float(np.std(benefits, ddof=1)) if count > 1 else (
+            0.0 if count == 1 else None
+        )
+        median = float(np.median(benefits)) if count else None
+        positive_fraction = (
+            float(np.mean(benefits > 0)) if count else None
+        )
+        shrunk = float(policy.values.get(feature, 0.0))
+        suppressed = count < policy.config.min_examples
+        if mean is None or mean == 0:
+            sign = "zero"
+        elif mean < 0:
+            sign = "negative"
+        else:
+            sign = "positive"
+        diagnostics.append(
+            {
+                "feature": feature,
+                "training_policy_examples": count,
+                "mean_unshrunk_brier_benefit": mean,
+                "std_unshrunk_brier_benefit": std,
+                "median_unshrunk_brier_benefit": median,
+                "positive_benefit_fraction": positive_fraction,
+                "shrunk_estimated_benefit": shrunk,
+                "min_examples_suppressed": suppressed,
+                "unshrunk_sign": sign,
+                "shrinkage": policy.config.shrinkage,
+                "shrinkage_factor": (
+                    count / (count + policy.config.shrinkage)
+                    if count >= policy.config.min_examples
+                    else 0.0
+                ),
+                "cost_weight": cost_weight,
+                "positive_net_benefit_after_cost": (
+                    shrunk - cost_weight > 0
+                ),
+                "candidate_unavailable": count == 0,
+            }
+        )
+    return diagnostics
+
+
+def diagnostic_training_cohorts(
+    train_manifest: pd.DataFrame,
+    *,
+    policy_sizes: tuple[int, ...] = (100, 500, 1000, 3000),
+    seed: int = GLOBAL_SEED,
+) -> tuple[pd.DataFrame, dict[int, pd.DataFrame]]:
+    """Return one fixed fit cohort and nested disjoint policy cohorts."""
+    fit_manifest, policy_pool = split_training_cohorts(
+        train_manifest,
+        policy_fraction=TRAIN_POLICY_FRACTION,
+        seed=seed,
+    )
+    if max(policy_sizes) > len(policy_pool):
+        raise ValueError(
+            f"Requested policy cohort exceeds available patients: "
+            f"{max(policy_sizes)} > {len(policy_pool)}"
+        )
+    shuffled = policy_pool.sample(
+        frac=1.0,
+        random_state=seed,
+    ).reset_index(drop=True)
+    cohorts = {
+        size: shuffled.iloc[:size].reset_index(drop=True)
+        for size in policy_sizes
+    }
+    fit_ids = set(fit_manifest["patient_id"])
+    for size, cohort in cohorts.items():
+        if fit_ids.intersection(cohort["patient_id"]):
+            raise AssertionError(f"Fit and policy cohorts overlap at size {size}")
+    return fit_manifest, cohorts
+
+
+def run_diagnostics(
+    *,
+    policy_sizes: tuple[int, ...] = (100, 500, 1000, 3000),
+    seed: int = GLOBAL_SEED,
+    n_estimators: int = 20,
+) -> dict[str, Any]:
+    """Run training-size diagnostics without touching validation or test data."""
+    train_manifest = pd.read_csv(TRAIN_SPLIT_FILE)
+    fit_manifest, cohorts = diagnostic_training_cohorts(
+        train_manifest,
+        policy_sizes=policy_sizes,
+        seed=seed,
+    )
+    predictor, _ = _fit_independent_predictor(
+        fit_manifest,
+        n_estimators=n_estimators,
+        seed=seed,
+    )
+    outcomes = generate_training_outcomes(
+        pd.concat(list(cohorts.values()), ignore_index=True).drop_duplicates(
+            subset=["patient_id"]
+        ),
+        predictor,
+    )
+    outcomes_by_size = {
+        size: [
+            record
+            for record in outcomes
+            if record["patient_id"]
+            in set(cohort["patient_id"])
+        ]
+        for size, cohort in cohorts.items()
+    }
+    analyses = []
+    for size in policy_sizes:
+        subset = outcomes_by_size[size]
+        policy = fit_voi_policy(subset)
+        analyses.append(
+            {
+                "policy_training_patients": size,
+                "predictor_fit_patients": len(fit_manifest),
+                "outcome_records": len(subset),
+                "patient_disjoint": set(fit_manifest["patient_id"]).isdisjoint(
+                    cohorts[size]["patient_id"]
+                ),
+                "features": diagnose_policy_records(subset, policy),
+            }
+        )
+    development_sample = sample_development_patients(
+        train_manifest,
+        sample_size=100,
+        seed=seed,
+    )
+    development_fit, development_policy = split_training_cohorts(
+        development_sample,
+        policy_fraction=TRAIN_POLICY_FRACTION,
+        seed=seed,
+    )
+    development_predictor, _ = _fit_independent_predictor(
+        development_fit,
+        n_estimators=n_estimators,
+        seed=seed,
+    )
+    development_outcomes = generate_training_outcomes(
+        development_policy,
+        development_predictor,
+    )
+    development_policy_model = fit_voi_policy(development_outcomes)
+    return {
+        "configuration": {
+            "policy_training_sizes_requested": list(policy_sizes),
+            "predictor_fit_patients": len(fit_manifest),
+            "available_policy_pool_patients": len(
+                set(train_manifest["patient_id"])
+                - set(fit_manifest["patient_id"])
+            ),
+            "min_examples": VOIConfig().min_examples,
+            "shrinkage": VOIConfig().shrinkage,
+            "cost_weight": VOIConfig().cost_weight,
+            "seed": seed,
+            "test_data_accessed": False,
+        },
+        "analyses": analyses,
+        "development_reference": {
+            "development_sample_patients": len(development_sample),
+            "predictor_fit_patients": len(development_fit),
+            "policy_training_patients": len(development_policy),
+            "outcome_records": len(development_outcomes),
+            "patient_disjoint": set(
+                development_fit["patient_id"]
+            ).isdisjoint(development_policy["patient_id"]),
+            "features": diagnose_policy_records(
+                development_outcomes,
+                development_policy_model,
+            ),
+        },
+    }
 
 
 def fit_voi_policy(
