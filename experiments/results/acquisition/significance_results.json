@@ -1,0 +1,6013 @@
+{
+  "comparisons": [
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "fixed_order",
+      "budget": 1,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.0017146731212174249,
+        "auprc": 0.004125084609125487,
+        "brier_improvement": 6.771802285135756e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.009045500330010883,
+          0.012403017298609735
+        ],
+        "auprc": [
+          -0.006145821786236867,
+          0.014315804775405694
+        ],
+        "brier_improvement": [
+          -1.5403226708796462e-06,
+          0.00014047226116920084
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "fixed_order",
+      "budget": 2,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.008851579007480903,
+        "auprc": -0.0005266125996382515,
+        "brier_improvement": 2.3315362903626735e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.002231279919224585,
+          0.021436825353635544
+        ],
+        "auprc": [
+          -0.015734342273281226,
+          0.008754959634058923
+        ],
+        "brier_improvement": [
+          -6.15088416671209e-05,
+          0.00010631225186443337
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "fixed_order",
+      "budget": 3,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.011787462532708348,
+        "auprc": -0.001355075968123537,
+        "brier_improvement": -1.0499166158348117e-07
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0014107349019326669,
+          0.02626516401316632
+        ],
+        "auprc": [
+          -0.01830941997727037,
+          0.008996594122650888
+        ],
+        "brier_improvement": [
+          -0.0001003220121531638,
+          9.63421152535334e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.012589888553568462,
+        "auprc": 0.006863164851334258,
+        "brier_improvement": 6.12452530838678e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.001412220826053845,
+          0.02610246325856412
+        ],
+        "auprc": [
+          -0.0009095863926065996,
+          0.01673985009146349
+        ],
+        "brier_improvement": [
+          -4.224079379036397e-06,
+          0.00012266547079444566
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.012160854202999283,
+        "auprc": 0.0069387554270665674,
+        "brier_improvement": 5.848562082374359e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.0015930469474979615,
+          0.024072467777721415
+        ],
+        "auprc": [
+          -0.0017930151558291725,
+          0.016192820839953194
+        ],
+        "brier_improvement": [
+          -9.129778452575225e-06,
+          0.00012377404811703187
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.007772403866287747,
+        "auprc": 0.004464663380741127,
+        "brier_improvement": 4.1187362584051146e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.001781191527028161,
+          0.01881361996973509
+        ],
+        "auprc": [
+          -0.004996456743977391,
+          0.018087905160879374
+        ],
+        "brier_improvement": [
+          -1.4195247201521325e-05,
+          0.00010019418858043874
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.011832855245567209,
+        "auprc": 0.008286152859828005,
+        "brier_improvement": 8.545414311039723e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          6.642469362714594e-05,
+          0.02440570784411399
+        ],
+        "auprc": [
+          -0.002855629918064388,
+          0.02243911019344179
+        ],
+        "brier_improvement": [
+          2.490828892683754e-05,
+          0.0001556334330695565
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.0063989082320417,
+        "auprc": 0.005054534838363295,
+        "brier_improvement": 4.909143160090196e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.004120239567429937,
+          0.01738403594331755
+        ],
+        "auprc": [
+          -0.006117234236743381,
+          0.01777654579332169
+        ],
+        "brier_improvement": [
+          -1.2267758820480937e-05,
+          0.00011839949848540965
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.01648341189201208,
+        "auprc": 0.008198047657511212,
+        "brier_improvement": 5.95683393112903e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.003922359545710544,
+          0.030347317308331647
+        ],
+        "auprc": [
+          -0.0014689562938707073,
+          0.019966536138247316
+        ],
+        "brier_improvement": [
+          -1.6692145850326617e-05,
+          0.00013399577581996383
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.009248399174731192,
+        "auprc": 0.009479759333857848,
+        "brier_improvement": 7.666032376205806e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.005434164621556425,
+          0.02475540326766684
+        ],
+        "auprc": [
+          -0.0011560549172242637,
+          0.022287747458457238
+        ],
+        "brier_improvement": [
+          -1.7755886048669603e-07,
+          0.00015609488739275052
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.009176649402792947,
+        "auprc": 0.0033132865154711644,
+        "brier_improvement": 4.3039321149306725e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.002081283957951599,
+          0.020865229139139164
+        ],
+        "auprc": [
+          -0.007266456135531958,
+          0.014278770452164403
+        ],
+        "brier_improvement": [
+          -2.9022118202629445e-05,
+          0.00011794082873432141
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.019076653649208075,
+        "auprc": 0.005194264142369606,
+        "brier_improvement": 5.871754954984987e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.006700275589424815,
+          0.03148642196167162
+        ],
+        "auprc": [
+          -0.008211947246109758,
+          0.016467054079114515
+        ],
+        "brier_improvement": [
+          -1.6211665044102865e-05,
+          0.000134434748744035
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.019690187413332838,
+        "auprc": 0.006342070067557479,
+        "brier_improvement": 6.56790592553462e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.009230400311977378,
+          0.03123528895902621
+        ],
+        "auprc": [
+          -0.008762866557837527,
+          0.019114807597022276
+        ],
+        "brier_improvement": [
+          -1.8247923841152765e-05,
+          0.0001469177476586335
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.016372126531455033,
+        "auprc": 0.007189137815751423,
+        "brier_improvement": 7.294175611365777e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -3.607677395687511e-05,
+          0.03391580909224517
+        ],
+        "auprc": [
+          -0.00513955773794822,
+          0.021359380084544445
+        ],
+        "brier_improvement": [
+          -1.5909195970374842e-05,
+          0.00016031795581834555
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.016742589639625827,
+        "auprc": 0.0023230885105313265,
+        "brier_improvement": 3.139517889810123e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.0010127574783159816,
+          0.034997200318619304
+        ],
+        "auprc": [
+          -0.011285227524705581,
+          0.01298845321810416
+        ],
+        "brier_improvement": [
+          -4.667741257840113e-05,
+          0.00011335371030604008
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.01357095686374421,
+        "auprc": 0.00440781269949117,
+        "brier_improvement": 5.468651425197951e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.0005475424182471627,
+          0.02874240873300481
+        ],
+        "auprc": [
+          -0.008033633453790255,
+          0.016937449772101883
+        ],
+        "brier_improvement": [
+          -2.628689797342428e-05,
+          0.00013606457656845607
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.018074353263662912,
+        "auprc": 0.007475149830765693,
+        "brier_improvement": 6.078246145035243e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.004233771878478951,
+          0.032844129259576624
+        ],
+        "auprc": [
+          -0.00637623373108044,
+          0.023610798079270478
+        ],
+        "brier_improvement": [
+          -3.8382700471993946e-05,
+          0.0001548618140572581
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.01337913604488894,
+        "auprc": 0.0026330813209501924,
+        "brier_improvement": 3.406667151115844e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          5.142124812034818e-05,
+          0.027377353623150077
+        ],
+        "auprc": [
+          -0.01203529684288704,
+          0.01562462286220429
+        ],
+        "brier_improvement": [
+          -5.814574394081042e-05,
+          0.00011865727086822206
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5954,
+      "positive_label_count": 117
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "fixed_order",
+      "budget": 1,
+      "replicate": null,
+      "observed": {
+        "auroc": 4.314808422511973e-05,
+        "auprc": 0.004498097283316932,
+        "brier_improvement": 5.7579572669115564e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0171555730426734,
+          0.01784213717317322
+        ],
+        "auprc": [
+          -0.004012317911676738,
+          0.022084800957693662
+        ],
+        "brier_improvement": [
+          -3.263710893534359e-05,
+          0.00016800879117657733
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "fixed_order",
+      "budget": 2,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.01067915084570259,
+        "auprc": 0.005957032424009856,
+        "brier_improvement": 6.581798042505291e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0069983358484616,
+          0.02966744271313128
+        ],
+        "auprc": [
+          -0.0036312116273161735,
+          0.02699201659049479
+        ],
+        "brier_improvement": [
+          -3.444335090488364e-05,
+          0.00018314893250707666
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "fixed_order",
+      "budget": 3,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.01647178115291681,
+        "auprc": 0.013069864886777235,
+        "brier_improvement": 9.755640648264827e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.004917607916960836,
+          0.037706638548353384
+        ],
+        "auprc": [
+          -0.0011446321805836878,
+          0.04509938445776327
+        ],
+        "brier_improvement": [
+          -2.838799180125981e-05,
+          0.00024465849373775237
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.01874244908526057,
+        "auprc": 0.0109332550193275,
+        "brier_improvement": 0.00010873818985024722
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.005207614215475625,
+          0.033254022856705916
+        ],
+        "auprc": [
+          0.0023867296213339745,
+          0.029679081127578163
+        ],
+        "brier_improvement": [
+          2.752088822241122e-05,
+          0.0002094060065258767
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.022070245081118434,
+        "auprc": 0.01351679240022094,
+        "brier_improvement": 0.00012767403311115394
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.005311830659598117,
+          0.03886728765671352
+        ],
+        "auprc": [
+          0.004322394606221334,
+          0.03305704918239312
+        ],
+        "brier_improvement": [
+          4.085139589410794e-05,
+          0.00023394515075021282
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.011412668277528404,
+        "auprc": 0.010183982338255043,
+        "brier_improvement": 8.622293044492982e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.00021439908099831986,
+          0.02530167841729393
+        ],
+        "auprc": [
+          0.0012586004766448056,
+          0.030898267027041404
+        ],
+        "brier_improvement": [
+          1.0577508013993833e-05,
+          0.00017899555633769406
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.02037128926475673,
+        "auprc": 0.013010178240329393,
+        "brier_improvement": 0.00012077738872649443
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.007102088378617583,
+          0.035445857621340594
+        ],
+        "auprc": [
+          0.0019532633372974896,
+          0.036232716987521875
+        ],
+        "brier_improvement": [
+          3.0132058260393287e-05,
+          0.00022229033705646682
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.014886089057645768,
+        "auprc": 0.0070132726971132014,
+        "brier_improvement": 7.030369859522059e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0013418830740448055,
+          0.03190729701372817
+        ],
+        "auprc": [
+          -0.0010411114449471765,
+          0.024489160602816383
+        ],
+        "brier_improvement": [
+          -4.54359416474522e-06,
+          0.0001659884231531878
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.02492880566102862,
+        "auprc": 0.015223980176514135,
+        "brier_improvement": 0.00014121475931138522
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.0069041808583014674,
+          0.04380180337372075
+        ],
+        "auprc": [
+          0.0040003439126925526,
+          0.041341390987042384
+        ],
+        "brier_improvement": [
+          4.377832438963386e-05,
+          0.00025693886763089217
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.016256040731791543,
+        "auprc": 0.009964802622940624,
+        "brier_improvement": 0.00010217150927544633
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.004035673567740824,
+          0.035339714939275714
+        ],
+        "auprc": [
+          0.0010486811607827195,
+          0.029879235016995197
+        ],
+        "brier_improvement": [
+          1.8568363143790008e-05,
+          0.00020406890613469328
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.010576674145667986,
+        "auprc": 0.007969400152173192,
+        "brier_improvement": 8.206283116941882e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.008803686653588,
+          0.02894412519522023
+        ],
+        "auprc": [
+          -0.0014775820558060276,
+          0.028289683336897496
+        ],
+        "brier_improvement": [
+          -1.001839520811832e-05,
+          0.00018545489991314535
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.02688125647221251,
+        "auprc": 0.015406635527617896,
+        "brier_improvement": 0.00013889238285099206
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.007954902319452343,
+          0.046675496229365156
+        ],
+        "auprc": [
+          0.003128570680266298,
+          0.04311921838725153
+        ],
+        "brier_improvement": [
+          3.888157508480589e-05,
+          0.0002604899170211542
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.023623576113220524,
+        "auprc": 0.007924705415708874,
+        "brier_improvement": 8.562230932201292e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.005759973220235762,
+          0.04176564955038119
+        ],
+        "auprc": [
+          -0.00073133388903875,
+          0.024736240197297688
+        ],
+        "brier_improvement": [
+          1.069477802084947e-06,
+          0.0001895160422303165
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.023877071108042713,
+        "auprc": 0.018504802264868656,
+        "brier_improvement": 0.00015445761349701728
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.0029416580551250874,
+          0.044913702697455586
+        ],
+        "auprc": [
+          0.002976004235552477,
+          0.04999279133155019
+        ],
+        "brier_improvement": [
+          2.5574282781483386e-05,
+          0.000314592883850405
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.0200854332067657,
+        "auprc": 0.008128851961906006,
+        "brier_improvement": 8.896845487031332e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.002806546665610518,
+          0.04244724680085921
+        ],
+        "auprc": [
+          -0.0010067031530111305,
+          0.02773084064895055
+        ],
+        "brier_improvement": [
+          2.3591514666123855e-06,
+          0.0001945922606178374
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.024286977908180796,
+        "auprc": 0.009807783002467416,
+        "brier_improvement": 0.00010916422081988508
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.005676776024813579,
+          0.044525963326762626
+        ],
+        "auprc": [
+          0.0008258139347194429,
+          0.029139585279576295
+        ],
+        "brier_improvement": [
+          1.543028340655721e-05,
+          0.0002188926340513213
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.027881752675181226,
+        "auprc": 0.018371010607573762,
+        "brier_improvement": 0.00015017841489148656
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.004713672346934175,
+          0.052383827679185764
+        ],
+        "auprc": [
+          0.0038402109495891323,
+          0.049381342682618255
+        ],
+        "brier_improvement": [
+          3.486091011673494e-05,
+          0.0002911128090516533
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.018132982395581698,
+        "auprc": 0.006565396641360063,
+        "brier_improvement": 6.855684435354628e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0009308500859678264,
+          0.040041354039544515
+        ],
+        "auprc": [
+          -0.0043710423496218275,
+          0.026108267513549655
+        ],
+        "brier_improvement": [
+          -3.483690194122681e-05,
+          0.00018688089866361442
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2961,
+      "positive_label_count": 64
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "fixed_order",
+      "budget": 1,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.0011615967141573869,
+        "auprc": 0.007789890695332008,
+        "brier_improvement": 7.774807664007177e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.01456035673354631,
+          0.016427479606006233
+        ],
+        "auprc": [
+          -0.004207987831680531,
+          0.026306503537672693
+        ],
+        "brier_improvement": [
+          -2.9665750693903725e-05,
+          0.00019530670318514321
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "fixed_order",
+      "budget": 2,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.005326658965473019,
+        "auprc": -0.0021566582122493627,
+        "brier_improvement": -1.87328330472393e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.01111080065821674,
+          0.019570515619316324
+        ],
+        "auprc": [
+          -0.03022189348413567,
+          0.012853992933677847
+        ],
+        "brier_improvement": [
+          -0.0001578820556001566,
+          0.00011169526761672917
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "fixed_order",
+      "budget": 3,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.004556539596970777,
+        "auprc": -0.006283118428043563,
+        "brier_improvement": -9.67222318570618e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.014774843648627809,
+          0.02071687944924495
+        ],
+        "auprc": [
+          -0.03975115531917529,
+          0.010476513190926994
+        ],
+        "brier_improvement": [
+          -0.00024837527591722234,
+          5.284038551610905e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.007271210370940806,
+        "auprc": 0.0023557412427685914,
+        "brier_improvement": 1.426009245398055e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.013818842760211692,
+          0.026739658375170693
+        ],
+        "auprc": [
+          -0.015472865949764504,
+          0.022206178496792333
+        ],
+        "brier_improvement": [
+          -7.805383255534409e-05,
+          0.0001074015116277526
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.0023681170581441036,
+        "auprc": 0.0010883675498305906,
+        "brier_improvement": -9.963055682446487e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.011238888064240421,
+          0.01698537937193065
+        ],
+        "auprc": [
+          -0.02002814541155638,
+          0.014681876023133002
+        ],
+        "brier_improvement": [
+          -0.0001034908412989928,
+          7.256010885680471e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.0051854704145808395,
+        "auprc": 0.003966931598857512,
+        "brier_improvement": -3.366702379548059e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.010687632109609714,
+          0.021978525704165596
+        ],
+        "auprc": [
+          -0.012281393696909426,
+          0.03501064060104097
+        ],
+        "brier_improvement": [
+          -8.08853245226975e-05,
+          8.346498841108104e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.004639969195225246,
+        "auprc": 0.008723305562506542,
+        "brier_improvement": 5.050855999336884e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.014430156612138716,
+          0.022103471654400814
+        ],
+        "auprc": [
+          -0.0063248609647645615,
+          0.03358107550239795
+        ],
+        "brier_improvement": [
+          -3.6264743026601615e-05,
+          0.00014411651829542935
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 4,
+      "observed": {
+        "auroc": -0.003330766268771601,
+        "auprc": 0.0071365837256053,
+        "brier_improvement": 2.810595797236859e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.01600068945252205,
+          0.009970604187700937
+        ],
+        "auprc": [
+          -0.009413864516458877,
+          0.03706722056772758
+        ],
+        "brier_improvement": [
+          -7.035841956298961e-05,
+          0.00013075811383241368
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.009363367988704963,
+        "auprc": 0.0015779748878958638,
+        "brier_improvement": -2.1205148700829263e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.00968126045620348,
+          0.02875400897316077
+        ],
+        "auprc": [
+          -0.020311410323308254,
+          0.01996689045618351
+        ],
+        "brier_improvement": [
+          -0.00014566304800059694,
+          0.00010363489995942894
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.003029136182775005,
+        "auprc": 0.010279847499077316,
+        "brier_improvement": 5.1421893990877265e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.019516475964739932,
+          0.02233545529750994
+        ],
+        "auprc": [
+          -0.014858701019376523,
+          0.041457236387259185
+        ],
+        "brier_improvement": [
+          -7.192416462676521e-05,
+          0.00018261278325676768
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.008304453857014504,
+        "auprc": 0.002770622974330589,
+        "brier_improvement": 4.433035426094217e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.008754627502006018,
+          0.02588622530312732
+        ],
+        "auprc": [
+          -0.015465369412086571,
+          0.02151441726349783
+        ],
+        "brier_improvement": [
+          -0.00010934393422017911,
+          0.00012027017520858932
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.011924014888974432,
+        "auprc": 0.0005540097975665903,
+        "brier_improvement": -2.0600085399925805e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.004016748965417286,
+          0.027435671255870094
+        ],
+        "auprc": [
+          -0.02122361698770064,
+          0.013747398707076024
+        ],
+        "brier_improvement": [
+          -0.00013452759476664425,
+          8.421175179037046e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.016140418431523584,
+        "auprc": 0.010071629943097057,
+        "brier_improvement": 4.594903471562273e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.002127634384064367,
+          0.030517535011987628
+        ],
+        "auprc": [
+          -0.014693190926788604,
+          0.03525926585910517
+        ],
+        "brier_improvement": [
+          -8.41226465951036e-05,
+          0.00017615147493871784
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.009093826209729206,
+        "auprc": 0.0017257142311102175,
+        "brier_improvement": -7.702565206799822e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.015304006155819082,
+          0.03536170050796754
+        ],
+        "auprc": [
+          -0.021748630060686724,
+          0.018989956061968523
+        ],
+        "brier_improvement": [
+          -0.0001424707817290252,
+          0.00012268522709049794
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.01461301501732759,
+        "auprc": 0.003926689719294371,
+        "brier_improvement": -2.5562545844199508e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.008402860630247005,
+          0.04072647384482006
+        ],
+        "auprc": [
+          -0.02030443160636526,
+          0.02657974595615612
+        ],
+        "brier_improvement": [
+          -0.00014849943619070437,
+          9.418962453048112e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.002259016814272874,
+        "auprc": 0.001996052250326147,
+        "brier_improvement": 7.912622815263448e-07
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.017745424738606144,
+          0.02047433174129745
+        ],
+        "auprc": [
+          -0.02234481310679362,
+          0.02269711015549813
+        ],
+        "brier_improvement": [
+          -0.00013239881164899876,
+          0.00013457783795167648
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.007091515851623598,
+        "auprc": 0.0033346044603762975,
+        "brier_improvement": -2.7657704984397624e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.011991519583658489,
+          0.024320116557490355
+        ],
+        "auprc": [
+          -0.01822048179867681,
+          0.02342762785799359
+        ],
+        "brier_improvement": [
+          -0.00017950302762402342,
+          0.00011920077850390709
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.008304453857014504,
+        "auprc": 0.004124494526100156,
+        "brier_improvement": -5.47457244884364e-08
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.008773403096255883,
+          0.023931550287422457
+        ],
+        "auprc": [
+          -0.02228250276117131,
+          0.02816584554360124
+        ],
+        "brier_improvement": [
+          -0.0001525250100759096,
+          0.0001459636241529084
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2993,
+      "positive_label_count": 53
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "fixed_order",
+      "budget": 1,
+      "replicate": null,
+      "observed": {
+        "auroc": -0.00916135019139308,
+        "auprc": 0.001366178418423819,
+        "brier_improvement": 9.613527923979168e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.02512969326366543,
+          0.006151791520710532
+        ],
+        "auprc": [
+          -0.004853901018401284,
+          0.013603057435033797
+        ],
+        "brier_improvement": [
+          -4.442640356085437e-05,
+          7.329944244804904e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "fixed_order",
+      "budget": 2,
+      "replicate": null,
+      "observed": {
+        "auroc": -0.0030715694235008417,
+        "auprc": 0.002122721022516552,
+        "brier_improvement": 2.4290619525756812e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.02464702717726168,
+          0.017452823235269838
+        ],
+        "auprc": [
+          -0.005097943490602039,
+          0.015198955187692978
+        ],
+        "brier_improvement": [
+          -4.184303392478586e-05,
+          0.00010138741865672174
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "fixed_order",
+      "budget": 3,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.003925298689247292,
+        "auprc": 0.001965697085243266,
+        "brier_improvement": 4.216725146691247e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.01806135719842034,
+          0.026076775711335248
+        ],
+        "auprc": [
+          -0.005449432023721893,
+          0.014243507916408884
+        ],
+        "brier_improvement": [
+          -4.3889839342621616e-05,
+          0.0001371107713551579
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.0033917178981556217,
+        "auprc": 0.004423494145540698,
+        "brier_improvement": 3.163031255669184e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.007435620064863249,
+          0.013194134400731928
+        ],
+        "auprc": [
+          -0.003828317627435694,
+          0.026469923295078433
+        ],
+        "brier_improvement": [
+          -1.5986658627246487e-05,
+          8.751099582448304e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.003387078065189675,
+        "auprc": 0.0021220453178510124,
+        "brier_improvement": 1.5261636455468977e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.012934782406067111,
+          0.019792480025978644
+        ],
+        "auprc": [
+          -0.003361317153151442,
+          0.012609468741220391
+        ],
+        "brier_improvement": [
+          -2.3857763827460963e-05,
+          6.432072249328646e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.0004268646328733361,
+        "auprc": 0.0022344514750684205,
+        "brier_improvement": 1.2516833959268572e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.013951228057350088,
+          0.01288943655205935
+        ],
+        "auprc": [
+          -0.002742172103758062,
+          0.014097251131091703
+        ],
+        "brier_improvement": [
+          -2.641604060683784e-05,
+          5.6235061689446045e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.012181881452267729,
+        "auprc": 0.007292095139591344,
+        "brier_improvement": 4.440985178631035e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.001266907862676772,
+          0.025520087156245864
+        ],
+        "auprc": [
+          0.0009269542045021719,
+          0.024734985597518497
+        ],
+        "brier_improvement": [
+          7.977455451177583e-06,
+          8.782631659492106e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.004472798979236692,
+        "auprc": 0.004445162234781169,
+        "brier_improvement": 2.832519200146426e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.009668129202699507,
+          0.017146043514203704
+        ],
+        "auprc": [
+          -0.0014143650438215092,
+          0.019183947028437294
+        ],
+        "brier_improvement": [
+          -1.185204247207551e-05,
+          7.650522435265066e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.00980860689015195,
+        "auprc": 0.0011343463333326337,
+        "brier_improvement": 2.9209299680749493e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.007698696139738381,
+          0.02687002229929932
+        ],
+        "auprc": [
+          -0.007916439671794501,
+          0.018203722697886032
+        ],
+        "brier_improvement": [
+          -3.557285846269549e-05,
+          9.942062432705934e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.0016714998260062286,
+        "auprc": -0.0003084579724643502,
+        "brier_improvement": 1.9259184230116175e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.018927213556808382,
+          0.020887042245744558
+        ],
+        "auprc": [
+          -0.008871501170529723,
+          0.009376521668043494
+        ],
+        "brier_improvement": [
+          -4.4568066278576375e-05,
+          8.72519664585408e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.015807910915207057,
+        "auprc": 0.006596734612843311,
+        "brier_improvement": 4.273101249265519e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0030517742443500946,
+          0.03396445929621095
+        ],
+        "auprc": [
+          9.811262737426674e-06,
+          0.022800312535215733
+        ],
+        "brier_improvement": [
+          -3.920184522010093e-06,
+          0.00010136204040411661
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.016800835169934025,
+        "auprc": 0.007968065032213346,
+        "brier_improvement": 5.4439951522109245e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.0019385920780063627,
+          0.03149069546364915
+        ],
+        "auprc": [
+          0.0009712075734439786,
+          0.02574558523546406
+        ],
+        "brier_improvement": [
+          9.94563031251213e-06,
+          0.00011214086335543469
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.009063913699106863,
+        "auprc": 0.001966411283191541,
+        "brier_improvement": 8.986797425046891e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.007193126775362768,
+          0.022849722052307796
+        ],
+        "auprc": [
+          -0.004067920643631328,
+          0.010066065810191
+        ],
+        "brier_improvement": [
+          -3.064452815551445e-05,
+          5.5579394176529556e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.010080037118663787,
+        "auprc": -0.0012862440500301595,
+        "brier_improvement": 9.263782793809613e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.015466039245250965,
+          0.034032088293585346
+        ],
+        "auprc": [
+          -0.01221633564370859,
+          0.010583442320745495
+        ],
+        "brier_improvement": [
+          -5.697366015175679e-05,
+          7.88442942079449e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.001960329428140617,
+        "auprc": 0.0017435149085781795,
+        "brier_improvement": 2.734425013681957e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.02150918456742843,
+          0.023276432441392342
+        ],
+        "auprc": [
+          -0.006188222989898332,
+          0.015507421339639114
+        ],
+        "brier_improvement": [
+          -4.603125045816851e-05,
+          0.00010572963039081591
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.01914163090128762,
+        "auprc": 0.003968249001031647,
+        "brier_improvement": 3.1515151754550955e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.004535700899116307,
+          0.04246276827837762
+        ],
+        "auprc": [
+          -0.0033028078248906957,
+          0.018222648541790735
+        ],
+        "brier_improvement": [
+          -2.3318279224051513e-05,
+          9.35011979210731e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.021292193481034727,
+        "auprc": 0.004872903979606581,
+        "brier_improvement": 6.447620959478852e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0010912716182524343,
+          0.044199882566333
+        ],
+        "auprc": [
+          -0.002711179083807163,
+          0.022263603466211253
+        ],
+        "brier_improvement": [
+          -1.4943161954617147e-06,
+          0.00013965635228112294
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.01593782623825546,
+        "auprc": 0.004439051340175401,
+        "brier_improvement": 6.331968098839853e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.007349219911956281,
+          0.03858350684478987
+        ],
+        "auprc": [
+          -0.0020693849598430744,
+          0.01703067474332523
+        ],
+        "brier_improvement": [
+          -4.391704821039191e-06,
+          0.0001354201748121164
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 5899,
+      "positive_label_count": 74
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "fixed_order",
+      "budget": 1,
+      "replicate": null,
+      "observed": {
+        "auroc": -0.008004619058866846,
+        "auprc": 0.003260350132821277,
+        "brier_improvement": 3.0377382103267264e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.027936358391213365,
+          0.011940684662652974
+        ],
+        "auprc": [
+          -0.007361554722584166,
+          0.029512488659249176
+        ],
+        "brier_improvement": [
+          -5.681035940198337e-05,
+          0.00013909378473845455
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "fixed_order",
+      "budget": 2,
+      "replicate": null,
+      "observed": {
+        "auroc": -0.0042516337296275575,
+        "auprc": 0.003896470096072212,
+        "brier_improvement": 6.171984414549483e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.03081053474846885,
+          0.02053391385462139
+        ],
+        "auprc": [
+          -0.008080248268196345,
+          0.02882525925512969
+        ],
+        "brier_improvement": [
+          -4.423101631316922e-05,
+          0.00018210655855540288
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "fixed_order",
+      "budget": 3,
+      "replicate": null,
+      "observed": {
+        "auroc": -0.0007545337637456795,
+        "auprc": 0.006350000946017981,
+        "brier_improvement": 0.00012539931217503755
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.030229397488511948,
+          0.026036590396771517
+        ],
+        "auprc": [
+          -0.007279385063149324,
+          0.03734980505005672
+        ],
+        "brier_improvement": [
+          -3.017553726028573e-05,
+          0.000297263886738388
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.004074482324226358,
+        "auprc": 0.01031553124511897,
+        "brier_improvement": 6.257395305649116e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.012820628069470315,
+          0.01905424156628028
+        ],
+        "auprc": [
+          -0.002734948992565074,
+          0.04945193596875237
+        ],
+        "brier_improvement": [
+          -1.5047559344354014e-05,
+          0.00016611005682346506
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.0008070230690496727,
+        "auprc": 0.002183728415505848,
+        "brier_improvement": 1.796294633033338e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.021473201289673272,
+          0.023211002821355832
+        ],
+        "auprc": [
+          -0.007211395579041026,
+          0.02526104456474414
+        ],
+        "brier_improvement": [
+          -4.70717621744777e-05,
+          9.972214273982443e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 2,
+      "observed": {
+        "auroc": -0.001469700548513253,
+        "auprc": 0.0014081418279282137,
+        "brier_improvement": 1.270130756220178e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.022331175183521564,
+          0.0169514222361673
+        ],
+        "auprc": [
+          -0.006416549787337404,
+          0.02086474452175801
+        ],
+        "brier_improvement": [
+          -5.015082706973225e-05,
+          9.624321327794502e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.010648767813557947,
+        "auprc": 0.006649313949052292,
+        "brier_improvement": 4.823656457027259e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.004381066808983418,
+          0.026022538617722902
+        ],
+        "auprc": [
+          -0.0019082501065820986,
+          0.03437697730805446
+        ],
+        "brier_improvement": [
+          -8.058388461925236e-06,
+          0.00012706153841061357
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 4,
+      "observed": {
+        "auroc": -0.0018633703382935352,
+        "auprc": 0.004539781968489816,
+        "brier_improvement": 2.6868702400022898e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.022326660069977904,
+          0.014843511949386407
+        ],
+        "auprc": [
+          -0.003728324562356899,
+          0.02895203782938449
+        ],
+        "brier_improvement": [
+          -3.290226283622954e-05,
+          0.0001076104544166314
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.01011731359735446,
+        "auprc": 0.006973445746880774,
+        "brier_improvement": 7.759043300676824e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.013196731923664686,
+          0.03519888452454214
+        ],
+        "auprc": [
+          -0.006184047376100875,
+          0.0373886899969936
+        ],
+        "brier_improvement": [
+          -2.5128704185363145e-05,
+          0.0002052297927666211
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 1,
+      "observed": {
+        "auroc": -0.0026572710810173206,
+        "auprc": 0.0002289532189464205,
+        "brier_improvement": 4.796787623189552e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.029972326067646493,
+          0.02281766198231008
+        ],
+        "auprc": [
+          -0.011659651964973494,
+          0.021745691499825283
+        ],
+        "brier_improvement": [
+          -5.4033142860761445e-05,
+          0.000184518030734625
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.01310920399968507,
+        "auprc": 0.005177138123121143,
+        "brier_improvement": 4.408856476009054e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.014798360645735214,
+          0.036581578564609016
+        ],
+        "auprc": [
+          -0.004158987177834968,
+          0.0287037598471194
+        ],
+        "brier_improvement": [
+          -2.698185004037278e-05,
+          0.00013366564592371625
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.0211663123638558,
+        "auprc": 0.007390722529340005,
+        "brier_improvement": 6.514318154394669e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.002747730073733215,
+          0.03805730107286015
+        ],
+        "auprc": [
+          -0.0037845196625829985,
+          0.0352062342254478
+        ],
+        "brier_improvement": [
+          -1.5411560875136596e-05,
+          0.00016282901657124936
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.0059378526625198935,
+        "auprc": 0.0028900078367242316,
+        "brier_improvement": 1.268144661766002e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.01781199007951415,
+          0.02551784099557735
+        ],
+        "auprc": [
+          -0.008058513029817556,
+          0.022728170632466415
+        ],
+        "brier_improvement": [
+          -6.367298567766366e-05,
+          9.859646516270159e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.009815500091856277,
+        "auprc": 0.006562567022111873,
+        "brier_improvement": 6.263062481395507e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.016261454878914474,
+          0.035366256971726316
+        ],
+        "auprc": [
+          -0.0076585381659368705,
+          0.04017920554415088
+        ],
+        "brier_improvement": [
+          -3.57981695757916e-05,
+          0.00018340875510757063
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.007164790174002067,
+        "auprc": 0.0016978021256062598,
+        "brier_improvement": 4.087240946367213e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.023307870663613544,
+          0.0334001842848412
+        ],
+        "auprc": [
+          -0.010590562599619614,
+          0.024161410746641424
+        ],
+        "brier_improvement": [
+          -8.248564546644984e-05,
+          0.00018908236415051812
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.0180956880035692,
+        "auprc": 0.0038210632169781017,
+        "brier_improvement": 5.786769815386422e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.016780688699283255,
+          0.047324603679582314
+        ],
+        "auprc": [
+          -0.007137491848900299,
+          0.029909480350562952
+        ],
+        "brier_improvement": [
+          -2.883596752445562e-05,
+          0.00016565598845088084
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.02216360916463256,
+        "auprc": 0.0067981065912347885,
+        "brier_improvement": 0.00010507829624531798
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.008639438920046039,
+          0.05027235125165995
+        ],
+        "auprc": [
+          -0.006004316741270425,
+          0.03646520413080039
+        ],
+        "brier_improvement": [
+          -1.0815523978371758e-05,
+          0.0002466543367263794
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.006521796184027484,
+        "auprc": 0.008503131289244695,
+        "brier_improvement": 0.00011968525835157756
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.02646134492959881,
+          0.035542517963615336
+        ],
+        "auprc": [
+          -0.004045098759136748,
+          0.03830748232453311
+        ],
+        "brier_improvement": [
+          6.240603675257592e-06,
+          0.00025927151503392907
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2983,
+      "positive_label_count": 52
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "fixed_order",
+      "budget": 1,
+      "replicate": null,
+      "observed": {
+        "auroc": -0.016319029967958976,
+        "auprc": 0.0007146786223131488,
+        "brier_improvement": -1.1627410696337347e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.04592535141865101,
+          0.008670541336867869
+        ],
+        "auprc": [
+          -0.008235006472063685,
+          0.01827147881767236
+        ],
+        "brier_improvement": [
+          -6.457683242263454e-05,
+          5.250450991703012e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "fixed_order",
+      "budget": 2,
+      "replicate": null,
+      "observed": {
+        "auroc": -0.008026009926493827,
+        "auprc": 0.002413712756436072,
+        "brier_improvement": -1.3998604425097955e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.060048560745524206,
+          0.037652193697516496
+        ],
+        "auprc": [
+          -0.007778487401500853,
+          0.01609289563871234
+        ],
+        "brier_improvement": [
+          -8.374695096065971e-05,
+          6.304630485113444e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "fixed_order",
+      "budget": 3,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.014261481434943657,
+        "auprc": 0.0007867993457529449,
+        "brier_improvement": -4.297720569781949e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.036389677769850574,
+          0.06506163893141315
+        ],
+        "auprc": [
+          -0.014201284079295091,
+          0.010347582967041226
+        ],
+        "brier_improvement": [
+          -0.00012513877535665112,
+          4.397475422911873e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.0014764088710182977,
+        "auprc": -0.0017860215841354159,
+        "brier_improvement": -2.431008079388508e-08
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.015089638914477723,
+          0.018182822278833593
+        ],
+        "auprc": [
+          -0.02504847609597183,
+          0.004855302105591704
+        ],
+        "brier_improvement": [
+          -4.2791690225630954e-05,
+          3.790905749747971e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.0042878683168937615,
+        "auprc": 0.0036883498184767938,
+        "brier_improvement": 1.2498259446983538e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.016340253406019738,
+          0.033404464324639824
+        ],
+        "auprc": [
+          -0.00669560637427023,
+          0.01663088118218276
+        ],
+        "brier_improvement": [
+          -2.8917201722469526e-05,
+          6.081612246279404e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.0025601558082551934,
+        "auprc": 0.007208166309182636,
+        "brier_improvement": 1.2328121765313796e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.019270074845430415,
+          0.02349543553316545
+        ],
+        "auprc": [
+          -0.002131944031396064,
+          0.05724015337992155
+        ],
+        "brier_improvement": [
+          -2.2184027761511453e-05,
+          5.3438102618534125e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.013821700069108434,
+        "auprc": 0.01267839629322592,
+        "brier_improvement": 4.04952138457872e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.016588325440181403,
+          0.04602150606363137
+        ],
+        "auprc": [
+          0.0007502028643639794,
+          0.06531849454079156
+        ],
+        "brier_improvement": [
+          -2.4501308523425026e-06,
+          8.929045046838804e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.014182949048187399,
+        "auprc": 0.007956502162528047,
+        "brier_improvement": 2.9815146898954682e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.003322053125140647,
+          0.03939745585939211
+        ],
+        "auprc": [
+          -0.0002803090660217756,
+          0.048172235177794794
+        ],
+        "brier_improvement": [
+          -1.4765820681106799e-05,
+          8.777967359875456e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.011936922786957127,
+        "auprc": -0.0043511903286533905,
+        "brier_improvement": -2.028347148233002e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.016577409898392237,
+          0.044804785341991296
+        ],
+        "auprc": [
+          -0.034046872703406,
+          0.0023180746508773757
+        ],
+        "brier_improvement": [
+          -8.853555335220477e-05,
+          3.726418801912928e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.004680530250675163,
+        "auprc": 0.0023148528208021546,
+        "brier_improvement": -1.0109138212038501e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.03651636276290142,
+          0.04306140443208111
+        ],
+        "auprc": [
+          -0.01928220039069748,
+          0.015376191524528732
+        ],
+        "brier_improvement": [
+          -6.471243172676499e-05,
+          5.1078320721191976e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.02333982534397161,
+        "auprc": 0.010718347523842108,
+        "brier_improvement": 4.1342268180664075e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.009513477112104707,
+          0.06298166425545884
+        ],
+        "auprc": [
+          -0.0005776522823097053,
+          0.053264356661231145
+        ],
+        "brier_improvement": [
+          -2.1720717554080246e-05,
+          0.00011442162399549108
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.008779920839354083,
+        "auprc": 0.009245793140176591,
+        "brier_improvement": 4.349079680497636e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.027269667098347595,
+          0.04083569733988304
+        ],
+        "auprc": [
+          -8.075302938111301e-05,
+          0.03664201398140841
+        ],
+        "brier_improvement": [
+          -2.6348302107100443e-06,
+          9.825974894784257e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.014983979393101698,
+        "auprc": 0.002445016525028352,
+        "brier_improvement": 5.2072574587983325e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.01326260301678157,
+          0.04535734972133585
+        ],
+        "auprc": [
+          -0.00886018059774867,
+          0.011883696672200615
+        ],
+        "brier_improvement": [
+          -3.49204135369055e-05,
+          5.0318039511553224e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.011528554375824451,
+        "auprc": -0.003858089257681569,
+        "brier_improvement": -4.5329252098549704e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.04881942408395556,
+          0.0701004527220942
+        ],
+        "auprc": [
+          -0.03722203998732524,
+          0.005306416047749632
+        ],
+        "brier_improvement": [
+          -0.00013891349716398517,
+          3.295816655674393e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 1,
+      "observed": {
+        "auroc": -0.012282465288685263,
+        "auprc": 0.0012552781890282916,
+        "brier_improvement": 1.3505258616926079e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.06715604819425246,
+          0.03551012603361384
+        ],
+        "auprc": [
+          -0.01838515483529221,
+          0.017527580689732366
+        ],
+        "brier_improvement": [
+          -5.524284550344467e-05,
+          8.507700949147706e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.024360746371803632,
+        "auprc": 0.0050075980084435985,
+        "brier_improvement": 4.5571113193067225e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.013772975818349405,
+          0.06646422660638208
+        ],
+        "auprc": [
+          -0.00404784271418084,
+          0.024615353757512923
+        ],
+        "brier_improvement": [
+          -5.8923514656185946e-05,
+          7.578568109749646e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.017418483382546923,
+        "auprc": 0.0031186417178807706,
+        "brier_improvement": 2.294122177635624e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.03150963241170741,
+          0.06369431975138116
+        ],
+        "auprc": [
+          -0.017451036341732402,
+          0.014239016150157713
+        ],
+        "brier_improvement": [
+          -3.0682369224098014e-05,
+          8.45857195273905e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.03557517120060294,
+        "auprc": 0.003024001136514746,
+        "brier_improvement": 5.659009769475899e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0031097102916048166,
+          0.08188292402887229
+        ],
+        "auprc": [
+          -0.020937915583598577,
+          0.014141784321328022
+        ],
+        "brier_improvement": [
+          -5.816530691993237e-05,
+          7.044464939451556e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2916,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "fixed_order",
+      "budget": 1,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.008394331297960855,
+        "auprc": 0.0009180296376883473,
+        "brier_improvement": -8.084525587664752e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.008731547654970029,
+          0.02809443815030398
+        ],
+        "auprc": [
+          -0.004069884581227967,
+          0.009721260983089116
+        ],
+        "brier_improvement": [
+          -4.3746580143764535e-05,
+          3.614705310515498e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "fixed_order",
+      "budget": 2,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.015240009607969673,
+        "auprc": 0.002947902726494596,
+        "brier_improvement": 8.05115888654652e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.013110038610038706,
+          0.04672293619626979
+        ],
+        "auprc": [
+          -0.0031567834189470565,
+          0.01606720648146505
+        ],
+        "brier_improvement": [
+          -4.1197197189195615e-05,
+          6.491753398640802e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "fixed_order",
+      "budget": 3,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.019791153082767687,
+        "auprc": 0.004096174724549484,
+        "brier_improvement": 1.989610322411517e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.012699484583369893,
+          0.05880728728799647
+        ],
+        "auprc": [
+          -0.004261069573475813,
+          0.02846410410206002
+        ],
+        "brier_improvement": [
+          -3.814309644253025e-05,
+          9.001311652395695e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.013956839989380798,
+        "auprc": 0.0027814833721271567,
+        "brier_improvement": 1.9232663228830466e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0037399690432389715,
+          0.033294208244004656
+        ],
+        "auprc": [
+          -0.0028003229928199452,
+          0.008458906819463196
+        ],
+        "brier_improvement": [
+          -2.2504184657595646e-06,
+          4.351019208668786e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.004538501409590334,
+        "auprc": 0.0016796702128059476,
+        "brier_improvement": 7.3984996970455005e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.010990927882714668,
+          0.020881589337603198
+        ],
+        "auprc": [
+          -0.0020338473166257804,
+          0.008708649286681797
+        ],
+        "brier_improvement": [
+          -2.180118972697181e-05,
+          3.62178836250511e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 2,
+      "observed": {
+        "auroc": -0.0007585239124662246,
+        "auprc": -0.0009058518438884756,
+        "brier_improvement": 1.6780518339301262e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.017659461857424404,
+          0.018418754942964865
+        ],
+        "auprc": [
+          -0.006682778912843802,
+          0.0038738985305243586
+        ],
+        "brier_improvement": [
+          -2.1279516700145714e-05,
+          2.1847754832113687e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 3,
+      "observed": {
+        "auroc": -0.008350084069733588,
+        "auprc": -0.0007799932774617338,
+        "brier_improvement": 5.58918383103315e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.03078937528554027,
+          0.013280676705123735
+        ],
+        "auprc": [
+          -0.004075659885970402,
+          0.0025138513404813147
+        ],
+        "brier_improvement": [
+          -1.4751892905377783e-05,
+          2.891356741266317e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 4,
+      "observed": {
+        "auroc": -0.002642191628424273,
+        "auprc": 0.001902761340776625,
+        "brier_improvement": 2.487258135921728e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.02167549682475892,
+          0.014531539135882118
+        ],
+        "auprc": [
+          -0.0017780465227956485,
+          0.007897198537737309
+        ],
+        "brier_improvement": [
+          5.558644993804716e-06,
+          4.61777535063624e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.02737007117482715,
+        "auprc": 0.0051325007916432006,
+        "brier_improvement": 3.4688075430153176e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.0029847421119699874,
+          0.05775680802415916
+        ],
+        "auprc": [
+          -0.0008586886127668487,
+          0.013347907012031528
+        ],
+        "brier_improvement": [
+          7.694165355454867e-06,
+          6.370802968826941e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 1,
+      "observed": {
+        "auroc": -0.0019848042376201525,
+        "auprc": 0.0033988541115185997,
+        "brier_improvement": 1.8154699074941424e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.029155519207207364,
+          0.027193971670323523
+        ],
+        "auprc": [
+          -0.0013193058582012425,
+          0.016993675846093736
+        ],
+        "brier_improvement": [
+          -3.28835485365601e-05,
+          6.390398610647103e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 2,
+      "observed": {
+        "auroc": -0.00032869369540200477,
+        "auprc": 0.0023405834769447617,
+        "brier_improvement": 2.85080660167086e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.02251053170297037,
+          0.022802864220968836
+        ],
+        "auprc": [
+          -0.0037523207133048917,
+          0.01545492888255374
+        ],
+        "brier_improvement": [
+          3.7778863385545845e-07,
+          5.870365717513342e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 3,
+      "observed": {
+        "auroc": -0.009228707601673714,
+        "auprc": -0.0010765711493538922,
+        "brier_improvement": 2.1219836101784434e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0323817929597015,
+          0.016662663429667456
+        ],
+        "auprc": [
+          -0.003931429487381731,
+          0.0024536243969709845
+        ],
+        "brier_improvement": [
+          -2.2761849711374553e-05,
+          3.120829099535866e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.0003286936954022268,
+        "auprc": 0.0019847250483652906,
+        "brier_improvement": 2.7317094804406306e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.023605333788215152,
+          0.023884829415458424
+        ],
+        "auprc": [
+          -0.0026075439317663728,
+          0.007570928767360407
+        ],
+        "brier_improvement": [
+          3.7477243854887846e-06,
+          5.1189559383834596e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.02094158101667498,
+        "auprc": 0.008557815771182323,
+        "brier_improvement": 6.231081776218988e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.009243694854341334,
+          0.05448274892626722
+        ],
+        "auprc": [
+          0.00040195173787592323,
+          0.027951447960103952
+        ],
+        "brier_improvement": [
+          1.9370854663455438e-05,
+          0.0001128187472364198
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 1,
+      "observed": {
+        "auroc": -0.0008154132059012831,
+        "auprc": 0.002795974289378722,
+        "brier_improvement": 1.2840397095803362e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0296948331140762,
+          0.029439782491944202
+        ],
+        "auprc": [
+          -0.003607343849558899,
+          0.014941279055697207
+        ],
+        "brier_improvement": [
+          -3.620845008386088e-05,
+          6.289059964652639e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 2,
+      "observed": {
+        "auroc": -0.006877283473028073,
+        "auprc": -0.0009501884222800835,
+        "brier_improvement": 1.3827710362821627e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.03136421795900993,
+          0.01797192627814966
+        ],
+        "auprc": [
+          -0.007732137626922918,
+          0.005761624059799577
+        ],
+        "brier_improvement": [
+          -1.3902508587916886e-05,
+          4.14826556562172e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 3,
+      "observed": {
+        "auroc": -0.0050125788548816,
+        "auprc": 0.0020577505472723703,
+        "brier_improvement": 5.021679319555487e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.03738316656779833,
+          0.032551369859057544
+        ],
+        "auprc": [
+          -0.0030880172487264563,
+          0.014372157228123406
+        ],
+        "brier_improvement": [
+          -4.466425935278986e-05,
+          5.1258705519878775e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 4,
+      "observed": {
+        "auroc": -0.0012831696185888752,
+        "auprc": 0.002534509303410655,
+        "brier_improvement": 3.0210742099308352e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.02412963211600422,
+          0.020957755504708967
+        ],
+        "auprc": [
+          -0.003797391930767845,
+          0.014431291758720467
+        ],
+        "brier_improvement": [
+          -1.571707990676149e-06,
+          6.247634251017287e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 4687,
+      "positive_label_count": 34
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "fixed_order",
+      "budget": 1,
+      "replicate": null,
+      "observed": {
+        "auroc": -0.004411436229618038,
+        "auprc": 0.0011327685843357804,
+        "brier_improvement": -5.294867431893113e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.020289916704998825,
+          0.013436349455847901
+        ],
+        "auprc": [
+          -0.008293359194642894,
+          0.024031132737181393
+        ],
+        "brier_improvement": [
+          -7.004267542454307e-05,
+          6.916147984282518e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "fixed_order",
+      "budget": 2,
+      "replicate": null,
+      "observed": {
+        "auroc": -0.009734941553123377,
+        "auprc": 0.003988402516171344,
+        "brier_improvement": 1.649412885092183e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.03501984651879894,
+          0.018223698905517217
+        ],
+        "auprc": [
+          -0.009340423802353379,
+          0.042364414180333744
+        ],
+        "brier_improvement": [
+          -6.153831359677833e-05,
+          0.0001051484791460601
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "fixed_order",
+      "budget": 3,
+      "replicate": null,
+      "observed": {
+        "auroc": -0.013941627577991333,
+        "auprc": 0.007014258366264577,
+        "brier_improvement": 3.968969591068745e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0473634362706502,
+          0.021093529053529365
+        ],
+        "auprc": [
+          -0.011922792939491514,
+          0.07407089644829772
+        ],
+        "brier_improvement": [
+          -5.464365851813775e-05,
+          0.00015113361630863224
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.0016193879830243008,
+        "auprc": 0.0032925771584124686,
+        "brier_improvement": 9.263208414801716e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.020388903114151067,
+          0.021704254988005538
+        ],
+        "auprc": [
+          -0.005516528851481972,
+          0.014261031720379245
+        ],
+        "brier_improvement": [
+          -2.6444060691951325e-05,
+          4.363391622765227e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 1,
+      "observed": {
+        "auroc": -0.00150770605316064,
+        "auprc": 0.0006745327936840059,
+        "brier_improvement": 2.09193938563116e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.019477000692816424,
+          0.01618166288826001
+        ],
+        "auprc": [
+          -0.007676019739259464,
+          0.013037911484756219
+        ],
+        "brier_improvement": [
+          -1.3623448605025673e-05,
+          5.628666747557134e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 2,
+      "observed": {
+        "auroc": -0.011856898220534595,
+        "auprc": -0.002341758879003078,
+        "brier_improvement": -7.060163731954783e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.032741530054572754,
+          0.005213201956194092
+        ],
+        "auprc": [
+          -0.012382778702102873,
+          0.008948204640511596
+        ],
+        "brier_improvement": [
+          -4.5131155181897096e-05,
+          3.0225615131526268e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 3,
+      "observed": {
+        "auroc": -0.007073188891370763,
+        "auprc": 0.0035382599077007845,
+        "brier_improvement": 3.6300189873127164e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.03157208945255488,
+          0.013583575503175132
+        ],
+        "auprc": [
+          -0.0010575305362937606,
+          0.012188827803981898
+        ],
+        "brier_improvement": [
+          3.952960124663535e-06,
+          7.176053933298301e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 4,
+      "observed": {
+        "auroc": -0.007557143920780329,
+        "auprc": 0.002827593906213774,
+        "brier_improvement": 3.5750340790225224e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.030091430914309093,
+          0.013584364105235142
+        ],
+        "auprc": [
+          -0.0038700438643954247,
+          0.013925353758787302
+        ],
+        "brier_improvement": [
+          4.23035426490876e-06,
+          7.029142513454449e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.0007073188891369986,
+        "auprc": 0.004459433266426553,
+        "brier_improvement": 3.5012508172430415e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0221813326819861,
+          0.023797974296232243
+        ],
+        "auprc": [
+          -0.006541607669365061,
+          0.016719300271530745
+        ],
+        "brier_improvement": [
+          -6.35251334585459e-06,
+          7.556326092550667e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 1,
+      "observed": {
+        "auroc": -0.014164991437718766,
+        "auprc": 0.007115971497835778,
+        "brier_improvement": 5.756474701819683e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0438792983660808,
+          0.013406342439829343
+        ],
+        "auprc": [
+          -0.0018644128938281952,
+          0.04476897938454705
+        ],
+        "brier_improvement": [
+          3.6889821276111824e-06,
+          0.00011993550909779469
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 2,
+      "observed": {
+        "auroc": -0.013960241232968573,
+        "auprc": 0.001299694725100789,
+        "brier_improvement": 2.3844085064922416e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.036802439961417875,
+          0.006179241187342479
+        ],
+        "auprc": [
+          -0.01054930656747069,
+          0.035931843455873726
+        ],
+        "brier_improvement": [
+          -2.280245208465619e-05,
+          7.379177439532781e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 3,
+      "observed": {
+        "auroc": -0.006328642692279174,
+        "auprc": 0.0012904094137690322,
+        "brier_improvement": 2.8630223218775036e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.02797705526545007,
+          0.013968951576269883
+        ],
+        "auprc": [
+          -0.003790286405571779,
+          0.011820188986726618
+        ],
+        "brier_improvement": [
+          -1.4275710847979402e-05,
+          7.498138185815026e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 4,
+      "observed": {
+        "auroc": -0.0030526394162757597,
+        "auprc": 0.005297862029873236,
+        "brier_improvement": 4.8770034383643565e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.02860440557593182,
+          0.020079668243381806
+        ],
+        "auprc": [
+          -0.0030973788034139383,
+          0.019167850718843082
+        ],
+        "brier_improvement": [
+          1.0921978602637575e-05,
+          8.517957439305652e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 0,
+      "observed": {
+        "auroc": -0.006682302136847507,
+        "auprc": 0.014095144314172067,
+        "brier_improvement": 9.24750332386478e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0373710334128647,
+          0.023958427128106686
+        ],
+        "auprc": [
+          -0.001079091652455041,
+          0.05868147012542344
+        ],
+        "brier_improvement": [
+          2.660762489782825e-05,
+          0.00017410331335053435
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 1,
+      "observed": {
+        "auroc": -0.01072146526691975,
+        "auprc": 0.005690946836946771,
+        "brier_improvement": 5.217677554908255e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.04327747939987135,
+          0.021532392841965176
+        ],
+        "auprc": [
+          -0.007278481412529596,
+          0.03474602778290979
+        ],
+        "brier_improvement": [
+          -8.154127909907638e-06,
+          0.00012198906320416669
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 2,
+      "observed": {
+        "auroc": -0.012005807460352846,
+        "auprc": -0.001166884102495179,
+        "brier_improvement": 2.0701120271336e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.039873349454602344,
+          0.013279499867090698
+        ],
+        "auprc": [
+          -0.013458102225665063,
+          0.013823892586491688
+        ],
+        "brier_improvement": [
+          -2.8703219598957395e-05,
+          6.527663405811824e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 3,
+      "observed": {
+        "auroc": -0.008897327079145256,
+        "auprc": 0.007074231508744054,
+        "brier_improvement": 5.182311532287917e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.045102167374150404,
+          0.020896809185362686
+        ],
+        "auprc": [
+          -0.0030541380362566245,
+          0.03997532327136145
+        ],
+        "brier_improvement": [
+          -7.3714902218904074e-06,
+          0.00011955320611418431
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 4,
+      "observed": {
+        "auroc": -0.00039088675452314536,
+        "auprc": 0.0073274059503877775,
+        "brier_improvement": 5.910489601942265e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.026714718798467055,
+          0.0240510762663427
+        ],
+        "auprc": [
+          -0.006857544410481145,
+          0.04799823371531879
+        ],
+        "brier_improvement": [
+          3.763621259141602e-06,
+          0.00011645462896020806
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2464,
+      "positive_label_count": 22
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "fixed_order",
+      "budget": 1,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.029813055932458865,
+        "auprc": 0.001741231512286067,
+        "brier_improvement": -1.1176616319031295e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0023957115894579486,
+          0.07253319971301342
+        ],
+        "auprc": [
+          -0.015261087361692913,
+          0.010253803376555189
+        ],
+        "brier_improvement": [
+          -3.9573969215579175e-05,
+          2.3229174738880094e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "fixed_order",
+      "budget": 2,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.053218754711292005,
+        "auprc": 0.006298176990160179,
+        "brier_improvement": -1.3071308085591676e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.00143638361379485,
+          0.11740950226244336
+        ],
+        "auprc": [
+          -0.0021368550550484706,
+          0.01853424069226948
+        ],
+        "brier_improvement": [
+          -4.970584326653535e-05,
+          4.995981201955613e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "fixed_order",
+      "budget": 3,
+      "replicate": null,
+      "observed": {
+        "auroc": 0.07217699381878484,
+        "auprc": 0.004806673901208355,
+        "brier_improvement": -2.043353536890051e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.01040445128221589,
+          0.14608835713351004
+        ],
+        "auprc": [
+          -0.007945506992489101,
+          0.01579341123631706
+        ],
+        "brier_improvement": [
+          -5.497351108096611e-05,
+          6.0116465625102614e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.028644655510327133,
+        "auprc": 0.0036670875301832925,
+        "brier_improvement": 3.0282927134255185e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.005650700406687731,
+          0.0734749553479898
+        ],
+        "auprc": [
+          -0.005782542546074764,
+          0.014697047494518375
+        ],
+        "brier_improvement": [
+          3.1908763661095928e-06,
+          6.487848716747915e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.017563696668174256,
+        "auprc": 0.002994008527824353,
+        "brier_improvement": -7.588222394015742e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.011847040216900159,
+          0.054470484154273975
+        ],
+        "auprc": [
+          -0.0022543002552711613,
+          0.014771741975175045
+        ],
+        "brier_improvement": [
+          -6.547255611517298e-05,
+          3.179411975504721e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.010440223126790271,
+        "auprc": 0.00040412720061658997,
+        "brier_improvement": 1.1363595313165428e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.023936023524083538,
+          0.06321979864535647
+        ],
+        "auprc": [
+          -0.013716867213794285,
+          0.005477292574828742
+        ],
+        "brier_improvement": [
+          -5.975935164384267e-06,
+          3.182592744625035e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.004070556309362261,
+        "auprc": -0.005919809250681585,
+        "brier_improvement": -2.845126551117086e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.03505877034358058,
+          0.059440584534415114
+        ],
+        "auprc": [
+          -0.03093546490949138,
+          -0.0002229681727529642
+        ],
+        "brier_improvement": [
+          -4.877027901043734e-05,
+          -1.0418811064111615e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 1,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.009497964721845276,
+        "auprc": 0.0006809404764176463,
+        "brier_improvement": 1.2815541666008276e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.01603296126754691,
+          0.0455071617455893
+        ],
+        "auprc": [
+          -0.005746816583232178,
+          0.007824220436095137
+        ],
+        "brier_improvement": [
+          -1.1239808594251947e-05,
+          3.903383489257942e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.06181215136439011,
+        "auprc": 0.00868710673892013,
+        "brier_improvement": 3.432847026732348e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.004740717618169458,
+          0.12639216379061446
+        ],
+        "auprc": [
+          0.0006569972336091044,
+          0.025457227819720603
+        ],
+        "brier_improvement": [
+          -4.882882699516592e-06,
+          7.834312143181365e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.021671943313734343,
+        "auprc": 0.0005527251971765533,
+        "brier_improvement": -2.552787318425148e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.027812631997308355,
+          0.07943008300934536
+        ],
+        "auprc": [
+          -0.009797840199501442,
+          0.008434428889023933
+        ],
+        "brier_improvement": [
+          -0.00011683415577626037,
+          3.712962850987184e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.012098597919493304,
+        "auprc": 0.005936682306484559,
+        "brier_improvement": 3.367767873159889e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.05005118175397953,
+          0.0794215463396276
+        ],
+        "auprc": [
+          -0.0033912826324948827,
+          0.02561256136391921
+        ],
+        "brier_improvement": [
+          3.4906810120218217e-06,
+          6.753924145571689e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 3,
+      "observed": {
+        "auroc": -0.009724106739032123,
+        "auprc": -0.0035304555023325662,
+        "brier_improvement": -2.7260068749511597e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.07438318309602734,
+          0.07248313461570119
+        ],
+        "auprc": [
+          -0.014908577324992985,
+          0.0010122044631810491
+        ],
+        "brier_improvement": [
+          -5.504983878892328e-05,
+          -2.457427739494177e-06
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 2,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.018581335745514793,
+        "auprc": -0.0015472565596835568,
+        "brier_improvement": 3.5383979428479234e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.01663471893637796,
+          0.06594093754004496
+        ],
+        "auprc": [
+          -0.013552479862306248,
+          0.003364681761722365
+        ],
+        "brier_improvement": [
+          -2.1292014318586456e-05,
+          3.0474666872609925e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 0,
+      "observed": {
+        "auroc": 0.05894768581335741,
+        "auprc": 0.007259134157106443,
+        "brier_improvement": 2.8876437674922942e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.005704284173879439,
+          0.1362792957658069
+        ],
+        "auprc": [
+          -0.004258951951848355,
+          0.026837349406755622
+        ],
+        "brier_improvement": [
+          -1.4849622803494023e-05,
+          8.222963506756568e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 1,
+      "observed": {
+        "auroc": 0.021445801296547606,
+        "auprc": 0.0006729228624729709,
+        "brier_improvement": -3.076051901255289e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.026809194017866054,
+          0.07766364020291795
+        ],
+        "auprc": [
+          -0.01258344680533873,
+          0.009990741917660332
+        ],
+        "brier_improvement": [
+          -0.00011782249813093201,
+          2.726487191228482e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 2,
+      "observed": {
+        "auroc": 0.0012437810945273853,
+        "auprc": -0.00010232330698027939,
+        "brier_improvement": 6.209139955903713e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0580208791700571,
+          0.0631530123088747
+        ],
+        "auprc": [
+          -0.01914337509823078,
+          0.01173872665346806
+        ],
+        "brier_improvement": [
+          -2.207123299080107e-05,
+          3.821491895929461e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 3,
+      "observed": {
+        "auroc": 0.00697271219659279,
+        "auprc": -0.0005169620265379829,
+        "brier_improvement": -4.685359657436751e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.06879403933955554,
+          0.10358822794975645
+        ],
+        "auprc": [
+          -0.010353223467370673,
+          0.009456346081707966
+        ],
+        "brier_improvement": [
+          -0.0001279440362599712,
+          1.2029847354126411e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "policy": "random",
+      "budget": 3,
+      "replicate": 4,
+      "observed": {
+        "auroc": 0.008404944972109196,
+        "auprc": -0.0009542560481330224,
+        "brier_improvement": -1.8158864473231603e-06
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.027680690842266237,
+          0.05204148481325425
+        ],
+        "auprc": [
+          -0.009419433750327222,
+          0.008106755348482104
+        ],
+        "brier_improvement": [
+          -3.111038386544181e-05,
+          2.8360406164303094e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 1000,
+        "auprc": 1000,
+        "brier_improvement": 1000
+      },
+      "n_resamples": 1000,
+      "seed": 42,
+      "patient_count": 2223,
+      "positive_label_count": 12
+    }
+  ],
+  "random_replicate_summary": [
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "budget": 1,
+      "replicates": 5,
+      "auroc_mean": 0.01749654815326198,
+      "auroc_std": 0.004317499282298667,
+      "auprc_mean": 0.010931496139049215,
+      "auprc_std": 0.002594028284020124,
+      "brier_improvement_mean": 0.0001027432481456092,
+      "brier_improvement_std": 2.4020610231085248e-05
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "budget": 2,
+      "replicates": 5,
+      "auroc_mean": 0.020453270624784237,
+      "auroc_std": 0.006829424382613102,
+      "auprc_mean": 0.011297904778990944,
+      "auprc_std": 0.003759332212820823,
+      "brier_improvement_mean": 0.00010999275838585107,
+      "brier_improvement_std": 2.848321082478049e-05
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "A",
+      "budget": 3,
+      "replicates": 5,
+      "auroc_mean": 0.022852843458750428,
+      "auroc_std": 0.0038187484783017193,
+      "auprc_mean": 0.012275568895635181,
+      "auprc_std": 0.005741277160800114,
+      "brier_improvement_mean": 0.0001142651096864497,
+      "brier_improvement_std": 3.761777566912854e-05
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "budget": 1,
+      "replicates": 5,
+      "auroc_mean": 0.01015098202009288,
+      "auroc_std": 0.0028527285430775752,
+      "auprc_mean": 0.00632145427146665,
+      "auprc_std": 0.0015481689890004583,
+      "brier_improvement_mean": 5.909276224059234e-05,
+      "brier_improvement_std": 1.673733991946023e-05
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "budget": 2,
+      "replicates": 5,
+      "auroc_mean": 0.014735060306415425,
+      "auroc_std": 0.005183117614288511,
+      "auprc_mean": 0.006505485543353462,
+      "auprc_std": 0.0024314199506103354,
+      "brier_improvement_mean": 6.073291860557023e-05,
+      "brier_improvement_std": 1.2212983773980013e-05
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "All",
+      "budget": 3,
+      "replicates": 5,
+      "auroc_mean": 0.015627832468675384,
+      "auroc_std": 0.002065762211805355,
+      "auprc_mean": 0.004805654035497961,
+      "auprc_std": 0.0024417557333847617,
+      "brier_improvement_mean": 5.077451644504988e-05,
+      "brier_improvement_std": 1.77592230312141e-05
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "budget": 1,
+      "replicates": 5,
+      "auroc_mean": 0.003226800154023879,
+      "auroc_std": 0.004059855415523645,
+      "auprc_mean": 0.0046541859359137076,
+      "auprc_std": 0.00320898194976096,
+      "brier_improvement_mean": 1.5908970471544686e-05,
+      "brier_improvement_std": 2.4441410551899113e-05
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "budget": 2,
+      "replicates": 5,
+      "auroc_mean": 0.009752278269798497,
+      "auroc_std": 0.004821121781499999,
+      "auprc_mean": 0.005050817020393483,
+      "auprc_std": 0.00474427325087866,
+      "brier_improvement_mean": 1.1999746006367828e-05,
+      "brier_improvement_std": 3.510423444834448e-05
+    },
+    {
+      "checkpoint": 6,
+      "hospital": "B",
+      "budget": 3,
+      "replicates": 5,
+      "auroc_mean": 0.008272365549993554,
+      "auroc_std": 0.004428160791177251,
+      "auprc_mean": 0.0030215110374414377,
+      "auprc_std": 0.0011027923196583742,
+      "brier_improvement_mean": -1.2037259895671809e-05,
+      "brier_improvement_std": 1.3728372717829209e-05
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "budget": 1,
+      "replicates": 5,
+      "auroc_mean": 0.002439440464005438,
+      "auroc_std": 0.00516059028174772,
+      "auprc_mean": 0.005019299481219028,
+      "auprc_std": 0.0036061710293929855,
+      "brier_improvement_mean": 3.366869478386436e-05,
+      "brier_improvement_std": 2.1096673575057028e-05
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "budget": 2,
+      "replicates": 5,
+      "auroc_mean": 0.009534682308479581,
+      "auroc_std": 0.008803300421411924,
+      "auprc_mean": 0.004532053491002515,
+      "auprc_std": 0.002990046190383636,
+      "brier_improvement_mean": 4.94943004320722e-05,
+      "brier_improvement_std": 2.4601922184374027e-05
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "A",
+      "budget": 3,
+      "replicates": 5,
+      "auroc_mean": 0.012752276723617516,
+      "auroc_std": 0.006996227074345492,
+      "auprc_mean": 0.005476534049035144,
+      "auprc_std": 0.0026974854532639363,
+      "brier_improvement_mean": 7.722685740567739e-05,
+      "brier_improvement_std": 3.349586315613372e-05
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "budget": 1,
+      "replicates": 5,
+      "auroc_mean": 0.004772068205544611,
+      "auroc_std": 0.004407358992896789,
+      "auprc_mean": 0.004103449662566529,
+      "auprc_std": 0.002109844386049081,
+      "brier_improvement_mean": 2.64287653518408e-05,
+      "brier_improvement_std": 1.2963589390918896e-05
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "budget": 2,
+      "replicates": 5,
+      "auroc_mean": 0.010630553300081225,
+      "auroc_std": 0.006088349631053714,
+      "auprc_mean": 0.0034714198578232962,
+      "auprc_std": 0.0036056154128942227,
+      "brier_improvement_mean": 3.09252490701354e-05,
+      "brier_improvement_std": 1.8115287005287305e-05
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "All",
+      "budget": 3,
+      "replicates": 5,
+      "auroc_mean": 0.013682403433476441,
+      "auroc_std": 0.007797163958680829,
+      "auprc_mean": 0.00274749503587233,
+      "auprc_std": 0.0025567554273592656,
+      "brier_improvement_mean": 3.918381505367344e-05,
+      "brier_improvement_std": 2.4064690267534343e-05
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "budget": 1,
+      "replicates": 5,
+      "auroc_mean": 0.007265816422692617,
+      "auroc_std": 0.006232074106637952,
+      "auprc_mean": 0.005949078599855597,
+      "auprc_std": 0.005381483004650999,
+      "brier_improvement_mean": 1.9022486375249065e-05,
+      "brier_improvement_std": 1.602903658976535e-05
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "budget": 2,
+      "replicates": 5,
+      "auroc_mean": 0.012744235722811937,
+      "auroc_std": 0.007047585823202194,
+      "auprc_mean": 0.004074563936239163,
+      "auprc_std": 0.006075088780135008,
+      "brier_improvement_mean": 1.192954255001405e-05,
+      "brier_improvement_std": 2.9282213196740764e-05
+    },
+    {
+      "checkpoint": 12,
+      "hospital": "B",
+      "budget": 3,
+      "replicates": 5,
+      "auroc_mean": 0.015320098008418537,
+      "auroc_std": 0.0178373333048831,
+      "auprc_mean": 0.0017094859588371674,
+      "auprc_std": 0.0033836153625633196,
+      "brier_improvement_mean": 2.666698767030476e-07,
+      "brier_improvement_std": 2.6532380470604986e-05
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "budget": 1,
+      "replicates": 5,
+      "auroc_mean": -0.0052751098205644055,
+      "auroc_std": 0.005326540566628116,
+      "auprc_mean": 0.001598240977401591,
+      "auprc_std": 0.0024760145821923433,
+      "brier_improvement_mean": 1.9034593840502184e-05,
+      "brier_improvement_std": 1.8422037207183804e-05
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "budget": 2,
+      "replicates": 5,
+      "auroc_mean": -0.0073598391780210545,
+      "auroc_std": 0.0066062428774781405,
+      "auprc_mean": 0.003892674186601078,
+      "auprc_std": 0.002558355854926278,
+      "brier_improvement_mean": 3.876431957159365e-05,
+      "brier_improvement_std": 1.4079770918521996e-05
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "A",
+      "budget": 3,
+      "replicates": 5,
+      "auroc_mean": -0.007739557739557701,
+      "auroc_std": 0.004570389580806076,
+      "auprc_mean": 0.006604168901551098,
+      "auprc_std": 0.005433276696592945,
+      "brier_improvement_mean": 5.525618808027363e-05,
+      "brier_improvement_std": 2.557037577500084e-05
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "budget": 1,
+      "replicates": 5,
+      "auroc_mean": 0.0013489083576694095,
+      "auroc_std": 0.008419828499527136,
+      "auprc_mean": 0.000935613960871904,
+      "auprc_std": 0.0016755993069817647,
+      "brier_improvement_mean": 1.1754195990011304e-05,
+      "brier_improvement_std": 9.830153268236999e-06
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "budget": 2,
+      "replicates": 5,
+      "auroc_mean": 0.003231311867106701,
+      "auroc_std": 0.014019972228505307,
+      "auprc_mean": 0.002356018455823592,
+      "auprc_std": 0.0022758036380845035,
+      "brier_improvement_mean": 2.215798378727759e-05,
+      "brier_improvement_std": 1.266304425257999e-05
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "All",
+      "budget": 3,
+      "replicates": 5,
+      "auroc_mean": 0.0013906271728550302,
+      "auroc_std": 0.01122068395330435,
+      "auprc_mean": 0.0029991722977927974,
+      "auprc_std": 0.003451066625075323,
+      "brier_improvement_mean": 2.484226932793574e-05,
+      "brier_improvement_std": 2.286336510785172e-05
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "budget": 1,
+      "replicates": 5,
+      "auroc_mean": 0.01404341926729984,
+      "auroc_std": 0.00946956477132636,
+      "auprc_mean": 0.0003652708968720594,
+      "auprc_std": 0.003788655571880331,
+      "brier_improvement_mean": 3.6845152416484577e-06,
+      "brier_improvement_std": 2.241429481330877e-05
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "budget": 2,
+      "replicates": 5,
+      "auroc_mean": 0.020887984320820084,
+      "auroc_std": 0.02595706117769818,
+      "auprc_mean": 0.002019760436113024,
+      "auprc_std": 0.005135087225746729,
+      "brier_improvement_mean": 3.751321001601443e-06,
+      "brier_improvement_std": 3.0205842923593836e-05
+    },
+    {
+      "checkpoint": 24,
+      "hospital": "B",
+      "budget": 3,
+      "replicates": 5,
+      "auroc_mean": 0.01940298507462688,
+      "auroc_std": 0.023308698557309757,
+      "auprc_mean": 0.0012717031275856258,
+      "auprc_std": 0.0034003688795329642,
+      "brier_improvement_mean": -8.868884880683381e-06,
+      "brier_improvement_std": 3.0099347842255736e-05
+    }
+  ],
+  "configuration": {
+    "dataset": "PhysioNet 2019 validation patients",
+    "development_mode": false,
+    "patients_processed": 6050,
+    "checkpoints": [
+      6,
+      12,
+      24
+    ],
+    "random_replicates": 5,
+    "bootstrap_resamples": 1000,
+    "bootstrap_seed": 42
+  }
+}
