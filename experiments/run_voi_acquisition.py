@@ -12,6 +12,7 @@ from typing import Any, Iterable
 
 import joblib
 import matplotlib
+from sklearn.preprocessing import StandardScaler
 
 matplotlib.use("Agg")
 
@@ -121,9 +122,11 @@ def _fit_independent_predictor(
         raise ValueError("No predictor features found")
     model = make_pipeline(
         SimpleImputer(strategy="median"),
+        StandardScaler(),
         SGDClassifier(
             loss="log_loss",
-            max_iter=max(10, n_estimators),
+            max_iter=2000,
+            tol=1e-4,
             random_state=seed,
             n_jobs=-1,
         ),
