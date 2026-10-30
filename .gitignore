@@ -1,9 +1,22 @@
-# Data directories
-data/raw/
-data/processed/
-data/interim/
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
 
-# Experiment artifacts
-outputs/
-mlruns/
-colab_package/
+# macOS
+.DS_Store
+
+# Clinical datasets
+/data/raw/
+/data/processed/
+/src/data/raw/
+
+# Local research artifacts
+/outputs/
+/colab_package/
+
+# Archives
+*.zip
