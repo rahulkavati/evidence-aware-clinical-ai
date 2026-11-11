@@ -9,22 +9,18 @@
 - One-step acquisition after abstention using historical eligibility and a fixed order.
 - Training-derived feature-level VOI policy, acquisition baselines, diagnostics, and validation cost sensitivity.
 
-## Five remaining milestones
+## Project completion status
 
-1. **Freeze the protocol.** Record the prediction state, threshold-selection rule,
-   acquisition eligibility rule, primary metrics, and exclusion rules.
-2. **Complete validation sensitivity.** Finish the pre-specified budget, simulated
-   cost, and delay analyses without changing the held-out test split.
-3. **Lock claims and reproducibility.** Consolidate aggregate reports, seeds,
-   environment details, limitations, and manuscript-ready tables.
-4. **Run the held-out evaluation.** Access the held-out test split exactly once,
-   only after explicit approval, using the frozen protocol and no retuning.
-5. **Finalize the project.** Audit outputs and privacy boundaries, complete the
-   research narrative, and prepare the final repository/package.
+All planned execution milestones are complete. The project has a frozen
+validation protocol, validation cost/budget sensitivity, reproducibility
+artifacts, and one locked held-out evaluation. The absence of prospective
+turnaround timestamps is recorded as a limitation rather than filled with
+synthetic clinical assumptions.
 
 ## Current decision
 
-The validation evidence does not yet justify claiming that acquisition improves
-selective prediction. VOI and fixed-order acquisition remain retrospective
-baselines; any positive result must be compared against abstention under the
-same patient-disjoint protocol.
+The validation and held-out evidence do not justify claiming that acquisition
+improves selective prediction. VOI and fixed-order acquisition remain
+retrospective baselines; in the locked evaluation, fixed-order acquisition
+slightly increased coverage but worsened risk and Brier score relative to
+abstention.

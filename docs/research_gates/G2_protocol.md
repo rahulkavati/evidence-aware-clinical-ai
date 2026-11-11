@@ -30,5 +30,5 @@ are not clinically validated.
 
 ## Test-set lock
 
-The held-out test evaluation remains a separate milestone. It requires explicit
-approval and must use this frozen protocol without threshold or policy retuning.
+The held-out evaluation was run once after explicit approval using this frozen
+protocol. No threshold or policy retuning was performed on test data.
