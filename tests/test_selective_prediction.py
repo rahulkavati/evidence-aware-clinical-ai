@@ -38,6 +38,15 @@ class TestSelectivePrediction(unittest.TestCase):
         self.assertEqual(result["threshold"], 0.9)
         self.assertEqual(result["coverage"], 0.4)
 
+    def test_threshold_selection_uses_maximum_feasible_coverage(self):
+        result = select_threshold(
+            np.array([0, 1, 0, 1]),
+            np.array([0.1, 0.9, 0.4, 0.6]),
+            max_risk=0.10,
+        )
+        self.assertEqual(result["threshold"], 0.6)
+        self.assertEqual(result["coverage"], 1.0)
+
     def test_threshold_selection_rejects_impossible_minimum_coverage(self):
         with self.assertRaises(ValueError):
             select_threshold(

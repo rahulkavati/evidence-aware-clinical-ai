@@ -76,6 +76,61 @@ def evaluate_selective(
     return result
 
 
+def patient_cluster_bootstrap_ci(
+    labels: np.ndarray,
+    probabilities: np.ndarray,
+    patient_ids: np.ndarray,
+    threshold: float,
+    n_resamples: int = 1000,
+    random_state: int = 42,
+) -> dict[str, dict[str, float]]:
+    """Return percentile intervals after resampling patients as clusters."""
+    y, p = validate_binary_inputs(labels, probabilities)
+    ids = np.asarray(patient_ids)
+    if ids.ndim != 1 or len(ids) != len(y):
+        raise ValueError("Patient IDs must be one-dimensional and align with labels")
+    if n_resamples < 1:
+        raise ValueError("n_resamples must be at least 1")
+
+    _, codes = np.unique(ids, return_inverse=True)
+    retained = retained_mask(p, threshold)
+    errors = ((p >= 0.5) != y.astype(bool)).astype(float)
+    rng = np.random.default_rng(random_state)
+    patient_count = int(codes.max()) + 1
+    coverage_values = np.empty(n_resamples, dtype=float)
+    risk_values = np.empty(n_resamples, dtype=float)
+    brier_values = np.empty(n_resamples, dtype=float)
+    for iteration in range(n_resamples):
+        sampled = rng.integers(0, patient_count, size=patient_count)
+        weights = np.bincount(sampled, minlength=patient_count)[codes]
+        retained_weight = weights[retained].sum()
+        coverage_values[iteration] = retained_weight / weights.sum()
+        if retained_weight:
+            risk_values[iteration] = np.average(errors[retained], weights=weights[retained])
+            brier_values[iteration] = np.average(
+                (p[retained] - y[retained]) ** 2,
+                weights=weights[retained],
+            )
+        else:
+            risk_values[iteration] = np.nan
+            brier_values[iteration] = np.nan
+
+    def interval(values: np.ndarray) -> dict[str, float]:
+        finite = values[np.isfinite(values)]
+        if len(finite) == 0:
+            return {"lower_95": float("nan"), "upper_95": float("nan")}
+        return {
+            "lower_95": float(np.percentile(finite, 2.5)),
+            "upper_95": float(np.percentile(finite, 97.5)),
+        }
+
+    return {
+        "coverage": interval(coverage_values),
+        "selective_risk": interval(risk_values),
+        "selective_brier_score": interval(brier_values),
+    }
+
+
 def select_threshold(
     labels: np.ndarray,
     probabilities: np.ndarray,
@@ -112,8 +167,8 @@ def select_threshold(
     feasible = np.flatnonzero((coverage >= min_coverage) & (risks <= max_risk))
     if len(feasible) == 0:
         raise ValueError("No confidence threshold satisfies the requested risk and coverage")
-    # The first feasible point has the greatest coverage because groups are
-    # added from highest to lowest confidence. Ties remain grouped.
-    selected_index = int(feasible[0])
+    # Groups are added from highest to lowest confidence, so the last
+    # feasible point has the greatest coverage. Ties remain grouped.
+    selected_index = int(feasible[-1])
     threshold = float(sorted_scores[group_ends[selected_index]])
     return evaluate_selective(y, p, threshold)
