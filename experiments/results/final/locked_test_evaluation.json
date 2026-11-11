@@ -1,0 +1,149 @@
+{
+  "config": {
+    "test_path": "data/processed/test.parquet",
+    "model_path": "outputs/g1_models/mask_aware_xgboost.joblib",
+    "calibrator_path": "outputs/g1_models/mask_aware_sigmoid_calibrator.joblib",
+    "threshold_artifact": "experiments/results/selective_prediction/abstention_acquisition/abstention_acquisition.json",
+    "held_out_test_accessed": true,
+    "test_evaluation_count": 1
+  },
+  "evaluation": {
+    "patients": 6051,
+    "rows": 232215,
+    "threshold": 0.9626458569402422,
+    "scopes": {
+      "pooled_all": {
+        "patients": 6051,
+        "baseline_abstention": {
+          "total_count": 232215,
+          "retained_count": 214569,
+          "abstained_count": 17646,
+          "coverage": 0.9240100768684194,
+          "risk": 0.010667897040112971,
+          "brier_score": 0.010439462853916831
+        },
+        "acquisition_assisted": {
+          "total_count": 232215,
+          "retained_count": 215185,
+          "abstained_count": 17030,
+          "coverage": 0.9266627909480438,
+          "risk": 0.010841833770941283,
+          "brier_score": 0.010603488180649719
+        },
+        "abstention_rows": 17646,
+        "eligible_abstention_rows": 16976,
+        "rescued_rows": 616
+      },
+      "hospital_A": {
+        "patients": 3051,
+        "baseline_abstention": {
+          "total_count": 118869,
+          "retained_count": 108042,
+          "abstained_count": 10827,
+          "coverage": 0.9089165383741766,
+          "risk": 0.013096758667925437,
+          "brier_score": 0.012792678857740623
+        },
+        "acquisition_assisted": {
+          "total_count": 118869,
+          "retained_count": 108276,
+          "abstained_count": 10593,
+          "coverage": 0.9108850919920248,
+          "risk": 0.013243932173334812,
+          "brier_score": 0.012930758356009875
+        },
+        "abstention_rows": 10827,
+        "eligible_abstention_rows": 10282,
+        "rescued_rows": 234
+      },
+      "hospital_B": {
+        "patients": 3000,
+        "baseline_abstention": {
+          "total_count": 113346,
+          "retained_count": 106527,
+          "abstained_count": 6819,
+          "coverage": 0.9398390768090625,
+          "risk": 0.00820449275770462,
+          "brier_score": 0.008052780008392879
+        },
+        "acquisition_assisted": {
+          "total_count": 113346,
+          "retained_count": 106909,
+          "abstained_count": 6437,
+          "coverage": 0.9432092883736524,
+          "risk": 0.008409020755970031,
+          "brier_score": 0.008246460189486243
+        },
+        "abstention_rows": 6819,
+        "eligible_abstention_rows": 6694,
+        "rescued_rows": 382
+      },
+      "hour_6": {
+        "patients": 5973,
+        "baseline_abstention": {
+          "total_count": 5973,
+          "retained_count": 5689,
+          "abstained_count": 284,
+          "coverage": 0.9524527038339193,
+          "risk": 0.01335911407980313,
+          "brier_score": 0.013062161585236655
+        },
+        "acquisition_assisted": {
+          "total_count": 5973,
+          "retained_count": 5711,
+          "abstained_count": 262,
+          "coverage": 0.9561359450862214,
+          "risk": 0.013657853265627736,
+          "brier_score": 0.013342743155274497
+        },
+        "abstention_rows": 284,
+        "eligible_abstention_rows": 225,
+        "rescued_rows": 22
+      },
+      "hour_12": {
+        "patients": 5904,
+        "baseline_abstention": {
+          "total_count": 5904,
+          "retained_count": 5709,
+          "abstained_count": 195,
+          "coverage": 0.9669715447154471,
+          "risk": 0.010334559467507444,
+          "brier_score": 0.010143242554115936
+        },
+        "acquisition_assisted": {
+          "total_count": 5904,
+          "retained_count": 5724,
+          "abstained_count": 180,
+          "coverage": 0.9695121951219512,
+          "risk": 0.010482180293501049,
+          "brier_score": 0.01028232228842691
+        },
+        "abstention_rows": 195,
+        "eligible_abstention_rows": 173,
+        "rescued_rows": 15
+      },
+      "hour_24": {
+        "patients": 4689,
+        "baseline_abstention": {
+          "total_count": 4689,
+          "retained_count": 4564,
+          "abstained_count": 125,
+          "coverage": 0.9733418639368735,
+          "risk": 0.007668711656441718,
+          "brier_score": 0.007556283592003484
+        },
+        "acquisition_assisted": {
+          "total_count": 4689,
+          "retained_count": 4570,
+          "abstained_count": 119,
+          "coverage": 0.9746214544679036,
+          "risk": 0.00787746170678337,
+          "brier_score": 0.007751450342573377
+        },
+        "abstention_rows": 125,
+        "eligible_abstention_rows": 124,
+        "rescued_rows": 6
+      }
+    }
+  }
+}
