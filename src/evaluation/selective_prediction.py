@@ -95,16 +95,25 @@ def select_threshold(
     if not 0.0 <= min_coverage <= 1.0:
         raise ValueError("min_coverage must be within [0, 1]")
 
-    candidates = np.unique(confidence(p))
-    feasible: list[dict[str, Any]] = []
-    for threshold in candidates:
-        metrics = evaluate_selective(y, p, float(threshold))
-        if (
-            metrics["coverage"] >= min_coverage
-            and metrics["selective_risk"] is not None
-            and metrics["selective_risk"] <= max_risk
-        ):
-            feasible.append(metrics)
-    if not feasible:
+    scores = confidence(p)
+    order = np.argsort(-scores, kind="stable")
+    sorted_scores = scores[order]
+    sorted_errors = ((p[order] >= 0.5) != y[order].astype(bool)).astype(int)
+    group_ends = np.flatnonzero(
+        np.r_[sorted_scores[1:] != sorted_scores[:-1], True]
+    )
+    group_counts = np.diff(np.r_[-1, group_ends])
+    cumulative_counts = np.cumsum(group_counts)
+    cumulative_errors = np.cumsum(
+        np.add.reduceat(sorted_errors, np.r_[0, group_ends[:-1]])
+    )
+    coverage = cumulative_counts / len(y)
+    risks = cumulative_errors / cumulative_counts
+    feasible = np.flatnonzero((coverage >= min_coverage) & (risks <= max_risk))
+    if len(feasible) == 0:
         raise ValueError("No confidence threshold satisfies the requested risk and coverage")
-    return max(feasible, key=lambda item: (item["coverage"], -item["threshold"]))
+    # The first feasible point has the greatest coverage because groups are
+    # added from highest to lowest confidence. Ties remain grouped.
+    selected_index = int(feasible[0])
+    threshold = float(sorted_scores[group_ends[selected_index]])
+    return evaluate_selective(y, p, threshold)
