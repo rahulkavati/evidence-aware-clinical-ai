@@ -1,0 +1,741 @@
+{
+  "config": {
+    "max_risks": [
+      0.01,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "minimum_selection_coverage": 0.0,
+    "bootstrap_resamples": 1000,
+    "random_state": 42,
+    "validation_path": "data/processed/val.parquet",
+    "model_path": "outputs/g1_models/mask_aware_xgboost.joblib",
+    "calibrator_path": "outputs/g1_models/mask_aware_sigmoid_calibrator.joblib",
+    "held_out_test_accessed": false
+  },
+  "selection": {
+    "patients": 3025,
+    "rows": 117069,
+    "positive_labels": 2093
+  },
+  "evaluation": {
+    "patients": 3025,
+    "rows": 116968,
+    "positive_labels": 2090
+  },
+  "targets": {
+    "0.01": {
+      "max_risk": 0.01,
+      "selection": {
+        "threshold": 0.9589007584468163,
+        "total_count": 117069,
+        "retained_count": 108337,
+        "abstained_count": 8732,
+        "coverage": 0.9254115094516909,
+        "selective_risk": 0.010005815187793645,
+        "selective_brier_score": 0.009782585999522673,
+        "retained_auroc": 0.7848037694659846,
+        "retained_auprc": 0.03538427409765792
+      },
+      "evaluation_scopes": {
+        "pooled_all": {
+          "threshold": 0.9589007584468163,
+          "total_count": 116968,
+          "retained_count": 107618,
+          "abstained_count": 9350,
+          "coverage": 0.9200636071404145,
+          "selective_risk": 0.010332843948038432,
+          "selective_brier_score": 0.010114086892245284,
+          "retained_auroc": 0.7740396579136892,
+          "retained_auprc": 0.03084688365338398,
+          "patients": 3025,
+          "positive_labels": 2090,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 0.9064025844964563,
+              "upper_95": 0.9349775617815345
+            },
+            "selective_risk": {
+              "lower_95": 0.008637390903929298,
+              "upper_95": 0.01218084822011223
+            },
+            "selective_brier_score": {
+              "lower_95": 0.008479150001965018,
+              "upper_95": 0.011888730148117678
+            }
+          }
+        },
+        "hospital_A": {
+          "threshold": 0.9589007584468163,
+          "total_count": 58182,
+          "retained_count": 53103,
+          "abstained_count": 5079,
+          "coverage": 0.9127049602969991,
+          "selective_risk": 0.012089712445624541,
+          "selective_brier_score": 0.011808251499387213,
+          "retained_auroc": 0.7751602421641686,
+          "retained_auprc": 0.03329816109769562,
+          "patients": 1492,
+          "positive_labels": 1258,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 0.8923877257755318,
+              "upper_95": 0.930497678548466
+            },
+            "selective_risk": {
+              "lower_95": 0.00951637117407574,
+              "upper_95": 0.014788406680588964
+            },
+            "selective_brier_score": {
+              "lower_95": 0.00935366720667637,
+              "upper_95": 0.014396209013537869
+            }
+          }
+        },
+        "hospital_B": {
+          "threshold": 0.9589007584468163,
+          "total_count": 58786,
+          "retained_count": 54515,
+          "abstained_count": 4271,
+          "coverage": 0.9273466471608887,
+          "selective_risk": 0.008621480326515638,
+          "selective_brier_score": 0.008463803059666035,
+          "retained_auroc": 0.7618336768217188,
+          "retained_auprc": 0.027757392122961105,
+          "patients": 1533,
+          "positive_labels": 832,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 0.9043273832331395,
+              "upper_95": 0.9469987851865521
+            },
+            "selective_risk": {
+              "lower_95": 0.00646713398369445,
+              "upper_95": 0.01094205889264347
+            },
+            "selective_brier_score": {
+              "lower_95": 0.006389461689411919,
+              "upper_95": 0.010716170702741522
+            }
+          }
+        },
+        "hour_6": {
+          "threshold": 0.9589007584468163,
+          "total_count": 2979,
+          "retained_count": 2821,
+          "abstained_count": 158,
+          "coverage": 0.9469620678079893,
+          "selective_risk": 0.015242821694434599,
+          "selective_brier_score": 0.014853203778762094,
+          "retained_auroc": 0.7450148174192577,
+          "retained_auprc": 0.04743068223945407,
+          "patients": 2979,
+          "positive_labels": 56,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 0.9389056730446459,
+              "upper_95": 0.9553541456864719
+            },
+            "selective_risk": {
+              "lower_95": 0.010592940095058739,
+              "upper_95": 0.019525706774702185
+            },
+            "selective_brier_score": {
+              "lower_95": 0.010418146014946696,
+              "upper_95": 0.018981189863610227
+            }
+          }
+        },
+        "hour_12": {
+          "threshold": 0.9589007584468163,
+          "total_count": 2948,
+          "retained_count": 2846,
+          "abstained_count": 102,
+          "coverage": 0.9654002713704206,
+          "selective_risk": 0.011243851018973999,
+          "selective_brier_score": 0.011055052988193955,
+          "retained_auroc": 0.7151186034115139,
+          "retained_auprc": 0.039181310152058044,
+          "patients": 2948,
+          "positive_labels": 39,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 0.9586160108548168,
+              "upper_95": 0.9721845318860244
+            },
+            "selective_risk": {
+              "lower_95": 0.0074020550410510335,
+              "upper_95": 0.015125001144829467
+            },
+            "selective_brier_score": {
+              "lower_95": 0.007337088038791513,
+              "upper_95": 0.014803023233509606
+            }
+          }
+        },
+        "hour_24": {
+          "threshold": 0.9589007584468163,
+          "total_count": 2323,
+          "retained_count": 2265,
+          "abstained_count": 58,
+          "coverage": 0.9750322858372794,
+          "selective_risk": 0.006181015452538631,
+          "selective_brier_score": 0.006049122945315911,
+          "retained_auroc": 0.8177635336675764,
+          "retained_auprc": 0.050911881015642556,
+          "patients": 2323,
+          "positive_labels": 17,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 0.9681446405510116,
+              "upper_95": 0.9806284976323719
+            },
+            "selective_risk": {
+              "lower_95": 0.0030945723558901063,
+              "upper_95": 0.00970895227966654
+            },
+            "selective_brier_score": {
+              "lower_95": 0.0030999135964548657,
+              "upper_95": 0.009414124833657165
+            }
+          }
+        }
+      }
+    },
+    "0.05": {
+      "max_risk": 0.05,
+      "selection": {
+        "threshold": 0.5003713564075647,
+        "total_count": 117069,
+        "retained_count": 117069,
+        "abstained_count": 0,
+        "coverage": 1.0,
+        "selective_risk": 0.01916818286651462,
+        "selective_brier_score": 0.01720995049698512,
+        "retained_auroc": 0.8495346011428764,
+        "retained_auprc": 0.1184831295927256
+      },
+      "evaluation_scopes": {
+        "pooled_all": {
+          "threshold": 0.5003713564075647,
+          "total_count": 116968,
+          "retained_count": 116968,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.01931297448874906,
+          "selective_brier_score": 0.017496783882711444,
+          "retained_auroc": 0.8364749277182009,
+          "retained_auprc": 0.09343716658512513,
+          "patients": 3025,
+          "positive_labels": 2090,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.016471257871235725,
+              "upper_95": 0.02197380861423417
+            },
+            "selective_brier_score": {
+              "lower_95": 0.015011806983570835,
+              "upper_95": 0.019688768625831334
+            }
+          }
+        },
+        "hospital_A": {
+          "threshold": 0.5003713564075647,
+          "total_count": 58182,
+          "retained_count": 58182,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.022188993159396375,
+          "selective_brier_score": 0.020319273590124812,
+          "retained_auroc": 0.8399366533281929,
+          "retained_auprc": 0.1138807190320962,
+          "patients": 1492,
+          "positive_labels": 1258,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.01859773768195987,
+              "upper_95": 0.025698892864898175
+            },
+            "selective_brier_score": {
+              "lower_95": 0.017241007600044083,
+              "upper_95": 0.023429833886841868
+            }
+          }
+        },
+        "hospital_B": {
+          "threshold": 0.5003713564075647,
+          "total_count": 58786,
+          "retained_count": 58786,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.016466505630592317,
+          "selective_brier_score": 0.014703294001502916,
+          "retained_auroc": 0.8248081805098738,
+          "retained_auprc": 0.07498844635124231,
+          "patients": 1533,
+          "positive_labels": 832,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.012585778825740756,
+              "upper_95": 0.02133424322926964
+            },
+            "selective_brier_score": {
+              "lower_95": 0.011619166275467687,
+              "upper_95": 0.01822828580320524
+            }
+          }
+        },
+        "hour_6": {
+          "threshold": 0.5003713564075647,
+          "total_count": 2979,
+          "retained_count": 2979,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.018798254447801276,
+          "selective_brier_score": 0.018076293666418556,
+          "retained_auroc": 0.7705329651532183,
+          "retained_auprc": 0.07475929831886742,
+          "patients": 2979,
+          "positive_labels": 56,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.014090298757972474,
+              "upper_95": 0.02350621013763007
+            },
+            "selective_brier_score": {
+              "lower_95": 0.013582730191603781,
+              "upper_95": 0.02261680764106802
+            }
+          }
+        },
+        "hour_12": {
+          "threshold": 0.5003713564075647,
+          "total_count": 2948,
+          "retained_count": 2948,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.013229308005427409,
+          "selective_brier_score": 0.012965719111636475,
+          "retained_auroc": 0.7443301513428704,
+          "retained_auprc": 0.04588323651830265,
+          "patients": 2948,
+          "positive_labels": 39,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.009158751696065129,
+              "upper_95": 0.017639077340569877
+            },
+            "selective_brier_score": {
+              "lower_95": 0.00911175717967463,
+              "upper_95": 0.017196171257017553
+            }
+          }
+        },
+        "hour_24": {
+          "threshold": 0.5003713564075647,
+          "total_count": 2323,
+          "retained_count": 2323,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.007318123116659492,
+          "selective_brier_score": 0.007172945842823679,
+          "retained_auroc": 0.8325340543849804,
+          "retained_auprc": 0.050959409207952014,
+          "patients": 2323,
+          "positive_labels": 17,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.0038743004735256135,
+              "upper_95": 0.011192423590185106
+            },
+            "selective_brier_score": {
+              "lower_95": 0.003969726305066535,
+              "upper_95": 0.010955325410196982
+            }
+          }
+        }
+      }
+    },
+    "0.1": {
+      "max_risk": 0.1,
+      "selection": {
+        "threshold": 0.5003713564075647,
+        "total_count": 117069,
+        "retained_count": 117069,
+        "abstained_count": 0,
+        "coverage": 1.0,
+        "selective_risk": 0.01916818286651462,
+        "selective_brier_score": 0.01720995049698512,
+        "retained_auroc": 0.8495346011428764,
+        "retained_auprc": 0.1184831295927256
+      },
+      "evaluation_scopes": {
+        "pooled_all": {
+          "threshold": 0.5003713564075647,
+          "total_count": 116968,
+          "retained_count": 116968,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.01931297448874906,
+          "selective_brier_score": 0.017496783882711444,
+          "retained_auroc": 0.8364749277182009,
+          "retained_auprc": 0.09343716658512513,
+          "patients": 3025,
+          "positive_labels": 2090,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.016471257871235725,
+              "upper_95": 0.02197380861423417
+            },
+            "selective_brier_score": {
+              "lower_95": 0.015011806983570835,
+              "upper_95": 0.019688768625831334
+            }
+          }
+        },
+        "hospital_A": {
+          "threshold": 0.5003713564075647,
+          "total_count": 58182,
+          "retained_count": 58182,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.022188993159396375,
+          "selective_brier_score": 0.020319273590124812,
+          "retained_auroc": 0.8399366533281929,
+          "retained_auprc": 0.1138807190320962,
+          "patients": 1492,
+          "positive_labels": 1258,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.01859773768195987,
+              "upper_95": 0.025698892864898175
+            },
+            "selective_brier_score": {
+              "lower_95": 0.017241007600044083,
+              "upper_95": 0.023429833886841868
+            }
+          }
+        },
+        "hospital_B": {
+          "threshold": 0.5003713564075647,
+          "total_count": 58786,
+          "retained_count": 58786,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.016466505630592317,
+          "selective_brier_score": 0.014703294001502916,
+          "retained_auroc": 0.8248081805098738,
+          "retained_auprc": 0.07498844635124231,
+          "patients": 1533,
+          "positive_labels": 832,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.012585778825740756,
+              "upper_95": 0.02133424322926964
+            },
+            "selective_brier_score": {
+              "lower_95": 0.011619166275467687,
+              "upper_95": 0.01822828580320524
+            }
+          }
+        },
+        "hour_6": {
+          "threshold": 0.5003713564075647,
+          "total_count": 2979,
+          "retained_count": 2979,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.018798254447801276,
+          "selective_brier_score": 0.018076293666418556,
+          "retained_auroc": 0.7705329651532183,
+          "retained_auprc": 0.07475929831886742,
+          "patients": 2979,
+          "positive_labels": 56,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.014090298757972474,
+              "upper_95": 0.02350621013763007
+            },
+            "selective_brier_score": {
+              "lower_95": 0.013582730191603781,
+              "upper_95": 0.02261680764106802
+            }
+          }
+        },
+        "hour_12": {
+          "threshold": 0.5003713564075647,
+          "total_count": 2948,
+          "retained_count": 2948,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.013229308005427409,
+          "selective_brier_score": 0.012965719111636475,
+          "retained_auroc": 0.7443301513428704,
+          "retained_auprc": 0.04588323651830265,
+          "patients": 2948,
+          "positive_labels": 39,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.009158751696065129,
+              "upper_95": 0.017639077340569877
+            },
+            "selective_brier_score": {
+              "lower_95": 0.00911175717967463,
+              "upper_95": 0.017196171257017553
+            }
+          }
+        },
+        "hour_24": {
+          "threshold": 0.5003713564075647,
+          "total_count": 2323,
+          "retained_count": 2323,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.007318123116659492,
+          "selective_brier_score": 0.007172945842823679,
+          "retained_auroc": 0.8325340543849804,
+          "retained_auprc": 0.050959409207952014,
+          "patients": 2323,
+          "positive_labels": 17,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.0038743004735256135,
+              "upper_95": 0.011192423590185106
+            },
+            "selective_brier_score": {
+              "lower_95": 0.003969726305066535,
+              "upper_95": 0.010955325410196982
+            }
+          }
+        }
+      }
+    },
+    "0.2": {
+      "max_risk": 0.2,
+      "selection": {
+        "threshold": 0.5003713564075647,
+        "total_count": 117069,
+        "retained_count": 117069,
+        "abstained_count": 0,
+        "coverage": 1.0,
+        "selective_risk": 0.01916818286651462,
+        "selective_brier_score": 0.01720995049698512,
+        "retained_auroc": 0.8495346011428764,
+        "retained_auprc": 0.1184831295927256
+      },
+      "evaluation_scopes": {
+        "pooled_all": {
+          "threshold": 0.5003713564075647,
+          "total_count": 116968,
+          "retained_count": 116968,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.01931297448874906,
+          "selective_brier_score": 0.017496783882711444,
+          "retained_auroc": 0.8364749277182009,
+          "retained_auprc": 0.09343716658512513,
+          "patients": 3025,
+          "positive_labels": 2090,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.016471257871235725,
+              "upper_95": 0.02197380861423417
+            },
+            "selective_brier_score": {
+              "lower_95": 0.015011806983570835,
+              "upper_95": 0.019688768625831334
+            }
+          }
+        },
+        "hospital_A": {
+          "threshold": 0.5003713564075647,
+          "total_count": 58182,
+          "retained_count": 58182,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.022188993159396375,
+          "selective_brier_score": 0.020319273590124812,
+          "retained_auroc": 0.8399366533281929,
+          "retained_auprc": 0.1138807190320962,
+          "patients": 1492,
+          "positive_labels": 1258,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.01859773768195987,
+              "upper_95": 0.025698892864898175
+            },
+            "selective_brier_score": {
+              "lower_95": 0.017241007600044083,
+              "upper_95": 0.023429833886841868
+            }
+          }
+        },
+        "hospital_B": {
+          "threshold": 0.5003713564075647,
+          "total_count": 58786,
+          "retained_count": 58786,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.016466505630592317,
+          "selective_brier_score": 0.014703294001502916,
+          "retained_auroc": 0.8248081805098738,
+          "retained_auprc": 0.07498844635124231,
+          "patients": 1533,
+          "positive_labels": 832,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.012585778825740756,
+              "upper_95": 0.02133424322926964
+            },
+            "selective_brier_score": {
+              "lower_95": 0.011619166275467687,
+              "upper_95": 0.01822828580320524
+            }
+          }
+        },
+        "hour_6": {
+          "threshold": 0.5003713564075647,
+          "total_count": 2979,
+          "retained_count": 2979,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.018798254447801276,
+          "selective_brier_score": 0.018076293666418556,
+          "retained_auroc": 0.7705329651532183,
+          "retained_auprc": 0.07475929831886742,
+          "patients": 2979,
+          "positive_labels": 56,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.014090298757972474,
+              "upper_95": 0.02350621013763007
+            },
+            "selective_brier_score": {
+              "lower_95": 0.013582730191603781,
+              "upper_95": 0.02261680764106802
+            }
+          }
+        },
+        "hour_12": {
+          "threshold": 0.5003713564075647,
+          "total_count": 2948,
+          "retained_count": 2948,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.013229308005427409,
+          "selective_brier_score": 0.012965719111636475,
+          "retained_auroc": 0.7443301513428704,
+          "retained_auprc": 0.04588323651830265,
+          "patients": 2948,
+          "positive_labels": 39,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.009158751696065129,
+              "upper_95": 0.017639077340569877
+            },
+            "selective_brier_score": {
+              "lower_95": 0.00911175717967463,
+              "upper_95": 0.017196171257017553
+            }
+          }
+        },
+        "hour_24": {
+          "threshold": 0.5003713564075647,
+          "total_count": 2323,
+          "retained_count": 2323,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "selective_risk": 0.007318123116659492,
+          "selective_brier_score": 0.007172945842823679,
+          "retained_auroc": 0.8325340543849804,
+          "retained_auprc": 0.050959409207952014,
+          "patients": 2323,
+          "positive_labels": 17,
+          "bootstrap_95_ci": {
+            "coverage": {
+              "lower_95": 1.0,
+              "upper_95": 1.0
+            },
+            "selective_risk": {
+              "lower_95": 0.0038743004735256135,
+              "upper_95": 0.011192423590185106
+            },
+            "selective_brier_score": {
+              "lower_95": 0.003969726305066535,
+              "upper_95": 0.010955325410196982
+            }
+          }
+        }
+      }
+    }
+  }
+}
