@@ -79,9 +79,20 @@ These questions are provisional; novelty has not yet been established.
 
 ## Project Status
 
-**Phase:** Research setup and dataset preparation.
+**Phase:** Validation-stage evidence-aware prediction and acquisition.
 
-Implementation and experimental results are pending.
+Completed validation milestones include G1 mask-aware headroom, independent
+calibration, selective prediction, robustness analysis, training-derived VOI
+acquisition, and acquisition-after-abstention analysis. The held-out test split
+has not been accessed for these development decisions.
+
+Five milestones remain before project completion:
+
+1. Freeze the validated prediction/acquisition protocol and primary metrics.
+2. Complete validation cost, budget, and delay sensitivity analysis.
+3. Lock the final research claims and reproducibility package.
+4. Run the single held-out test evaluation after explicit approval.
+5. Complete the manuscript-quality results, limitations, and final repository audit.
 
 ## Long-Term Direction
 
