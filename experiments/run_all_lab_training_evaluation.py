@@ -21,6 +21,7 @@ from src.uncertainty.platt import apply_platt, fit_platt
 
 TRAIN_PATH = Path("data/processed/train.parquet")
 VAL_PATH = Path("data/processed/val.parquet")
+TEST_PATH = Path("data/processed/test.parquet")
 COHORT_PATH = Path("outputs/g1_cohorts/predictor_fit.csv")
 CALIBRATION_PATH = Path("outputs/g1_cohorts/calibration.csv")
 OUTPUT_DIR = Path(os.environ.get("NEXT_PHASE_OUTPUT_DIR", "outputs/next_phase_all_labs"))
