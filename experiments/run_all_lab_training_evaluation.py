@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import joblib
@@ -21,7 +22,7 @@ TRAIN_PATH = Path("data/processed/train.parquet")
 VAL_PATH = Path("data/processed/val.parquet")
 COHORT_PATH = Path("outputs/g1_cohorts/predictor_fit.csv")
 CALIBRATION_PATH = Path("outputs/g1_cohorts/calibration.csv")
-OUTPUT_DIR = Path("outputs/next_phase_all_labs")
+OUTPUT_DIR = Path(os.environ.get("NEXT_PHASE_OUTPUT_DIR", "outputs/next_phase_all_labs"))
 EXCLUDE = {"patient_id", "hospital", "SepsisLabel"}
 ALL_LABS = tuple(LAB_FEATURES)
 
@@ -31,17 +32,16 @@ def mask_patient_consistently(frame: pd.DataFrame, features: list[str], seed: in
     rng = np.random.default_rng(seed)
     out = frame.copy()
     ids = frame["patient_id"].astype(str)
-    for patient in ids.unique():
-        rows = ids == patient
-        for lab in ALL_LABS:
-            if rng.random() >= 0.5:
-                continue
-            columns = [f"{lab}_last", f"{lab}_observed", f"{lab}_age"]
-            if not set(columns).issubset(features):
-                raise ValueError(f"Missing lab triplet columns for {lab}")
-            out.loc[rows, f"{lab}_last"] = np.nan
-            out.loc[rows, f"{lab}_observed"] = 0.0
-            out.loc[rows, f"{lab}_age"] = np.nan
+    patients = ids.unique()
+    for lab in ALL_LABS:
+        columns = [f"{lab}_last", f"{lab}_observed", f"{lab}_age"]
+        if not set(columns).issubset(features):
+            raise ValueError(f"Missing lab triplet columns for {lab}")
+        masked_patients = patients[rng.random(len(patients)) < 0.5]
+        rows = ids.isin(masked_patients)
+        out.loc[rows, f"{lab}_last"] = np.nan
+        out.loc[rows, f"{lab}_observed"] = 0.0
+        out.loc[rows, f"{lab}_age"] = np.nan
     return out
 
 
