@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import argparse
 from pathlib import Path
 
 import joblib
@@ -84,6 +85,13 @@ def evaluate_state(model, calibrator, frame: pd.DataFrame, threshold: float) -> 
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--include-held-out",
+        action="store_true",
+        help="Run the single locked held-out evaluation after validation selection.",
+    )
+    args = parser.parse_args()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     model, features = train_model()
     calibration = patient_subset(pd.read_parquet(TRAIN_PATH), CALIBRATION_PATH)
@@ -111,7 +119,7 @@ def main() -> None:
             "model": "mask-aware XGBoost",
             "calibration": "Platt sigmoid",
             "threshold_risk_target": 0.01,
-            "held_out_test_accessed": False,
+            "held_out_test_accessed": bool(args.include_held_out),
         },
         "threshold": threshold,
         "validation": {
@@ -119,6 +127,10 @@ def main() -> None:
             "evaluation": evaluate_state(model, calibrator, evaluation, threshold),
         },
     }
+    if args.include_held_out:
+        result["held_out_test"] = evaluate_state(
+            model, calibrator, pd.read_parquet(TEST_PATH), threshold
+        )
     joblib.dump(model, OUTPUT_DIR / "all_lab_mask_aware_xgboost.joblib")
     joblib.dump(calibrator, OUTPUT_DIR / "all_lab_sigmoid_calibrator.joblib")
     (OUTPUT_DIR / "all_lab_validation.json").write_text(json.dumps(result, indent=2) + "\n")
