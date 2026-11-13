@@ -4,7 +4,11 @@ import numpy as np
 import pandas as pd
 
 from experiments.evaluate_acquisition_significance import collect_patient_predictions
-from src.evaluation.paired_bootstrap import metric_values, paired_bootstrap
+from src.evaluation.paired_bootstrap import (
+    metric_values,
+    paired_bootstrap,
+    paired_cluster_bootstrap_rows,
+)
 
 
 def records(ids, labels, probabilities):
@@ -94,6 +98,29 @@ class TestPairedBootstrap(unittest.TestCase):
     def test_probabilities_are_validated(self):
         with self.assertRaises(ValueError):
             paired_bootstrap(self.no, records(self.ids, self.labels, [0.2, np.nan, 0.7, 0.9]))
+
+    def test_row_bootstrap_resamples_patient_clusters(self):
+        no = records(
+            ["p1", "p1", "p2", "p2", "p3", "p3"],
+            [0, 0, 0, 0, 1, 1],
+            [0.1, 0.2, 0.3, 0.4, 0.6, 0.7],
+        )
+        acquisition = records(
+            ["p1", "p1", "p2", "p2", "p3", "p3"],
+            [0, 0, 0, 0, 1, 1],
+            [0.2, 0.2, 0.2, 0.3, 0.8, 0.9],
+        )
+        result = paired_cluster_bootstrap_rows(no, acquisition, n_resamples=50)
+        self.assertEqual(result["row_count"], 6)
+        self.assertEqual(result["patient_count"], 3)
+        self.assertEqual(result["valid_bootstrap_replicates"]["brier_improvement"], 50)
+
+    def test_row_bootstrap_requires_row_alignment(self):
+        no = records(["p1", "p1"], [0, 1], [0.1, 0.8])
+        with self.assertRaises(ValueError):
+            paired_cluster_bootstrap_rows(
+                no, records(["p1", "p2"], [0, 1], [0.2, 0.7]), n_resamples=10
+            )
 
 
 if __name__ == "__main__":

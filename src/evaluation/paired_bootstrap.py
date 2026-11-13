@@ -130,3 +130,106 @@ def paired_bootstrap(
         "patient_count": len(patient_ids),
         "positive_label_count": int(labels.sum()),
     }
+
+
+def paired_cluster_bootstrap_rows(
+    no_acquisition: Sequence[Mapping[str, Any]],
+    acquisition: Sequence[Mapping[str, Any]],
+    *,
+    n_resamples: int = 1_000,
+    seed: int = 42,
+) -> dict[str, Any]:
+    """Compare aligned hourly rows while resampling patients as clusters.
+
+    Unlike :func:`paired_bootstrap`, this function permits multiple rows per
+    patient. Each replicate samples patient IDs with replacement and includes
+    every hourly row belonging to each sampled patient, preserving within-
+    patient dependence.
+    """
+    if n_resamples < 1:
+        raise ValueError("n_resamples must be positive")
+    if not no_acquisition or len(no_acquisition) != len(acquisition):
+        raise ValueError("Compared row records must be non-empty and aligned")
+    left_ids = [str(record["patient_id"]) for record in no_acquisition]
+    right_ids = [str(record["patient_id"]) for record in acquisition]
+    if left_ids != right_ids:
+        raise ValueError("Compared rows do not have identical patient IDs")
+    left_labels = np.asarray([record["label"] for record in no_acquisition], dtype=int)
+    right_labels = np.asarray([record["label"] for record in acquisition], dtype=int)
+    if not np.array_equal(left_labels, right_labels):
+        raise ValueError("Compared rows do not have identical labels")
+    _, no_probabilities, _ = _row_arrays(no_acquisition)
+    _, acquisition_probabilities, _ = _row_arrays(acquisition)
+    observed_no = metric_values(left_labels, no_probabilities)
+    observed_acquisition = metric_values(left_labels, acquisition_probabilities)
+    observed = _metric_differences(observed_no, observed_acquisition)
+
+    unique_patients, codes = np.unique(np.asarray(left_ids), return_inverse=True)
+    rng = np.random.default_rng(seed)
+    bootstrap_values: dict[str, list[float]] = {metric: [] for metric in METRICS}
+    for _ in range(n_resamples):
+        sampled = rng.integers(0, len(unique_patients), size=len(unique_patients))
+        weights = np.bincount(sampled, minlength=len(unique_patients))[codes]
+        row_indices = np.repeat(np.arange(len(left_ids)), weights)
+        labels = left_labels[row_indices]
+        no_metrics = metric_values(labels, no_probabilities[row_indices])
+        acquisition_metrics = metric_values(labels, acquisition_probabilities[row_indices])
+        differences = _metric_differences(no_metrics, acquisition_metrics)
+        for metric, value in differences.items():
+            if value is not None:
+                bootstrap_values[metric].append(value)
+
+    intervals = {
+        metric: (
+            None
+            if not values
+            else [float(np.percentile(values, 2.5)), float(np.percentile(values, 97.5))]
+        )
+        for metric, values in bootstrap_values.items()
+    }
+    return {
+        "observed": observed,
+        "confidence_intervals_95": intervals,
+        "valid_bootstrap_replicates": {
+            metric: len(values) for metric, values in bootstrap_values.items()
+        },
+        "n_resamples": n_resamples,
+        "seed": seed,
+        "row_count": len(left_ids),
+        "patient_count": len(unique_patients),
+        "positive_label_count": int(left_labels.sum()),
+    }
+
+
+def _row_arrays(
+    records: Sequence[Mapping[str, Any]],
+) -> tuple[np.ndarray, np.ndarray, list[str]]:
+    labels = np.asarray([record["label"] for record in records], dtype=int)
+    probabilities = np.asarray([record["probability"] for record in records], dtype=float)
+    patient_ids = [str(record["patient_id"]) for record in records]
+    if not np.isin(labels, (0, 1)).all():
+        raise ValueError("Labels must be binary")
+    if not np.isfinite(probabilities).all() or (
+        (probabilities < 0) | (probabilities > 1)
+    ).any():
+        raise ValueError("Probabilities must be finite and within [0, 1]")
+    return labels, probabilities, patient_ids
+
+
+def _metric_differences(
+    no_metrics: Mapping[str, float | None],
+    acquisition_metrics: Mapping[str, float | None],
+) -> dict[str, float | None]:
+    return {
+        "auroc": (
+            None
+            if no_metrics["auroc"] is None or acquisition_metrics["auroc"] is None
+            else acquisition_metrics["auroc"] - no_metrics["auroc"]
+        ),
+        "auprc": (
+            None
+            if no_metrics["auprc"] is None or acquisition_metrics["auprc"] is None
+            else acquisition_metrics["auprc"] - no_metrics["auprc"]
+        ),
+        "brier_improvement": no_metrics["brier"] - acquisition_metrics["brier"],
+    }

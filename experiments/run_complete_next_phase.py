@@ -24,6 +24,7 @@ from src.evaluation.abstention_acquisition import (
 )
 from src.evaluation.selective_prediction import confidence
 from src.evaluation.wait_recheck import wait_recheck_candidates
+from src.evaluation.paired_bootstrap import paired_cluster_bootstrap_rows
 from src.models.sequence_baselines import append_missingness_channels
 from src.narrative.structured_summary import render_decision_summary
 
@@ -36,6 +37,7 @@ THRESHOLD = 0.9743948720817948
 ALL_LABS = tuple(LAB_FEATURES)
 GROUPS = dict(CLINICAL_LAB_GROUPS)
 GROUP_ORDER = tuple(GROUPS)
+BOOTSTRAP_RESAMPLES = int(os.environ.get("NEXT_PHASE_BOOTSTRAP_RESAMPLES", "200"))
 
 
 def predict(model, calibrator, frame: pd.DataFrame) -> np.ndarray:
@@ -141,7 +143,23 @@ def run_group_policies(model, calibrator, frame):
         values, eligible = policy_probabilities(
             frame, base, groups, policy, baseline_abstained
         )
-        output[policy] = {"metrics": metrics(labels, values), "eligible_rows": eligible}
+        baseline_records = [
+            {"patient_id": patient, "label": int(label), "probability": float(probability)}
+            for patient, label, probability in zip(frame["patient_id"], labels, base)
+        ]
+        policy_records = [
+            {"patient_id": patient, "label": int(label), "probability": float(probability)}
+            for patient, label, probability in zip(frame["patient_id"], labels, values)
+        ]
+        output[policy] = {
+            "metrics": metrics(labels, values),
+            "eligible_rows": eligible,
+            "paired_cluster_bootstrap_vs_all_labs_hidden": paired_cluster_bootstrap_rows(
+                baseline_records,
+                policy_records,
+                n_resamples=BOOTSTRAP_RESAMPLES,
+            ),
+        }
     output["patient_specific"] = {
         "status": "not_evaluated",
         "reason": (
