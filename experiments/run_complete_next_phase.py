@@ -9,9 +9,7 @@ from pathlib import Path
 import joblib
 import numpy as np
 import pandas as pd
-import torch
 from sklearn.metrics import average_precision_score, roc_auc_score
-from torch import nn
 
 from src.data.build_temporal_features import LAB_FEATURES
 from src.data.clinical_lab_groups import CLINICAL_LAB_GROUPS
@@ -28,6 +26,7 @@ from src.evaluation.paired_bootstrap import paired_cluster_bootstrap_rows
 from src.evaluation.physionet_utility import score_frame
 from src.acquisition.patient_specific import PatientSpecificPolicy, choose_patient_specific
 from src.models.sequence_baselines import append_missingness_channels
+from src.models.batched_predict import batched_predict_proba
 from src.narrative.structured_summary import render_decision_summary
 
 
@@ -42,10 +41,14 @@ ALL_LABS = tuple(LAB_FEATURES)
 GROUPS = dict(CLINICAL_LAB_GROUPS)
 GROUP_ORDER = tuple(GROUPS)
 BOOTSTRAP_RESAMPLES = int(os.environ.get("NEXT_PHASE_BOOTSTRAP_RESAMPLES", CONFIG.get("bootstrap_resamples", 200)))
+PREDICTION_CHUNK_SIZE = int(os.environ.get("NEXT_PHASE_PREDICTION_CHUNK_SIZE", 8192))
+POLICY_FIT_MAX_ROWS = int(os.environ.get("NEXT_PHASE_POLICY_FIT_MAX_ROWS", 100000))
 
 
 def predict(model, calibrator, frame: pd.DataFrame) -> np.ndarray:
-    raw = model.predict_proba(frame[list(model.feature_names_in_)])[:, 1]
+    raw = batched_predict_proba(
+        model, frame, list(model.feature_names_in_), batch_size=PREDICTION_CHUNK_SIZE
+    )
     from src.uncertainty.platt import apply_platt
     if not isinstance(calibrator, dict):
         return apply_platt(calibrator, raw)
@@ -67,11 +70,18 @@ def predict(model, calibrator, frame: pd.DataFrame) -> np.ndarray:
 
 
 def group_probabilities(model, calibrator, frame: pd.DataFrame) -> tuple[np.ndarray, dict[str, np.ndarray]]:
-    base = predict(model, calibrator, apply_hidden_set(frame, ALL_LABS))
+    def masked_predict(hidden):
+        chunks = []
+        for start in range(0, len(frame), PREDICTION_CHUNK_SIZE):
+            chunk = frame.iloc[start:start + PREDICTION_CHUNK_SIZE]
+            chunks.append(predict(model, calibrator, apply_hidden_set(chunk, hidden)))
+        return np.concatenate(chunks) if chunks else np.empty(0, dtype=float)
+
+    base = masked_predict(ALL_LABS)
     outputs = {}
     for name, labs in GROUPS.items():
         hidden = [lab for lab in ALL_LABS if lab not in labs]
-        outputs[name] = predict(model, calibrator, apply_hidden_set(frame, hidden))
+        outputs[name] = masked_predict(hidden)
     return base, outputs
 
 
@@ -174,9 +184,17 @@ def run_group_policies(model, calibrator, frame, training_frame=None):
             "reason": "Training data is required to fit the pre-acquisition crossing model.",
         }
     else:
-        train_base, train_groups = group_probabilities(model, calibrator, training_frame)
+        if POLICY_FIT_MAX_ROWS <= 0:
+            raise ValueError("NEXT_PHASE_POLICY_FIT_MAX_ROWS must be positive")
+        policy_training = training_frame
+        if len(policy_training) > POLICY_FIT_MAX_ROWS:
+            # Deterministic row thinning keeps the selector fit bounded while
+            # retaining the original patient-disjoint training source.
+            step = int(np.ceil(len(policy_training) / POLICY_FIT_MAX_ROWS))
+            policy_training = policy_training.iloc[::step].copy()
+        train_base, train_groups = group_probabilities(model, calibrator, policy_training)
         policy = PatientSpecificPolicy.fit(
-            training_frame,
+            policy_training,
             train_base,
             train_groups,
             GROUPS,
@@ -204,6 +222,8 @@ def run_group_policies(model, calibrator, frame, training_frame=None):
         output["patient_specific"] = {
             "status": "evaluated",
             "selection_uses_pre_acquisition_features_only": True,
+            "policy_fit_rows": int(len(policy_training)),
+            "policy_fit_row_cap": int(POLICY_FIT_MAX_ROWS),
             "eligible_rows": int((selected >= 0).sum()),
             "metrics": metrics(labels, values),
             "physionet_utility": score_frame(frame, (values >= 0.5).astype(int)),
@@ -272,6 +292,7 @@ def run_horizons(model, calibrator, frame):
 
 def sequence_tensor(frame, features, max_patients=None):
     """Build one terminal eight-hour sequence per patient."""
+    import torch
     samples, labels = [], []
     for _, patient in frame.sort_values("ICULOS").groupby("patient_id", sort=False):
         values = patient[features].to_numpy(dtype=np.float32)
@@ -286,29 +307,30 @@ def sequence_tensor(frame, features, max_patients=None):
     return torch.tensor(np.asarray(samples)), torch.tensor(np.asarray(labels), dtype=torch.float32)
 
 
-class _GRU(nn.Module):
-    def __init__(self, features):
-        super().__init__()
-        self.rnn = nn.GRU(features, 32, batch_first=True)
-        self.head = nn.Linear(32, 1)
-
-    def forward(self, x):
-        _, hidden = self.rnn(x)
-        return self.head(hidden[-1]).squeeze(-1)
-
-
-class _TCN(nn.Module):
-    def __init__(self, features):
-        super().__init__()
-        self.conv = nn.Conv1d(features, 32, 3, padding=2)
-        self.head = nn.Linear(32, 1)
-
-    def forward(self, x):
-        y = self.conv(x.transpose(1, 2))[:, :, :-2]
-        return self.head(y[:, :, -1]).squeeze(-1)
-
-
 def run_sequence_models(model, train, test):
+    import torch
+    from torch import nn
+
+    class _GRU(nn.Module):
+        def __init__(self, features):
+            super().__init__()
+            self.rnn = nn.GRU(features, 32, batch_first=True)
+            self.head = nn.Linear(32, 1)
+
+        def forward(self, x):
+            _, hidden = self.rnn(x)
+            return self.head(hidden[-1]).squeeze(-1)
+
+    class _TCN(nn.Module):
+        def __init__(self, features):
+            super().__init__()
+            self.conv = nn.Conv1d(features, 32, 3, padding=2)
+            self.head = nn.Linear(32, 1)
+
+        def forward(self, x):
+            y = self.conv(x.transpose(1, 2))[:, :, :-2]
+            return self.head(y[:, :, -1]).squeeze(-1)
+
     features = list(model.feature_names_in_)
     train_x, train_y = sequence_tensor(train, features, max_patients=1000)
     test_x, test_y = sequence_tensor(test, features, max_patients=1000)
@@ -336,18 +358,40 @@ def run_sequence_models(model, train, test):
 
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--split", choices=("validation", "test"), default="test",
+        help="Evaluation split; validation is the safe default for development runs.",
+    )
+    parser.add_argument(
+        "--policies-only", action="store_true",
+        help="Run acquisition, wait, and horizon evaluations without sequence baselines.",
+    )
+    args = parser.parse_args()
     model = joblib.load(MODEL_PATH)
     calibrator = joblib.load(CALIBRATOR_PATH)
-    test = pd.read_parquet(ROOT / "data/processed/test.parquet")
+    # Native XGBoost prediction can be unstable when many masked states are
+    # scored repeatedly in one process. Single-threaded inference is slower
+    # but deterministic and avoids the observed native crash path.
+    if hasattr(model, "set_params"):
+        model.set_params(n_jobs=1)
+    evaluation_filename = "val.parquet" if args.split == "validation" else "test.parquet"
+    evaluation_path = ROOT / "data/processed" / evaluation_filename
+    evaluation = pd.read_parquet(evaluation_path)
     train = pd.read_parquet(ROOT / "data/processed/train.parquet")
     result = {
         "threshold": THRESHOLD,
-        "patients": int(test.patient_id.nunique()),
-        "rows": int(len(test)),
-        "group_policies": run_group_policies(model, calibrator, test, training_frame=train),
-        "wait_recheck": run_wait_recheck(model, calibrator, test),
-        "multi_horizon_descriptives": run_horizons(model, calibrator, test),
-        "sequence_models": run_sequence_models(model, train, test),
+        "evaluation_split": args.split,
+        "patients": int(evaluation.patient_id.nunique()),
+        "rows": int(len(evaluation)),
+        "group_policies": run_group_policies(model, calibrator, evaluation, training_frame=train),
+        "wait_recheck": run_wait_recheck(model, calibrator, evaluation),
+        "multi_horizon_descriptives": run_horizons(model, calibrator, evaluation),
+        "sequence_models": (
+            {"status": "skipped", "reason": "policies-only run"}
+            if args.policies_only else run_sequence_models(model, train, evaluation)
+        ),
         "narrative_example": render_decision_summary({
             "action": "abstain", "probability": 0.12, "confidence": 0.88,
             "detail": "Structured output only; no language-layer decision was made.",
