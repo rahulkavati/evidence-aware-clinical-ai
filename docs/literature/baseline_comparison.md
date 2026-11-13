@@ -67,11 +67,18 @@ These methods determine which additional measurements to acquire.
 | Random Acquisition         | Select an eligible measurement randomly             | Simple acquisition baseline         |
 | Fixed-Order Acquisition    | Acquire measurements in a predefined order          | Simple deterministic baseline       |
 | Information Gain           | Select a measurement expected to reduce uncertainty | Greedy acquisition baseline         |
-| SepsisLab RAS              | Uses propagated uncertainty to rank measurements    | Primary published-method adaptation |
-| Risk-Averse Active Sensing | Optimizes measurement selection and timing          | Optional advanced comparator        |
+| SepsisLab RAS              | Uses propagated uncertainty to rank measurements    | Not reproduced; protocol gap remains |
+| Risk-Averse Active Sensing | CVaR-style loss-and-cost selector over declared scenarios | Reproducible decision-core adaptation |
 
 
 SepsisLab RAS must not be claimed as reproduced unless its required uncertainty-propagation mechanism has been implemented faithfully.
+
+The risk-averse comparator currently implements the decision core only:
+`CVaR_alpha(loss scenarios) + cost_weight * acquisition cost`, with deterministic
+tie-breaking. It is an adaptation of the risk-sensitive active-sensing idea,
+not a reproduction of the paper's full temporal policy or neural architecture.
+Scenario construction, availability, and timing must be declared by each
+experiment and must use only information available at the decision checkpoint.
 
 ## 5. Planned Research Comparison
 

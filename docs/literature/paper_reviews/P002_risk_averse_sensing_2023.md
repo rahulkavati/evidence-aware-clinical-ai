@@ -59,13 +59,18 @@ It demonstrates that time-aware and cost-aware sensing have already been investi
 
 Our project must therefore identify a more specific contribution than simply adding measurement timing or cost.
 
-## Planned Use
+## Implemented comparison component
 
-We will study its formulation and official implementation to determine whether it can serve as an additional baseline.
+The repository now contains a small, tested CVaR-style selector in
+`src/acquisition/risk_averse.py`. It minimizes
+`CVaR_alpha(loss scenarios) + cost_weight * acquisition cost` and uses
+deterministic tie-breaking. This is a transparent decision-core adaptation
+that can be evaluated under our availability and delay protocol.
 
-A faithful implementation may require more work than our initial Logistic Regression, XGBoost, and simple acquisition policies.
-
-We will prioritize this comparator only if it is compatible with our experimental protocol and available development time.
+It is not a claim that the paper's complete temporal neural policy has been
+reproduced. The full paper implementation requires additional architecture,
+training, and timing assumptions that are not shared by the current G1/G2
+protocol.
 
 ## Published Results
 
