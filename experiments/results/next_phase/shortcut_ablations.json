@@ -1,0 +1,43 @@
+{
+  "protocol": "validation-only patient split; no held-out test data loaded",
+  "model": "XGBoost with fixed seed 42",
+  "n_estimators": 400,
+  "ablations": {
+    "none": {
+      "feature_count": 108,
+      "validation_patients": 6050,
+      "validation_rows": 234037,
+      "positive_rate": 0.017873242265111926,
+      "auroc": 0.8427237390020017,
+      "auprc": 0.10375602176782028,
+      "brier_score": 0.017852364107966423
+    },
+    "time": {
+      "feature_count": 106,
+      "validation_patients": 6050,
+      "validation_rows": 234037,
+      "positive_rate": 0.017873242265111926,
+      "auroc": 0.8216648354155591,
+      "auprc": 0.08657383404617738,
+      "brier_score": 0.018647991120815277
+    },
+    "unit": {
+      "feature_count": 106,
+      "validation_patients": 6050,
+      "validation_rows": 234037,
+      "positive_rate": 0.017873242265111926,
+      "auroc": 0.8415362199140969,
+      "auprc": 0.10513416135698189,
+      "brier_score": 0.017947325482964516
+    },
+    "time_and_unit": {
+      "feature_count": 104,
+      "validation_patients": 6050,
+      "validation_rows": 234037,
+      "positive_rate": 0.017873242265111926,
+      "auroc": 0.8171746830214071,
+      "auprc": 0.0852308179476466,
+      "brier_score": 0.018550517037510872
+    }
+  }
+}
