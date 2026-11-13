@@ -1,4 +1,6 @@
 import pytest
+import numpy as np
+import pandas as pd
 
 from src.acquisition.patient_specific import (
     choose_fixed_order,
@@ -6,6 +8,8 @@ from src.acquisition.patient_specific import (
     choose_random,
     rank_recommendations,
     recommendation_score,
+    choose_patient_specific,
+    selector_features,
 )
 
 
@@ -26,3 +30,23 @@ def test_fixed_random_and_oracle_policies():
     assert choose_fixed_order(["B", "A"], ["A", "B"]) == "A"
     assert choose_random(["A", "B"], seed=42) in {"A", "B"}
     assert choose_oracle({"A": 0.1, "B": 0.3}) == "B"
+
+
+def test_patient_specific_selection_is_abstention_and_eligibility_limited():
+    selected = choose_patient_specific(
+        np.array([[0.2, 0.9], [0.8, 0.1]]),
+        np.array([[True, True], [True, True]]),
+        np.array([True, False]),
+        ["A", "B"],
+    )
+    np.testing.assert_array_equal(selected, [1, -1])
+
+
+def test_selector_features_exclude_laboratory_values():
+    frame = pd.DataFrame({
+        "HR_last": [80], "Lactate_last": [4.0], "Lactate_observed": [1],
+        "Lactate_age": [0], "ICULOS": [3], "SepsisLabel": [0],
+    })
+    result = selector_features(frame, ["Lactate"], {"perfusion": ["Lactate"]})
+    assert "Lactate_last" not in result.columns
+    assert "available_perfusion" in result.columns

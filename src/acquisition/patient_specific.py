@@ -5,6 +5,8 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 
 import numpy as np
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
 
 
 def recommendation_score(
@@ -71,3 +73,102 @@ def choose_oracle(
     if not candidates:
         return None
     return max(candidates, key=lambda name: (candidates[name], name))
+
+
+def selector_features(
+    frame: pd.DataFrame,
+    all_labs: Sequence[str],
+    groups: Mapping[str, Sequence[str]],
+) -> pd.DataFrame:
+    """Build features available before acquiring any laboratory group."""
+    lab_columns = {
+        f"{lab}_{suffix}"
+        for lab in all_labs
+        for suffix in ("last", "observed", "age")
+    }
+    excluded = lab_columns | {"patient_id", "hospital", "SepsisLabel"}
+    columns = [column for column in frame.columns if column not in excluded]
+    result = frame[columns].copy()
+    for name, labs in groups.items():
+        observed_columns = [f"{lab}_observed" for lab in labs]
+        missing = set(observed_columns) - set(frame.columns)
+        if missing:
+            raise ValueError(f"Missing availability columns for {name}: {sorted(missing)}")
+        result[f"available_{name}"] = np.column_stack([
+            frame[column].fillna(0).to_numpy() == 1 for column in observed_columns
+        ]).any(axis=1).astype(float)
+    return result.apply(pd.to_numeric, errors="coerce").fillna(0.0)
+
+
+def choose_patient_specific(
+    scores: np.ndarray,
+    eligible: np.ndarray,
+    abstained: np.ndarray,
+    group_names: Sequence[str],
+) -> np.ndarray:
+    """Choose the highest predicted crossing-probability eligible group."""
+    scores = np.asarray(scores, dtype=float)
+    eligible = np.asarray(eligible, dtype=bool)
+    abstained = np.asarray(abstained, dtype=bool)
+    if scores.ndim != 2 or eligible.shape != scores.shape:
+        raise ValueError("Scores and eligibility must have shape (rows, groups)")
+    if len(abstained) != len(scores) or len(group_names) != scores.shape[1]:
+        raise ValueError("Patient-specific policy inputs are misaligned")
+    selected = np.full(len(scores), -1, dtype=int)
+    for row in range(len(scores)):
+        choices = np.flatnonzero(eligible[row] & abstained[row])
+        if len(choices):
+            selected[row] = choices[int(np.argmax(scores[row, choices]))]
+    return selected
+
+
+class PatientSpecificPolicy:
+    """Training-derived pre-acquisition group recommendation policy.
+
+    Training targets are generated from post-acquisition model behavior, but
+    inference uses only non-laboratory features and historical availability.
+    """
+
+    def __init__(self, group_names, models, priors, feature_columns):
+        self.group_names = tuple(group_names)
+        self.models = models
+        self.priors = np.asarray(priors, dtype=float)
+        self.feature_columns = list(feature_columns)
+
+    @classmethod
+    def fit(
+        cls,
+        frame: pd.DataFrame,
+        base_probabilities: np.ndarray,
+        group_probabilities: Mapping[str, np.ndarray],
+        groups: Mapping[str, Sequence[str]],
+        all_labs: Sequence[str],
+        decision_threshold: float = 0.5,
+    ) -> "PatientSpecificPolicy":
+        features = selector_features(frame, all_labs, groups)
+        base = np.asarray(base_probabilities, dtype=float)
+        if len(base) != len(frame):
+            raise ValueError("Base probabilities must align with frame")
+        models = []
+        priors = []
+        for name in groups:
+            candidate = np.asarray(group_probabilities[name], dtype=float)
+            if len(candidate) != len(base):
+                raise ValueError(f"Group probabilities do not align for {name}")
+            targets = ((candidate >= decision_threshold) != (base >= decision_threshold)).astype(int)
+            priors.append(float(targets.mean()))
+            if len(np.unique(targets)) < 2:
+                models.append(None)
+            else:
+                model = LogisticRegression(max_iter=1000, random_state=42)
+                model.fit(features, targets)
+                models.append(model)
+        return cls(tuple(groups), models, priors, list(features.columns))
+
+    def score(self, frame: pd.DataFrame, groups: Mapping[str, Sequence[str]], all_labs: Sequence[str]) -> np.ndarray:
+        features = selector_features(frame, all_labs, groups)
+        features = features.reindex(columns=self.feature_columns, fill_value=0.0)
+        scores = np.zeros((len(frame), len(self.group_names)), dtype=float)
+        for index, (model, prior) in enumerate(zip(self.models, self.priors)):
+            scores[:, index] = prior if model is None else model.predict_proba(features)[:, 1]
+        return scores

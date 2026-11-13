@@ -26,6 +26,7 @@ from src.evaluation.selective_prediction import confidence
 from src.evaluation.wait_recheck import wait_recheck_candidates
 from src.evaluation.paired_bootstrap import paired_cluster_bootstrap_rows
 from src.evaluation.physionet_utility import score_frame
+from src.acquisition.patient_specific import PatientSpecificPolicy, choose_patient_specific
 from src.models.sequence_baselines import append_missingness_channels
 from src.narrative.structured_summary import render_decision_summary
 
@@ -128,7 +129,7 @@ def metrics(labels, probabilities):
     return decision_metrics(labels, probabilities, retained)
 
 
-def run_group_policies(model, calibrator, frame):
+def run_group_policies(model, calibrator, frame, training_frame=None):
     labels = frame["SepsisLabel"].astype(int).to_numpy()
     base, groups = group_probabilities(model, calibrator, frame)
     baseline_retained = confidence(base) >= THRESHOLD
@@ -167,14 +168,49 @@ def run_group_policies(model, calibrator, frame):
                 n_resamples=BOOTSTRAP_RESAMPLES,
             ),
         }
-    output["patient_specific"] = {
-        "status": "not_evaluated",
-        "reason": (
-            "A valid pre-acquisition patient-specific policy requires predicted "
-            "test-result likelihoods; observed post-acquisition probabilities "
-            "are not used as a recommendation proxy."
-        ),
-    }
+    if training_frame is None:
+        output["patient_specific"] = {
+            "status": "not_evaluated",
+            "reason": "Training data is required to fit the pre-acquisition crossing model.",
+        }
+    else:
+        train_base, train_groups = group_probabilities(model, calibrator, training_frame)
+        policy = PatientSpecificPolicy.fit(
+            training_frame,
+            train_base,
+            train_groups,
+            GROUPS,
+            ALL_LABS,
+        )
+        scores = policy.score(frame, GROUPS, ALL_LABS)
+        selected = choose_patient_specific(
+            scores,
+            observed_groups(frame),
+            baseline_abstained,
+            GROUP_ORDER,
+        )
+        values = base.copy()
+        for index, name in enumerate(GROUP_ORDER):
+            mask = selected == index
+            values[mask] = groups[name][mask]
+        records = [
+            {"patient_id": patient, "label": int(label), "probability": float(probability)}
+            for patient, label, probability in zip(frame["patient_id"], labels, values)
+        ]
+        baseline_records = [
+            {"patient_id": patient, "label": int(label), "probability": float(probability)}
+            for patient, label, probability in zip(frame["patient_id"], labels, base)
+        ]
+        output["patient_specific"] = {
+            "status": "evaluated",
+            "selection_uses_pre_acquisition_features_only": True,
+            "eligible_rows": int((selected >= 0).sum()),
+            "metrics": metrics(labels, values),
+            "physionet_utility": score_frame(frame, (values >= 0.5).astype(int)),
+            "paired_cluster_bootstrap_vs_all_labs_hidden": paired_cluster_bootstrap_rows(
+                baseline_records, records, n_resamples=BOOTSTRAP_RESAMPLES
+            ),
+        }
     return output
 
 
@@ -308,7 +344,7 @@ def main():
         "threshold": THRESHOLD,
         "patients": int(test.patient_id.nunique()),
         "rows": int(len(test)),
-        "group_policies": run_group_policies(model, calibrator, test),
+        "group_policies": run_group_policies(model, calibrator, test, training_frame=train),
         "wait_recheck": run_wait_recheck(model, calibrator, test),
         "multi_horizon_descriptives": run_horizons(model, calibrator, test),
         "sequence_models": run_sequence_models(model, train, test),
