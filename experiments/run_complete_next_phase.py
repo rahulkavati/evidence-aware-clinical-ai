@@ -25,6 +25,7 @@ from src.evaluation.abstention_acquisition import (
 from src.evaluation.selective_prediction import confidence
 from src.evaluation.wait_recheck import wait_recheck_candidates
 from src.evaluation.paired_bootstrap import paired_cluster_bootstrap_rows
+from src.evaluation.physionet_utility import score_frame
 from src.models.sequence_baselines import append_missingness_channels
 from src.narrative.structured_summary import render_decision_summary
 
@@ -133,7 +134,10 @@ def run_group_policies(model, calibrator, frame):
     baseline_retained = confidence(base) >= THRESHOLD
     baseline_abstained = ~baseline_retained
     output = {
-        "all_labs_hidden": metrics(labels, base),
+        "all_labs_hidden": {
+            "metrics": metrics(labels, base),
+            "physionet_utility": score_frame(frame, (base >= 0.5).astype(int)),
+        },
         "baselines": evaluate_trivial_baselines(labels, base),
         "risk_coverage_curve": risk_coverage_curve(labels, base),
         "policy_scope": {
@@ -155,6 +159,7 @@ def run_group_policies(model, calibrator, frame):
         ]
         output[policy] = {
             "metrics": metrics(labels, values),
+            "physionet_utility": score_frame(frame, (values >= 0.5).astype(int)),
             "eligible_rows": eligible,
             "paired_cluster_bootstrap_vs_all_labs_hidden": paired_cluster_bootstrap_rows(
                 baseline_records,
