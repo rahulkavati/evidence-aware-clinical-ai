@@ -16,7 +16,7 @@ from torch import nn
 from src.data.build_temporal_features import LAB_FEATURES
 from src.data.clinical_lab_groups import CLINICAL_LAB_GROUPS
 from src.data.g1_masking import apply_hidden_set
-from src.data.multihorizon_labels import add_horizon_targets
+from src.data.multihorizon_labels import add_horizon_targets, future_onset_rows
 from src.evaluation.abstention_acquisition import (
     decision_metrics,
     evaluate_trivial_baselines,
@@ -191,15 +191,20 @@ def run_wait_recheck(model, calibrator, frame):
 
 
 def run_horizons(model, calibrator, frame):
-    data = add_horizon_targets(frame, (6, 12, 24))
+    data = future_onset_rows(add_horizon_targets(frame, (6, 12, 24)))
     state = apply_hidden_set(data, ALL_LABS)
     probabilities = predict(model, calibrator, state)
     result = {}
     for horizon in (6, 12, 24):
         labels = data[f"SepsisWithin{horizon}h"].to_numpy()
         result[str(horizon)] = {
+            "evaluation": "currently negative rows only",
+            "model_target": "current SepsisLabel; descriptive horizon association, not horizon-trained",
+            "rows": int(len(labels)),
             "positive_rate": float(labels.mean()),
             "auroc": float(__import__("sklearn.metrics", fromlist=["roc_auc_score"]).roc_auc_score(labels, probabilities)) if labels.min() != labels.max() else None,
+            "auprc": float(average_precision_score(labels, probabilities)) if labels.sum() else None,
+            "brier_score": float(np.mean((probabilities - labels) ** 2)),
         }
     return result
 

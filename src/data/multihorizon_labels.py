@@ -37,3 +37,20 @@ def add_horizon_targets(
                 values.loc[index] = int(labels[future].any())
         result[name] = values
     return result
+
+
+def future_onset_rows(frame: pd.DataFrame) -> pd.DataFrame:
+    """Return rows eligible for future-onset evaluation.
+
+    Rows already carrying ``SepsisLabel == 1`` cannot represent a future
+    onset prediction, so they are excluded from horizon analyses. The input
+    is copied and its ordering is preserved.
+    """
+    required = {"SepsisLabel"}
+    missing = required - set(frame.columns)
+    if missing:
+        raise ValueError(f"Missing required columns: {sorted(missing)}")
+    labels = frame["SepsisLabel"].astype(int)
+    if not labels.isin((0, 1)).all():
+        raise ValueError("SepsisLabel must contain only 0 and 1")
+    return frame.loc[labels == 0].copy()
