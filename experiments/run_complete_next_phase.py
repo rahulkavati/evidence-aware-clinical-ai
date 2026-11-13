@@ -40,7 +40,23 @@ GROUP_ORDER = tuple(GROUPS)
 def predict(model, calibrator, frame: pd.DataFrame) -> np.ndarray:
     raw = model.predict_proba(frame[list(model.feature_names_in_)])[:, 1]
     from src.uncertainty.platt import apply_platt
-    return apply_platt(calibrator, raw)
+    if not isinstance(calibrator, dict):
+        return apply_platt(calibrator, raw)
+    hidden_count = np.column_stack([
+        frame[f"{lab}_observed"].fillna(0).to_numpy() == 0 for lab in ALL_LABS
+    ]).sum(axis=1)
+    result = np.empty(len(frame), dtype=float)
+    for name, (low, high) in {
+        "all_visible": (0, 0),
+        "lightly_hidden": (1, 8),
+        "moderately_hidden": (9, 17),
+        "mostly_hidden": (18, 25),
+        "all_hidden": (26, 26),
+    }.items():
+        rows = (hidden_count >= low) & (hidden_count <= high)
+        if rows.any():
+            result[rows] = apply_platt(calibrator[name], raw[rows])
+    return result
 
 
 def group_probabilities(model, calibrator, frame: pd.DataFrame) -> tuple[np.ndarray, dict[str, np.ndarray]]:
