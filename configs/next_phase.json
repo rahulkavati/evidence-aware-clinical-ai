@@ -1,0 +1,8 @@
+{
+  "model_dir": "outputs/next_phase_all_labs",
+  "complete_output": "experiments/results/next_phase/complete_next_phase.json",
+  "threshold": 0.9669101582337782,
+  "bootstrap_resamples": 200,
+  "bootstrap_seed": 42,
+  "protocol": "validation-selected state-calibrated all-lab model; held-out evaluation is opt-in"
+}

@@ -19,12 +19,13 @@ from src.uncertainty.calibrate_models import expected_calibration_error, split_p
 from src.uncertainty.platt import apply_platt, fit_platt
 
 
-TRAIN_PATH = Path("data/processed/train.parquet")
-VAL_PATH = Path("data/processed/val.parquet")
-TEST_PATH = Path("data/processed/test.parquet")
-COHORT_PATH = Path("outputs/g1_cohorts/predictor_fit.csv")
-CALIBRATION_PATH = Path("outputs/g1_cohorts/calibration.csv")
-OUTPUT_DIR = Path(os.environ.get("NEXT_PHASE_OUTPUT_DIR", "outputs/next_phase_all_labs"))
+ROOT = Path(__file__).resolve().parents[1]
+TRAIN_PATH = ROOT / os.environ.get("NEXT_PHASE_TRAIN_PATH", "data/processed/train.parquet")
+VAL_PATH = ROOT / os.environ.get("NEXT_PHASE_VAL_PATH", "data/processed/val.parquet")
+TEST_PATH = ROOT / os.environ.get("NEXT_PHASE_TEST_PATH", "data/processed/test.parquet")
+COHORT_PATH = ROOT / os.environ.get("NEXT_PHASE_COHORT_PATH", "outputs/g1_cohorts/predictor_fit.csv")
+CALIBRATION_PATH = ROOT / os.environ.get("NEXT_PHASE_CALIBRATION_PATH", "outputs/g1_cohorts/calibration.csv")
+OUTPUT_DIR = ROOT / os.environ.get("NEXT_PHASE_OUTPUT_DIR", "outputs/next_phase_all_labs")
 EXCLUDE = {"patient_id", "hospital", "SepsisLabel"}
 ALL_LABS = tuple(LAB_FEATURES)
 STATE_BANDS = {

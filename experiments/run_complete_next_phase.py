@@ -30,14 +30,16 @@ from src.narrative.structured_summary import render_decision_summary
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MODEL_DIR = Path(os.environ.get("ALL_LAB_MODEL_DIR", "/private/tmp/evidence-aware-next-phase-all-labs"))
+CONFIG_PATH = Path(os.environ.get("NEXT_PHASE_CONFIG", ROOT / "configs/next_phase.json"))
+CONFIG = json.loads(CONFIG_PATH.read_text(encoding="utf-8")) if CONFIG_PATH.exists() else {}
+MODEL_DIR = Path(os.environ.get("ALL_LAB_MODEL_DIR", ROOT / CONFIG.get("model_dir", "outputs/next_phase_all_labs")))
 MODEL_PATH = MODEL_DIR / "all_lab_mask_aware_xgboost.joblib"
 CALIBRATOR_PATH = MODEL_DIR / "all_lab_sigmoid_calibrator.joblib"
-THRESHOLD = 0.9743948720817948
+THRESHOLD = float(os.environ.get("NEXT_PHASE_THRESHOLD", CONFIG.get("threshold", 0.9669101582337782)))
 ALL_LABS = tuple(LAB_FEATURES)
 GROUPS = dict(CLINICAL_LAB_GROUPS)
 GROUP_ORDER = tuple(GROUPS)
-BOOTSTRAP_RESAMPLES = int(os.environ.get("NEXT_PHASE_BOOTSTRAP_RESAMPLES", "200"))
+BOOTSTRAP_RESAMPLES = int(os.environ.get("NEXT_PHASE_BOOTSTRAP_RESAMPLES", CONFIG.get("bootstrap_resamples", 200)))
 
 
 def predict(model, calibrator, frame: pd.DataFrame) -> np.ndarray:
@@ -310,7 +312,10 @@ def main():
             "detail": "Structured output only; no language-layer decision was made.",
         }),
     }
-    output = Path(os.environ.get("NEXT_PHASE_COMPLETE_OUTPUT", "/private/tmp/evidence-aware-complete-next-phase.json"))
+    output = Path(os.environ.get(
+        "NEXT_PHASE_COMPLETE_OUTPUT",
+        ROOT / CONFIG.get("complete_output", "experiments/results/next_phase/complete_next_phase.json"),
+    ))
     output.write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))
 
