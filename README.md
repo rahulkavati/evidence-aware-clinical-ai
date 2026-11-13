@@ -86,9 +86,14 @@ calibration, selective prediction, robustness analysis, training-derived VOI
 acquisition, and acquisition-after-abstention analysis. The held-out test split
 has not been accessed for these development decisions.
 
-The frozen protocol, validation sensitivity analyses, reproducibility materials,
-and single locked held-out evaluation are complete. The results remain
-retrospective research findings and do not establish prospective clinical utility.
+The frozen protocol, validation sensitivity analyses, and reproducibility
+materials are complete. Earlier G1 work has a locked held-out report; the
+next-phase acquisition policies still require one separate locked held-out
+run after approval. The results remain retrospective research findings and do
+not establish prospective clinical utility.
+
+The latest validation-only next-phase policy results are recorded in
+[`experiments/results/next_phase/validation_policy_evaluation.md`](experiments/results/next_phase/validation_policy_evaluation.md).
 
 ## Long-Term Direction
 
