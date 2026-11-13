@@ -13,7 +13,7 @@ import pandas as pd
 from xgboost import XGBClassifier
 
 from src.data.build_temporal_features import LAB_FEATURES
-from src.data.g1_masking import apply_hidden_set
+from src.data.g1_masking import apply_hidden_matrix, apply_hidden_set, sample_hidden_matrix
 from src.evaluation.selective_prediction import evaluate_selective, select_threshold
 from src.uncertainty.calibrate_models import split_patient_ids
 from src.uncertainty.platt import apply_platt, fit_platt
@@ -30,21 +30,22 @@ ALL_LABS = tuple(LAB_FEATURES)
 
 
 def mask_patient_consistently(frame: pd.DataFrame, features: list[str], seed: int = 42) -> pd.DataFrame:
-    """Mask all-lab triplets using one random mask per patient."""
+    """Mask all-lab triplets with one uniform-size mask per patient."""
     rng = np.random.default_rng(seed)
-    out = frame.copy()
     ids = frame["patient_id"].astype(str)
-    patients = ids.unique()
-    for lab in ALL_LABS:
-        columns = [f"{lab}_last", f"{lab}_observed", f"{lab}_age"]
-        if not set(columns).issubset(features):
-            raise ValueError(f"Missing lab triplet columns for {lab}")
-        masked_patients = patients[rng.random(len(patients)) < 0.5]
-        rows = ids.isin(masked_patients)
-        out.loc[rows, f"{lab}_last"] = np.nan
-        out.loc[rows, f"{lab}_observed"] = 0.0
-        out.loc[rows, f"{lab}_age"] = np.nan
-    return out
+    required = {
+        f"{lab}_{suffix}"
+        for lab in ALL_LABS
+        for suffix in ("last", "observed", "age")
+    }
+    missing = required - set(features)
+    if missing:
+        raise ValueError(f"Missing lab feature columns: {sorted(missing)}")
+    patients = ids.drop_duplicates().to_numpy()
+    patient_masks = sample_hidden_matrix(len(patients), len(ALL_LABS), rng)
+    patient_index = {patient: index for index, patient in enumerate(patients)}
+    row_masks = np.vstack([patient_masks[patient_index[patient]] for patient in ids])
+    return apply_hidden_matrix(frame, ALL_LABS, row_masks)
 
 
 def patient_subset(frame: pd.DataFrame, manifest_path: Path) -> pd.DataFrame:
@@ -119,6 +120,7 @@ def main() -> None:
             "candidate_lab_count": len(ALL_LABS),
             "model": "mask-aware XGBoost",
             "calibration": "Platt sigmoid",
+            "training_masking": "patient-consistent uniform hidden-lab count (0..26)",
             "threshold_risk_target": 0.01,
             "held_out_test_accessed": bool(args.include_held_out),
         },
