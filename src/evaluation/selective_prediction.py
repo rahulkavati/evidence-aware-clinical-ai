@@ -65,11 +65,30 @@ def evaluate_selective(
         "selective_brier_score": None,
         "retained_auroc": None,
         "retained_auprc": None,
+        "positive_count": int((y == 1).sum()),
+        "retained_positive_count": int((mask & (y == 1)).sum()),
+        "abstained_positive_count": int(((~mask) & (y == 1)).sum()),
+        "abstained_positive_capture": (
+            float(((~mask) & (y == 1)).sum() / (y == 1).sum())
+            if (y == 1).sum() else None
+        ),
+        "retained_sensitivity": None,
+        "retained_specificity": None,
+        "retained_ppv": None,
+        "retained_npv": None,
     }
     if retained_count:
         predicted = retained_p >= 0.5
         result["selective_risk"] = float(np.mean(predicted != retained_y.astype(bool)))
         result["selective_brier_score"] = float(np.mean((retained_p - retained_y) ** 2))
+        tp = int((predicted & (retained_y == 1)).sum())
+        tn = int((~predicted & (retained_y == 0)).sum())
+        fp = int((predicted & (retained_y == 0)).sum())
+        fn = int((~predicted & (retained_y == 1)).sum())
+        result["retained_sensitivity"] = float(tp / (tp + fn)) if tp + fn else None
+        result["retained_specificity"] = float(tn / (tn + fp)) if tn + fp else None
+        result["retained_ppv"] = float(tp / (tp + fp)) if tp + fp else None
+        result["retained_npv"] = float(tn / (tn + fn)) if tn + fn else None
         if len(np.unique(retained_y)) == 2:
             result["retained_auroc"] = float(roc_auc_score(retained_y, retained_p))
             result["retained_auprc"] = float(average_precision_score(retained_y, retained_p))

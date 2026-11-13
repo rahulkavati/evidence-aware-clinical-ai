@@ -17,7 +17,11 @@ from src.data.build_temporal_features import LAB_FEATURES
 from src.data.clinical_lab_groups import CLINICAL_LAB_GROUPS
 from src.data.g1_masking import apply_hidden_set
 from src.data.multihorizon_labels import add_horizon_targets
-from src.evaluation.abstention_acquisition import decision_metrics
+from src.evaluation.abstention_acquisition import (
+    decision_metrics,
+    evaluate_trivial_baselines,
+    risk_coverage_curve,
+)
 from src.evaluation.selective_prediction import confidence
 from src.models.sequence_baselines import append_missingness_channels
 from src.narrative.structured_summary import render_decision_summary
@@ -57,10 +61,22 @@ def observed_groups(frame: pd.DataFrame) -> np.ndarray:
     return result
 
 
-def policy_probabilities(frame, base, groups, policy):
+def policy_probabilities(frame, base, groups, policy, abstained):
+    """Apply one acquisition policy only to baseline-abstained rows.
+
+    ``oracle_upper_bound`` is intentionally an evaluation ceiling: it may use
+    the observed label and post-acquisition probability, but is never a
+    deployable recommendation policy. A deployable patient-specific policy
+    requires a separate model of possible test results and their likelihoods;
+    the old implementation incorrectly used hidden results directly.
+    """
     eligible = observed_groups(frame)
     names = list(GROUP_ORDER)
     selected = np.full(len(frame), -1, dtype=int)
+    abstained = np.asarray(abstained, dtype=bool)
+    if len(abstained) != len(frame):
+        raise ValueError("abstained mask must align with frame")
+    eligible &= abstained[:, None]
     if policy == "fixed_order":
         for j in range(len(names)):
             selected[(selected < 0) & eligible[:, j]] = j
@@ -70,24 +86,14 @@ def policy_probabilities(frame, base, groups, policy):
             choices = np.flatnonzero(eligible[i])
             if len(choices):
                 selected[i] = rng.choice(choices)
-    elif policy in {"patient_specific", "oracle"}:
+    elif policy == "oracle_upper_bound":
         stacked = np.column_stack([groups[name] for name in names])
         for i in range(len(frame)):
             choices = np.flatnonzero(eligible[i])
             if len(choices):
-                if policy == "patient_specific":
-                    score = np.where(
-                        (stacked[i, choices] >= THRESHOLD) != (base[i] >= THRESHOLD),
-                        np.abs(stacked[i, choices] - base[i]),
-                        0.0,
-                    )
-                    if not np.any(score):
-                        score = np.abs(stacked[i, choices] - base[i])
-                    selected[i] = choices[int(np.argmax(score))]
-                else:
-                    label = int(frame.iloc[i]["SepsisLabel"])
-                    errors = ((stacked[i, choices] >= 0.5) != bool(label)).astype(int)
-                    selected[i] = choices[int(np.argmin(errors))]
+                label = int(frame.iloc[i]["SepsisLabel"])
+                errors = ((stacked[i, choices] >= 0.5) != bool(label)).astype(int)
+                selected[i] = choices[int(np.argmin(errors))]
     result = base.copy()
     for j, name in enumerate(names):
         mask = selected == j
@@ -103,10 +109,30 @@ def metrics(labels, probabilities):
 def run_group_policies(model, calibrator, frame):
     labels = frame["SepsisLabel"].astype(int).to_numpy()
     base, groups = group_probabilities(model, calibrator, frame)
-    output = {"all_labs_hidden": metrics(labels, base)}
-    for policy in ("fixed_order", "random", "patient_specific", "oracle"):
-        values, eligible = policy_probabilities(frame, base, groups, policy)
+    baseline_retained = confidence(base) >= THRESHOLD
+    baseline_abstained = ~baseline_retained
+    output = {
+        "all_labs_hidden": metrics(labels, base),
+        "baselines": evaluate_trivial_baselines(labels, base),
+        "risk_coverage_curve": risk_coverage_curve(labels, base),
+        "policy_scope": {
+            "baseline_abstained_rows": int(baseline_abstained.sum()),
+            "policy_rows_are_restricted_to_abstentions": True,
+        },
+    }
+    for policy in ("fixed_order", "random", "oracle_upper_bound"):
+        values, eligible = policy_probabilities(
+            frame, base, groups, policy, baseline_abstained
+        )
         output[policy] = {"metrics": metrics(labels, values), "eligible_rows": eligible}
+    output["patient_specific"] = {
+        "status": "not_evaluated",
+        "reason": (
+            "A valid pre-acquisition patient-specific policy requires predicted "
+            "test-result likelihoods; observed post-acquisition probabilities "
+            "are not used as a recommendation proxy."
+        ),
+    }
     return output
 
 
