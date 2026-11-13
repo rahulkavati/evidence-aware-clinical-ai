@@ -3,6 +3,43 @@
 from __future__ import annotations
 
 import pandas as pd
+import numpy as np
+
+
+def next_observation_pairs(frame: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
+    """Return positional current/next-row pairs within each patient.
+
+    The returned arrays are aligned and contain only rows with a strictly
+    future observation. Labels are not read or returned by this helper.
+    """
+    required = {"patient_id", "ICULOS"}
+    missing = required - set(frame.columns)
+    if missing:
+        raise ValueError(f"Missing required columns: {sorted(missing)}")
+    ordered = frame.reset_index(drop=False).rename(columns={"index": "_original_position"}).sort_values(
+        ["patient_id", "ICULOS"], kind="stable"
+    )
+    current: list[int] = []
+    future: list[int] = []
+    for _, patient in ordered.groupby("patient_id", sort=False):
+        positions = patient["_original_position"].to_numpy()
+        if len(positions) > 1:
+            current.extend(positions[:-1])
+            future.extend(positions[1:])
+    return np.asarray(current, dtype=int), np.asarray(future, dtype=int)
+
+
+def wait_recheck_candidates(
+    frame: pd.DataFrame,
+    abstained: np.ndarray,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Return next-row pairs only for rows selected to wait."""
+    abstained = np.asarray(abstained, dtype=bool)
+    if len(abstained) != len(frame):
+        raise ValueError("abstained mask must align with frame")
+    current, future = next_observation_pairs(frame)
+    selected = abstained[current]
+    return current[selected], future[selected]
 
 
 def next_observation(

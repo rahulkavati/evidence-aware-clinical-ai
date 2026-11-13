@@ -23,6 +23,7 @@ from src.evaluation.abstention_acquisition import (
     risk_coverage_curve,
 )
 from src.evaluation.selective_prediction import confidence
+from src.evaluation.wait_recheck import wait_recheck_candidates
 from src.models.sequence_baselines import append_missingness_channels
 from src.narrative.structured_summary import render_decision_summary
 
@@ -153,15 +154,40 @@ def run_group_policies(model, calibrator, frame):
 
 
 def run_wait_recheck(model, calibrator, frame):
-    ordered = frame.sort_values(["patient_id", "ICULOS"]).copy()
-    next_frame = ordered.groupby("patient_id", sort=False).shift(-1)
-    valid = next_frame["ICULOS"].notna().to_numpy()
-    current = ordered.loc[valid].copy()
-    future = next_frame.loc[valid].copy()
-    future["patient_id"] = current["patient_id"].to_numpy()
+    base = predict(model, calibrator, apply_hidden_set(frame, ALL_LABS))
+    baseline_abstained = confidence(base) < THRESHOLD
+    current_index, future_index = wait_recheck_candidates(frame, baseline_abstained)
+    if len(current_index) == 0:
+        return {
+            "baseline_abstained_rows": int(baseline_abstained.sum()),
+            "waited_rows": 0,
+            "rows_with_future_observation": 0,
+            "no_future_observation_rows": int(baseline_abstained.sum()),
+            "delay_hours": None,
+            "next_observation_metrics": None,
+        }
+    current = frame.iloc[current_index]
+    future = frame.iloc[future_index]
     labels = future["SepsisLabel"].astype(int).to_numpy()
-    probabilities = predict(model, calibrator, future)
-    return {"rows": int(valid.sum()), "next_observation_metrics": metrics(labels, probabilities)}
+    probabilities = predict(model, calibrator, apply_hidden_set(future, ALL_LABS))
+    retained_after_wait = confidence(probabilities) >= THRESHOLD
+    delays = future["ICULOS"].to_numpy() - current["ICULOS"].to_numpy()
+    return {
+        "baseline_abstained_rows": int(baseline_abstained.sum()),
+        "waited_rows": int(len(current_index)),
+        "rows_with_future_observation": int(len(current_index)),
+        "no_future_observation_rows": int(baseline_abstained.sum() - len(current_index)),
+        "delay_hours": {
+            "mean": float(np.mean(delays)),
+            "median": float(np.median(delays)),
+            "p95": float(np.percentile(delays, 95)),
+        },
+        "unresolved_after_wait": int((~retained_after_wait).sum()),
+        "unresolved_after_wait_rate": float((~retained_after_wait).mean()),
+        "next_observation_metrics": decision_metrics(
+            labels, probabilities, retained_after_wait
+        ),
+    }
 
 
 def run_horizons(model, calibrator, frame):
