@@ -77,8 +77,14 @@ def train_model() -> tuple[object, list[str]]:
     data = patient_subset(pd.read_parquet(TRAIN_PATH), COHORT_PATH)
     features = [column for column in data.columns if column not in EXCLUDE]
     masked = mask_patient_consistently(data, features)
-    X = pd.concat([data[features], masked[features]], ignore_index=True)
     y = np.tile(data["SepsisLabel"].astype(int).to_numpy(), 2)
+    # XGBoost bins features as float32 internally, so casting here does not
+    # change the fitted model; it halves peak memory on small machines.
+    X = pd.concat(
+        [data[features].astype("float32"), masked[features].astype("float32")],
+        ignore_index=True,
+    )
+    del data, masked
     model = XGBClassifier(
         n_estimators=400, max_depth=5, learning_rate=0.05,
         subsample=0.8, colsample_bytree=0.8, objective="binary:logistic",
@@ -156,11 +162,33 @@ def main() -> None:
         action="store_true",
         help="Run the single locked held-out evaluation after validation selection.",
     )
+    parser.add_argument(
+        "--stage",
+        choices=("all", "train", "calibrate"),
+        default="all",
+        help=(
+            "'train' fits and saves the XGBoost model only; 'calibrate' loads the "
+            "saved model and fits calibrators plus the validation threshold. "
+            "'all' (default) runs both in one process."
+        ),
+    )
     args = parser.parse_args()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    model, features = train_model()
+    model_path = OUTPUT_DIR / "all_lab_mask_aware_xgboost.joblib"
+    if args.stage in ("all", "train"):
+        model, features = train_model()
+        joblib.dump(model, model_path)
+        if args.stage == "train":
+            print(f"Saved model to {model_path}")
+            return
+    else:
+        if not model_path.exists():
+            raise FileNotFoundError(f"Run --stage train first; missing {model_path}")
+        model = joblib.load(model_path)
+        features = list(model.feature_names_in_)
     calibration = patient_subset(pd.read_parquet(TRAIN_PATH), CALIBRATION_PATH)
     calibrator = fit_state_calibrators(model, calibration, features)
+    del calibration
 
     validation = pd.read_parquet(VAL_PATH)
     selection_ids, evaluation_ids = split_patient_ids(
@@ -196,7 +224,6 @@ def main() -> None:
         result["held_out_test"] = evaluate_state(
             model, calibrator, pd.read_parquet(TEST_PATH), threshold
         )
-    joblib.dump(model, OUTPUT_DIR / "all_lab_mask_aware_xgboost.joblib")
     joblib.dump(calibrator, OUTPUT_DIR / "all_lab_sigmoid_calibrator.joblib")
     (OUTPUT_DIR / "all_lab_validation.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))
