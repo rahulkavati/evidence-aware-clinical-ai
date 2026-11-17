@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 DATA_DIR = Path("src/data/raw/physionet2019")
 OUTPUT_DIR = Path("outputs/splits")
 RANDOM_STATE = 42
+EXPECTED_PATIENTS = 40_336  # PhysioNet 2019 training sets A (20,336) + B (20,000)
 
 
 def collect_patients():
@@ -41,10 +42,28 @@ def collect_patients():
     return pd.DataFrame(records)
 
 
-def main():
+def main(argv=None):
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Create patient-level splits.")
+    parser.add_argument(
+        "--overwrite", action="store_true",
+        help="Replace existing split manifests (they define every reported result).",
+    )
+    args = parser.parse_args(argv)
+    if (OUTPUT_DIR / "train.csv").exists() and not args.overwrite:
+        raise SystemExit(
+            "outputs/splits already exists and defines all reported results; "
+            "pass --overwrite only if you intend to recreate it."
+        )
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     patients = collect_patients()
+    if len(patients) != EXPECTED_PATIENTS:
+        raise SystemExit(
+            f"Found {len(patients)} raw patient files, expected {EXPECTED_PATIENTS}. "
+            "Download the complete dataset (scripts/download_physionet2019.sh) first."
+        )
 
     patients["stratum"] = (
         patients["hospital"]
