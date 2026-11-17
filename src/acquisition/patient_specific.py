@@ -7,6 +7,8 @@ from collections.abc import Mapping, Sequence
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 
 
 def recommendation_score(
@@ -160,7 +162,10 @@ class PatientSpecificPolicy:
             if len(np.unique(targets)) < 2:
                 models.append(None)
             else:
-                model = LogisticRegression(max_iter=1000, random_state=42)
+                # Features mix hours, ages and indicators; scaling lets lbfgs converge.
+                model = make_pipeline(
+                    StandardScaler(), LogisticRegression(max_iter=1000, random_state=42)
+                )
                 model.fit(features, targets)
                 models.append(model)
         return cls(tuple(groups), models, priors, list(features.columns))

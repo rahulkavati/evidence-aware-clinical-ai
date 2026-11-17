@@ -94,7 +94,7 @@ def observed_groups(frame: pd.DataFrame) -> np.ndarray:
     return result
 
 
-def policy_probabilities(frame, base, groups, policy, abstained):
+def policy_probabilities(frame, base, groups, policy, abstained, threshold=None):
     """Apply one acquisition policy only to baseline-abstained rows.
 
     ``oracle_upper_bound`` is intentionally an evaluation ceiling: it may use
@@ -102,7 +102,14 @@ def policy_probabilities(frame, base, groups, policy, abstained):
     deployable recommendation policy. A deployable patient-specific policy
     requires a separate model of possible test results and their likelihoods;
     the old implementation incorrectly used hidden results directly.
+
+    The oracle prefers the eligible group whose post-acquisition prediction is
+    both confident enough to be retained at ``threshold`` and correct, breaking
+    ties by the smallest absolute probability error. (An earlier version
+    compared errors at p >= 0.5 only; almost every candidate tied, so the
+    oracle silently reduced to the fixed order.)
     """
+    threshold = THRESHOLD if threshold is None else float(threshold)
     eligible = observed_groups(frame)
     names = list(GROUP_ORDER)
     selected = np.full(len(frame), -1, dtype=int)
@@ -121,12 +128,17 @@ def policy_probabilities(frame, base, groups, policy, abstained):
                 selected[i] = rng.choice(choices)
     elif policy == "oracle_upper_bound":
         stacked = np.column_stack([groups[name] for name in names])
-        for i in range(len(frame)):
-            choices = np.flatnonzero(eligible[i])
-            if len(choices):
-                label = int(frame.iloc[i]["SepsisLabel"])
-                errors = ((stacked[i, choices] >= 0.5) != bool(label)).astype(int)
-                selected[i] = choices[int(np.argmin(errors))]
+        labels = frame["SepsisLabel"].astype(int).to_numpy()[:, None]
+        retained_correct = (np.maximum(stacked, 1.0 - stacked) >= threshold) & (
+            (stacked >= 0.5) == labels.astype(bool)
+        )
+        score = retained_correct.astype(float) * 2.0 - np.abs(stacked - labels)
+        score = np.where(eligible, score, -np.inf)
+        best = np.argmax(score, axis=1)
+        has_choice = eligible.any(axis=1)
+        selected[has_choice] = best[has_choice]
+    else:
+        raise ValueError(f"Unknown policy: {policy}")
     result = base.copy()
     for j, name in enumerate(names):
         mask = selected == j
