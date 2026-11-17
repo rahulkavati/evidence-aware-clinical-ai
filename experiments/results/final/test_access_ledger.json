@@ -1,0 +1,51 @@
+{
+  "description": "Every known access to held-out test labels. Entries 1-4 are reconstructed from committed reports and git history; later entries are appended automatically by experiments/run_final_evaluation.py.",
+  "accesses": [
+    {
+      "index": 1,
+      "timestamp": "2026-11-11T17:43:21+00:00",
+      "source": "experiments/run_locked_evaluation.py",
+      "git_commit": "4d2d100",
+      "abstention_threshold": 0.9626458569402422,
+      "purpose": "G1 six-lab model, fixed-order one-step acquisition (experiments/results/final/locked_test_evaluation.md)."
+    },
+    {
+      "index": 2,
+      "timestamp": "2026-11-12T19:05:15+00:00",
+      "source": "experiments/run_all_lab_training_evaluation.py --include-held-out",
+      "git_commit": "57f314e",
+      "abstention_threshold": 0.9743948721,
+      "purpose": "All-26-lab model, hidden versus visible states (experiments/results/next_phase/all_lab_held_out_evaluation.md)."
+    },
+    {
+      "index": 3,
+      "timestamp": "2026-11-12T19:26:25+00:00",
+      "source": "experiments/run_complete_next_phase.py --split test",
+      "git_commit": "69be0f0",
+      "abstention_threshold": 0.9743948721,
+      "purpose": "Group policies, wait/re-check and horizons (experiments/results/next_phase/complete_next_phase_report.md)."
+    },
+    {
+      "index": 4,
+      "timestamp": "2026-11-13T21:05:00+00:00",
+      "source": "experiments/run_complete_next_phase.py --split test --policies-only",
+      "git_commit": "39835f9",
+      "abstention_threshold": 0.9669101582337782,
+      "purpose": "Re-run after model stabilization (experiments/results/next_phase/heldout_policy_evaluation.md)."
+    },
+    {
+      "index": 5,
+      "timestamp": "2026-11-17T15:08:12+00:00",
+      "source": "experiments/run_final_evaluation.py",
+      "git_commit": "39835f95f103a472871331d4fb8f1c82e35af97c",
+      "working_tree_clean": false,
+      "protocol_sha256": "5ef0194ce3581fff975bd0f15e4f1b68286af9982a82d2b9fa86036c53545fe3",
+      "abstention_threshold": 0.9678114602035706,
+      "alert_thresholds": {
+        "as_recorded": 0.02539279556205635,
+        "labs_hidden_and_policies": 0.02170039264097658
+      },
+      "purpose": "Single final evaluation under the frozen final protocol."
+    }
+  ]
+}

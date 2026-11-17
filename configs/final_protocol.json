@@ -1,0 +1,444 @@
+{
+  "frozen_at": "2026-11-17T15:05:59+00:00",
+  "git_commit_at_freeze": "39835f95f103a472871331d4fb8f1c82e35af97c",
+  "model": "All-26-lab mask-aware XGBoost with state-specific Platt calibration",
+  "artifact_sha256": {
+    "model": "2cbf2d6698280e669e8d57d3ab7d3a99462d0483b3b5250e053bb999a9706ac9",
+    "calibrator": "c2366044136f291951f732cbb7d32ee431e4b5a2203e7e2c91259c7c7c31f818",
+    "selector": "c3be8865fac32ac4741c4a5d88511a2ae677e623374aebf060722009baabc6e2",
+    "train_parquet": "8d2f524ae581cdb827f65cbe0bcb5ab43a2feadfecbfc85b731da24c4a7b04cc",
+    "validation_parquet": "21c7aa46caf6f32292c3cb03f5251f2ead2656a79a903c268a5579ecb6a13862"
+  },
+  "abstention_threshold": 0.9678114602035706,
+  "abstention_rule": "retain a prediction when max(p, 1-p) >= threshold; otherwise escalate",
+  "abstention_threshold_source": "validation selection half, selective risk <= 1%",
+  "alert_thresholds": {
+    "as_recorded": 0.02539279556205635,
+    "labs_hidden_and_policies": 0.02170039264097658
+  },
+  "alert_threshold_source": "validation selection half, maximum normalized PhysioNet utility",
+  "alert_threshold_curves": {
+    "as_recorded": [
+      {
+        "threshold": 0.008275043642086033,
+        "normalized_utility": 0.14071138786678053,
+        "alert_rate": 0.5000042709854872
+      },
+      {
+        "threshold": 0.008574422379393052,
+        "normalized_utility": 0.15813756014718516,
+        "alert_rate": 0.4855854239807293
+      },
+      {
+        "threshold": 0.008876094092671857,
+        "normalized_utility": 0.1781127150360101,
+        "alert_rate": 0.4711751189469458
+      },
+      {
+        "threshold": 0.009188511835675768,
+        "normalized_utility": 0.19510331163317368,
+        "alert_rate": 0.4567648139131623
+      },
+      {
+        "threshold": 0.009535773334931637,
+        "normalized_utility": 0.21046325125011958,
+        "alert_rate": 0.4423545088793788
+      },
+      {
+        "threshold": 0.009891312575079369,
+        "normalized_utility": 0.22907821492593755,
+        "alert_rate": 0.42794420384559534
+      },
+      {
+        "threshold": 0.01026364677857352,
+        "normalized_utility": 0.2460625216215376,
+        "alert_rate": 0.41353389881181185
+      },
+      {
+        "threshold": 0.010648118965501873,
+        "normalized_utility": 0.2638409283894712,
+        "alert_rate": 0.399115051807054
+      },
+      {
+        "threshold": 0.01105179541642759,
+        "normalized_utility": 0.2759474164229333,
+        "alert_rate": 0.3847047467732705
+      },
+      {
+        "threshold": 0.011443982521222628,
+        "normalized_utility": 0.2928782589552486,
+        "alert_rate": 0.37029444173948695
+      },
+      {
+        "threshold": 0.011881207654603616,
+        "normalized_utility": 0.3064723087083699,
+        "alert_rate": 0.35589267867667784
+      },
+      {
+        "threshold": 0.012341276647505934,
+        "normalized_utility": 0.3225021228417784,
+        "alert_rate": 0.34147383167191997
+      },
+      {
+        "threshold": 0.012821326785498011,
+        "normalized_utility": 0.33916249960688233,
+        "alert_rate": 0.3270635266381365
+      },
+      {
+        "threshold": 0.013350717737486124,
+        "normalized_utility": 0.3583734314557983,
+        "alert_rate": 0.3126446796333786
+      },
+      {
+        "threshold": 0.013902841764916839,
+        "normalized_utility": 0.37078183476428667,
+        "alert_rate": 0.2982343745995951
+      },
+      {
+        "threshold": 0.014482111731371093,
+        "normalized_utility": 0.38237097839418843,
+        "alert_rate": 0.28382406956581163
+      },
+      {
+        "threshold": 0.015104900896641028,
+        "normalized_utility": 0.3926015032864739,
+        "alert_rate": 0.26941376453202814
+      },
+      {
+        "threshold": 0.015773617366088257,
+        "normalized_utility": 0.3999009340503823,
+        "alert_rate": 0.2550034594982446
+      },
+      {
+        "threshold": 0.016519121934407126,
+        "normalized_utility": 0.40737176463188357,
+        "alert_rate": 0.24059315446446114
+      },
+      {
+        "threshold": 0.017343837864667293,
+        "normalized_utility": 0.4140327703871433,
+        "alert_rate": 0.22618284943067762
+      },
+      {
+        "threshold": 0.018308814390811615,
+        "normalized_utility": 0.42301632229455555,
+        "alert_rate": 0.21176400242591975
+      },
+      {
+        "threshold": 0.019380103346175282,
+        "normalized_utility": 0.42105701795766814,
+        "alert_rate": 0.19735369739213626
+      },
+      {
+        "threshold": 0.020529925551500395,
+        "normalized_utility": 0.4299902506525766,
+        "alert_rate": 0.18294339235835277
+      },
+      {
+        "threshold": 0.02185846369363715,
+        "normalized_utility": 0.43825675378180273,
+        "alert_rate": 0.16853308732456926
+      },
+      {
+        "threshold": 0.023481678607301024,
+        "normalized_utility": 0.4397207283706004,
+        "alert_rate": 0.15412278229078577
+      },
+      {
+        "threshold": 0.02539279556205635,
+        "normalized_utility": 0.4403151240683079,
+        "alert_rate": 0.13971247725700228
+      },
+      {
+        "threshold": 0.027668552458432007,
+        "normalized_utility": 0.43960436519168417,
+        "alert_rate": 0.1252936302522444
+      },
+      {
+        "threshold": 0.030508045893855574,
+        "normalized_utility": 0.431510834355442,
+        "alert_rate": 0.11088332521846091
+      },
+      {
+        "threshold": 0.03387237513157358,
+        "normalized_utility": 0.42236060005660875,
+        "alert_rate": 0.09647302018467742
+      },
+      {
+        "threshold": 0.038297356512162546,
+        "normalized_utility": 0.4108076233606942,
+        "alert_rate": 0.08206271515089392
+      },
+      {
+        "threshold": 0.0435721477609638,
+        "normalized_utility": 0.3826964808000755,
+        "alert_rate": 0.06765241011711043
+      },
+      {
+        "threshold": 0.05135717450706733,
+        "normalized_utility": 0.34504041261754276,
+        "alert_rate": 0.05324210508332693
+      },
+      {
+        "threshold": 0.06354832589921475,
+        "normalized_utility": 0.2889156209705321,
+        "alert_rate": 0.038823258078569046
+      },
+      {
+        "threshold": 0.08380309538999538,
+        "normalized_utility": 0.20924301034688841,
+        "alert_rate": 0.024412953044785555
+      },
+      {
+        "threshold": 0.14095395340679384,
+        "normalized_utility": 0.11383149353712632,
+        "alert_rate": 0.010002648011002058
+      },
+      {
+        "threshold": 0.17089533488402886,
+        "normalized_utility": 0.08823159417555142,
+        "alert_rate": 0.007004416198993756
+      },
+      {
+        "threshold": 0.20388306208209922,
+        "normalized_utility": 0.06990596597163265,
+        "alert_rate": 0.005005594990988221
+      },
+      {
+        "threshold": 0.26451570213195225,
+        "normalized_utility": 0.03538855866905666,
+        "alert_rate": 0.0030067737829826855
+      },
+      {
+        "threshold": 0.3209930978829465,
+        "normalized_utility": 0.020539673554108802,
+        "alert_rate": 0.002007363178979918
+      },
+      {
+        "threshold": 0.4538010036562818,
+        "normalized_utility": 0.005528823473912497,
+        "alert_rate": 0.0010079525749771502
+      }
+    ],
+    "labs_hidden_and_policies": [
+      {
+        "threshold": 0.009667515352356923,
+        "normalized_utility": 0.09387206340220941,
+        "alert_rate": 0.5000042709854872
+      },
+      {
+        "threshold": 0.009896711873885336,
+        "normalized_utility": 0.1113768594521522,
+        "alert_rate": 0.4855854239807293
+      },
+      {
+        "threshold": 0.010133377902489844,
+        "normalized_utility": 0.12831713683681117,
+        "alert_rate": 0.4711836609179202
+      },
+      {
+        "threshold": 0.010374512988245108,
+        "normalized_utility": 0.1444900462307786,
+        "alert_rate": 0.4567648139131623
+      },
+      {
+        "threshold": 0.010614318339413403,
+        "normalized_utility": 0.16262225996163396,
+        "alert_rate": 0.4423545088793788
+      },
+      {
+        "threshold": 0.01087682831843045,
+        "normalized_utility": 0.18047300059754204,
+        "alert_rate": 0.42794420384559534
+      },
+      {
+        "threshold": 0.011147359371298734,
+        "normalized_utility": 0.19808944240022788,
+        "alert_rate": 0.41353389881181185
+      },
+      {
+        "threshold": 0.011427698105210405,
+        "normalized_utility": 0.2137906091769671,
+        "alert_rate": 0.399115051807054
+      },
+      {
+        "threshold": 0.01170788338785481,
+        "normalized_utility": 0.22790357580903944,
+        "alert_rate": 0.3847132887442449
+      },
+      {
+        "threshold": 0.012003852023377544,
+        "normalized_utility": 0.23903670157562065,
+        "alert_rate": 0.37029444173948695
+      },
+      {
+        "threshold": 0.012325994403263008,
+        "normalized_utility": 0.2577161367424607,
+        "alert_rate": 0.35588413670570346
+      },
+      {
+        "threshold": 0.012662925880082708,
+        "normalized_utility": 0.2713227662987084,
+        "alert_rate": 0.34147383167191997
+      },
+      {
+        "threshold": 0.013033041220906889,
+        "normalized_utility": 0.284652640186182,
+        "alert_rate": 0.3270635266381365
+      },
+      {
+        "threshold": 0.013432423177782805,
+        "normalized_utility": 0.2990093405038217,
+        "alert_rate": 0.3126446796333786
+      },
+      {
+        "threshold": 0.013834633255603098,
+        "normalized_utility": 0.30760291851432636,
+        "alert_rate": 0.2982343745995951
+      },
+      {
+        "threshold": 0.014259486089609122,
+        "normalized_utility": 0.32346605025631464,
+        "alert_rate": 0.28382406956581163
+      },
+      {
+        "threshold": 0.014752551529879645,
+        "normalized_utility": 0.33754442242979005,
+        "alert_rate": 0.26941376453202814
+      },
+      {
+        "threshold": 0.015270116228042691,
+        "normalized_utility": 0.340360725854641,
+        "alert_rate": 0.2550034594982446
+      },
+      {
+        "threshold": 0.0158715290874494,
+        "normalized_utility": 0.35071704877818755,
+        "alert_rate": 0.24059315446446114
+      },
+      {
+        "threshold": 0.01655135449723564,
+        "normalized_utility": 0.3552866622637361,
+        "alert_rate": 0.22618284943067762
+      },
+      {
+        "threshold": 0.01728546728411526,
+        "normalized_utility": 0.3625357738151403,
+        "alert_rate": 0.21176400242591975
+      },
+      {
+        "threshold": 0.018149399740604123,
+        "normalized_utility": 0.36841054187502,
+        "alert_rate": 0.19735369739213626
+      },
+      {
+        "threshold": 0.019139753716389176,
+        "normalized_utility": 0.3789508444192853,
+        "alert_rate": 0.18294339235835277
+      },
+      {
+        "threshold": 0.020305399669773686,
+        "normalized_utility": 0.3860191213007519,
+        "alert_rate": 0.16853308732456926
+      },
+      {
+        "threshold": 0.02170039264097658,
+        "normalized_utility": 0.3921910872094856,
+        "alert_rate": 0.15412278229078577
+      },
+      {
+        "threshold": 0.023478340230993808,
+        "normalized_utility": 0.3917995408371862,
+        "alert_rate": 0.13971247725700228
+      },
+      {
+        "threshold": 0.025540360046035,
+        "normalized_utility": 0.3872252099254651,
+        "alert_rate": 0.1252936302522444
+      },
+      {
+        "threshold": 0.0282276402805741,
+        "normalized_utility": 0.38013177343774596,
+        "alert_rate": 0.11088332521846091
+      },
+      {
+        "threshold": 0.031643722009929855,
+        "normalized_utility": 0.36836022266251567,
+        "alert_rate": 0.09647302018467742
+      },
+      {
+        "threshold": 0.03613153688403962,
+        "normalized_utility": 0.3562961914646036,
+        "alert_rate": 0.08206271515089392
+      },
+      {
+        "threshold": 0.042611842886432966,
+        "normalized_utility": 0.3336729880177379,
+        "alert_rate": 0.06765241011711043
+      },
+      {
+        "threshold": 0.051546315639234425,
+        "normalized_utility": 0.29651224958329425,
+        "alert_rate": 0.05324210508332693
+      },
+      {
+        "threshold": 0.06305619297349398,
+        "normalized_utility": 0.25023429883322357,
+        "alert_rate": 0.038823258078569046
+      },
+      {
+        "threshold": 0.08177610548116068,
+        "normalized_utility": 0.1875774444129951,
+        "alert_rate": 0.024412953044785555
+      },
+      {
+        "threshold": 0.11988261003322552,
+        "normalized_utility": 0.12122999025065263,
+        "alert_rate": 0.010002648011002058
+      },
+      {
+        "threshold": 0.13368290955630377,
+        "normalized_utility": 0.10003616693398742,
+        "alert_rate": 0.007004416198993756
+      },
+      {
+        "threshold": 0.15043754392321262,
+        "normalized_utility": 0.0793958549548699,
+        "alert_rate": 0.005005594990988221
+      },
+      {
+        "threshold": 0.17992667209517355,
+        "normalized_utility": 0.054920275497688534,
+        "alert_rate": 0.0030067737829826855
+      },
+      {
+        "threshold": 0.20856643923451387,
+        "normalized_utility": 0.043390885932635216,
+        "alert_rate": 0.002007363178979918
+      },
+      {
+        "threshold": 0.26627959985058836,
+        "normalized_utility": 0.02715036009686449,
+        "alert_rate": 0.0010079525749771502
+      }
+    ]
+  },
+  "policies": {
+    "acquisition_scope": "one clinical lab group, only for rows the labs-hidden baseline abstains on, only if historically observed",
+    "fixed_order": [
+      "blood_gas",
+      "inflammation_perfusion",
+      "organ_function",
+      "hematology_coagulation"
+    ],
+    "random_seed": 42,
+    "patient_specific": "logistic selectors fit on training policy_fit cohort; target = crossing the rule-out boundary 1 - threshold",
+    "oracle_upper_bound": "uses labels; evaluation ceiling only"
+  },
+  "validation_report_scope": "validation evaluation half (patient-disjoint from the selection half)",
+  "bootstrap": {
+    "resamples": 200,
+    "utility_resamples": 1000,
+    "seed": 42
+  }
+}
