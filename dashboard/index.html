@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence-Aware Clinical AI — Results &amp; Live Demo</title>
+<style>
+:root{
+  --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6d68; --axis:#c3c2b7; --grid:#e1e0d9; --ring:rgba(11,11,11,0.10);
+  --s1:#2a78d6; /* labs as recorded */
+  --s2:#eb6834; /* labs hidden (baseline) */
+  --warn:#fab219; --warn-bg:#fff4dc; --crit:#d03b3b; --good:#006300;
+  --sans: system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+a{color:var(--s1)}
+header{position:sticky;top:0;z-index:20;background:rgba(249,249,247,0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--grid)}
+.bar{max-width:1280px;margin:0 auto;padding:10px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.brand{font-weight:600;font-size:15px;white-space:nowrap}
+nav{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+nav a{color:var(--ink2);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:6px}
+nav a.on{background:#ecebe6;color:var(--ink)}
+.tools{display:flex;gap:6px}
+button{font-family:var(--sans);font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--ring);border-radius:8px;padding:8px 12px;min-height:36px;cursor:pointer}
+button:hover{background:#f1f0eb}
+button.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--s1);outline-offset:2px}
+main{max-width:1280px;margin:0 auto;padding:0 32px 120px}
+section{padding:72px 0 40px;border-bottom:1px solid var(--grid);min-height:70vh}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+h1{font-size:44px;line-height:1.1;margin:0 0 16px;font-weight:600;letter-spacing:-.01em;max-width:900px}
+h2{font-size:32px;line-height:1.15;margin:0 0 12px;font-weight:600;letter-spacing:-.01em;max-width:900px}
+h3{font-size:15px;margin:0 0 4px;font-weight:600}
+.lead{font-size:18px;color:var(--ink2);max-width:820px;margin:0 0 32px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:900px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:20px 22px}
+.cap{font-size:13px;color:var(--muted);margin:8px 0 0}
+.tile .v{font-size:40px;font-weight:600;line-height:1.05;letter-spacing:-.01em}
+.tile .l{font-size:14px;color:var(--ink2);margin-top:6px}
+.tile .s{font-size:12px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--ink2);margin:4px 0 8px;flex-wrap:wrap}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+svg text{font-family:var(--sans)}
+.tip{position:fixed;z-index:50;pointer-events:none;background:#fff;border:1px solid var(--ring);border-radius:8px;padding:8px 10px;font-size:12px;box-shadow:0 4px 16px rgba(0,0,0,.08);display:none;min-width:140px}
+.tip b{font-size:14px}
+.tip .row{display:flex;justify-content:space-between;gap:12px}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--grid)}
+th{font-weight:600;color:var(--ink2);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td.n,th.n{text-align:right}
+.pipeline{display:flex;gap:0;align-items:stretch;flex-wrap:wrap}
+.step{flex:1 1 150px;background:var(--surface);border:1px solid var(--ring);border-radius:10px;padding:12px 14px;margin:6px 0;position:relative}
+.step b{display:block;font-size:14px}
+.step span{font-size:12.5px;color:var(--ink2)}
+.arrow{align-self:center;color:var(--axis);padding:0 6px;font-size:18px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px}
+.pill.alarm{background:#fbe3e3;color:#9b1c1c}
+.pill.esc{background:var(--warn-bg);color:#7a4b00}
+.pill.ok{background:#e8f2e8;color:var(--good)}
+/* demo */
+.demo{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px}
+@media (max-width:1100px){.demo{grid-template-columns:1fr}}
+.cases{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.cases button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.decision{font-size:30px;font-weight:600;line-height:1.1;margin:6px 0 6px}
+.why{font-size:14px;color:var(--ink2)}
+.labs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.lab{border:1px solid var(--ring);border-radius:10px;padding:10px;background:#fff;text-align:left;min-height:64px}
+.lab[disabled]{opacity:.45;cursor:not-allowed}
+.lab.chosen{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.lab small{display:block;color:var(--muted);font-size:11.5px}
+.vals{font-size:12.5px;color:var(--ink2);margin-top:4px;font-variant-numeric:tabular-nums}
+.controls{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
+input[type=range]{flex:1;accent-color:var(--ink);min-width:200px}
+.vitals{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}
+.vital{background:#fff;border:1px solid var(--ring);border-radius:10px;padding:8px 10px}
+.vital .k{font-size:11px;color:var(--muted)}
+.vital .x{font-size:18px;font-weight:600;font-variant-numeric:tabular-nums}
+/* notes */
+#notes{position:fixed;right:16px;bottom:16px;width:380px;max-height:60vh;overflow:auto;background:#fff;border:1px solid var(--ring);border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.12);padding:16px 18px;z-index:40;display:none;font-size:14px}
+#notes h4{margin:0 0 8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+#notes ul{margin:0;padding-left:18px}
+#notes li{margin:4px 0}
+body.present section{min-height:100vh}
+.kbd{font-size:11px;border:1px solid var(--ring);border-radius:4px;padding:1px 5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <div class="brand">Evidence-Aware Clinical AI</div>
+  <nav id="nav"></nav>
+  <div class="tools">
+    <button id="notesBtn" type="button" title="Speaker notes (N)">Notes <span class="kbd">N</span></button>
+  </div>
+</div></header>
+
+<main>
+<section id="overview" data-title="Overview">
+  <p class="kicker">Master's project · Computer Science</p>
+  <h1>Can an AI tell when its evidence isn't enough, and decide what to do about it?</h1>
+  <p class="lead">Early sepsis prediction on <span data-k="patients"></span> real ICU stays. The system predicts, orders a lab group, or escalates when it is not confident. Every number below comes from one frozen protocol evaluated once on <span data-k="testPatients"></span> held-out patients.</p>
+  <div class="grid4" id="heroTiles"></div>
+  <div class="card" style="margin-top:24px">
+    <h3>Findings</h3>
+    <ol style="margin:8px 0 0;padding-left:20px;color:var(--ink2)">
+      <li>A calibrated model trained to work with missing labs reaches early-warning utility <b id="f1"></b>, in the range of strong PhysioNet 2019 entries.</li>
+      <li>Knowing when it is unsure works: escalating <b id="f2a"></b> of hours captures <b id="f2b"></b> of all sepsis hours.</li>
+      <li>Recorded labs add real value (<b id="f3a"></b> utility), but no deployable one-step lab-ordering policy recovers it; even an oracle gains only <b id="f3b"></b>.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="data" data-title="Data">
+  <p class="kicker">01 · The data</p>
+  <h2>Most of the evidence is missing</h2>
+  <p class="lead">PhysioNet / CinC Challenge 2019: hourly ICU records from two hospitals. Vital signs are usually there; laboratory results almost never are.</p>
+  <div class="grid2">
+    <div class="card"><h3>Share of ICU hours with no value</h3><div class="cap" style="margin:0 0 8px">All 1,552,210 hourly rows · hover a bar</div><div id="missChart"></div></div>
+    <div>
+      <div class="card"><h3>Patient-level splits</h3><div id="splitTable"></div>
+      <p class="cap">Stratified by hospital and sepsis status, seed 42. No patient appears in two splits.</p></div>
+      <div class="card" style="margin-top:16px"><h3>Sepsis label</h3>
+      <p style="margin:6px 0 0;color:var(--ink2);font-size:14px">The Challenge marks each hour <i>positive</i> from 6 h before clinical onset. A useful alarm fires in the window 12 h before to 3 h after that onset; the official utility score rewards exactly that timing.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="method" data-title="Method">
+  <p class="kicker">02 · Method</p>
+  <h2>A pipeline built to avoid fooling ourselves</h2>
+  <p class="lead">Leakage-safe at every step, with all thresholds chosen on validation data and sealed before the held-out test.</p>
+  <div class="pipeline" id="pipeline"></div>
+  <div class="grid3" style="margin-top:24px">
+    <div class="card"><h3>1 · Predict</h3><p class="why">Mask-aware XGBoost (26 labs, randomly hidden during training) with Platt calibration per missingness state.</p></div>
+    <div class="card"><h3>2 · Decide or escalate</h3><p class="why">Make a call only when confidence max(p, 1−p) ≥ <b id="tau"></b>; otherwise escalate. Chosen on validation for ≤ 1% risk.</p></div>
+    <div class="card"><h3>3 · Acquire</h3><p class="why">For escalated hours, reveal one clinical lab group that was really recorded: fixed order, random, a learned patient-specific selector, or an oracle ceiling.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Two operating points, both frozen on validation</h3>
+  <p class="why" style="margin:6px 0 0">Early-warning <b>alarm</b> when risk ≥ <b id="alertH"></b> (labs hidden and policies) or ≥ <b id="alertR"></b> (labs as recorded), each chosen to maximise validation utility. The <b>confidence</b> rule above governs predict vs escalate. They answer different questions and are reported separately.</p></div>
+</section>
+
+<section id="prediction" data-title="Prediction">
+  <p class="kicker">03 · Prediction quality</p>
+  <h2>Labs help the model rank risk; calibration is good where most patients are</h2>
+  <p class="lead">Held-out test, all hourly rows. Same model, with labs hidden versus as recorded.</p>
+  <div class="grid2">
+    <div class="card"><h3>ROC curve</h3><div class="legend" id="rocLegend"></div><div id="rocChart"></div></div>
+    <div class="card"><h3>Calibration (reliability)</h3><div class="legend" id="calLegend"></div><div id="calChart"></div>
+    <p class="cap">Log scales. On the diagonal = predicted risk matches observed rate. Points are fixed probability bins with ≥ 50 rows.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><div id="discTable"></div></div>
+</section>
+
+<section id="warning" data-title="Early warning">
+  <p class="kicker">04 · Early warning</p>
+  <h2>Utility <span id="uHead"></span>: most septic patients are flagged before onset</h2>
+  <p class="lead">Official PhysioNet 2019 normalized utility: 0 = never alarm, 1 = perfect timing. The alarm threshold was chosen on validation (left) and applied unchanged to test (right).</p>
+  <div class="grid2">
+    <div class="card"><h3>Choosing the alarm threshold (validation)</h3><div class="legend" id="utilLegend"></div><div id="utilChart"></div>
+    <p class="cap">Dots mark the frozen thresholds. A fixed 0.5 cut-off (our first version) scored ≈ 0.02.</p></div>
+    <div class="card"><h3>Held-out test</h3><div id="warnTiles" class="grid2" style="gap:12px"></div>
+    <p class="cap" id="leadCap"></p></div>
+  </div>
+</section>
+
+<section id="selective" data-title="Escalation">
+  <p class="kicker">05 · Knowing when it is unsure</p>
+  <h2>Quiet nine hours in ten; the tenth holds half the sepsis</h2>
+  <p class="lead">Selective prediction with labs hidden. Hover the curve to move along the confidence threshold; the dot is the frozen operating point.</p>
+  <div class="grid2">
+    <div class="card"><h3>Risk vs coverage</h3><div id="rcChart"></div>
+    <p class="cap">Risk = error rate among hours where the model makes a call. Dashed: predicting “no sepsis” everywhere.</p></div>
+    <div class="card"><h3>What escalation catches</h3><div id="escBar"></div><div id="escText" class="why" style="margin-top:16px"></div></div>
+  </div>
+</section>
+
+<section id="acquisition" data-title="Acquisition">
+  <p class="kicker">06 · The twist</p>
+  <h2>The labs matter. Choosing which one to order doesn't, yet.</h2>
+  <p class="lead">Each policy orders one clinical lab group for escalated hours. Differences versus “all labs hidden”, with 95% patient-bootstrap intervals.</p>
+  <div class="grid2">
+    <div class="card"><h3>Δ early-warning utility</h3><div id="dUtil"></div></div>
+    <div class="card"><h3>Δ AUROC</h3><div id="dAuroc"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Reading it</h3><p class="why" style="margin:6px 0 0">The gap between the oracle (+<span id="oracleU"></span>) and labs as recorded (+<span id="recU"></span>) is the open problem: the value of lab information exists, but it is spread across many hours and a single one-step acquisition cannot capture it.</p></div>
+</section>
+
+<section id="demo" data-title="Live demo">
+  <p class="kicker">07 · Live demo</p>
+  <h2>Replay a real held-out patient, hour by hour</h2>
+  <p class="lead">Outputs of the frozen model on patients it never saw. Pick a case, step through the stay, order a lab group when the AI is unsure, then reveal the true onset.</p>
+  <div class="cases" id="cases"></div>
+  <div class="demo">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px">
+        <h3 id="ptTitle"></h3><span class="cap" id="ptWhy" style="margin:0"></span>
+      </div>
+      <div class="legend"><span><i style="background:var(--s2)"></i>Labs hidden (what the system starts with)</span><span id="recToggleWrap"><label><input type="checkbox" id="recToggle"> <i style="background:var(--s1)"></i>Labs as recorded</label></span><span><i style="background:var(--warn);height:10px;width:10px;border-radius:2px"></i>not confident → escalate</span></div>
+      <div id="riverChart"></div>
+      <div class="controls">
+        <button id="playBtn" type="button" class="primary" style="min-width:72px">Play</button>
+        <button id="prevBtn" type="button" aria-label="Previous hour">←</button>
+        <input type="range" id="hourSlider" min="0" max="10" value="0" aria-label="ICU hour">
+        <button id="nextBtn" type="button" aria-label="Next hour">→</button>
+        <button id="revealBtn" type="button">Reveal outcome</button>
+      </div>
+      <div class="vitals" id="vitals"></div>
+    </div>
+    <div class="card">
+      <div class="cap" style="margin:0" id="hourLabel"></div>
+      <div id="badges" style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"></div>
+      <div class="decision" id="decision"></div>
+      <div class="why" id="decisionWhy"></div>
+      <div class="labs" id="labs"></div>
+      <div class="cap" id="policyLine"></div>
+      <div class="cap" id="outcome" style="color:var(--ink);font-size:14px"></div>
+    </div>
+  </div>
+</section>
+
+<section id="integrity" data-title="Integrity">
+  <p class="kicker">08 · Integrity &amp; limits</p>
+  <h2>Sealed before we looked, and honest about what it is not</h2>
+  <div class="grid2">
+    <div class="card"><h3>Every opening of the held-out test set</h3><div id="ledger"></div>
+    <p class="cap">Entries 1–4 were development-phase accesses, disclosed. Entry 5 produced every number in this dashboard.</p></div>
+    <div class="card"><h3>Frozen protocol</h3><div id="protocolBox" class="why"></div>
+    <h3 style="margin-top:18px">Limitations</h3>
+    <ul class="why" style="margin:6px 0 0;padding-left:18px">
+      <li>Retrospective: “ordering” a lab reveals a value that was really recorded; we cannot know results of tests that were never ordered.</li>
+      <li>One public dataset, two hospitals; random patient split, no external site.</li>
+      <li>Calibration drifts above ~20% predicted risk (few rows; over-prediction).</li>
+      <li>Lead time is measured from the first alarm in the stay, an optimistic upper bound.</li>
+      <li>One-step, one-group acquisition only; timing and multi-step policies are future work.</li>
+    </ul></div>
+  </div>
+</section>
+</main>
+
+<div class="tip" id="tip"></div>
+<div id="notes"><h4 id="notesTitle">Speaker notes</h4><ul id="notesBody"></ul><p class="cap">← → move between sections · N hides notes</p></div>
+
+<script src="data.js"></script>
+<script>
+"use strict";
+const D = window.DASH;
+const SVGNS = "http://www.w3.org/2000/svg";
+const C = { s1: "#2a78d6", s2: "#eb6834", ink: "#0b0b0b", ink2: "#52514e", muted: "#6f6d68", axis: "#c3c2b7", grid: "#e1e0d9", warn: "#fab219", warnBg: "#fff1d1", crit: "#d03b3b", surface: "#fcfcfb" };
+const pct = (v, d = 1) => v == null ? "—" : (100 * v).toFixed(d) + "%";
+const f3 = (v) => v == null ? "—" : v.toFixed(3);
+const sgn = (v, d = 3) => v == null ? "—" : (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(d);
+const T = D.test, S = T.systems;
+const NAMES = { labs_hidden: "All labs hidden (baseline)", as_recorded: "Labs as recorded", fixed_order: "Fixed order", random: "Random group", patient_specific: "Patient-specific selector", oracle_upper_bound: "Oracle (uses labels)" };
+
+function el(tag, attrs = {}, parent) {
+  const n = document.createElementNS(SVGNS, tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function txt(parent, x, y, s, attrs = {}) {
+  const t = el("text", Object.assign({ x, y, fill: C.muted, "font-size": 11 }, attrs), parent);
+  t.textContent = s; return t;
+}
+function setText(id, s) { const n = document.getElementById(id); if (n) n.textContent = s; }
+const tip = document.getElementById("tip");
+function showTip(evt, title, rows) {
+  tip.replaceChildren();
+  const b = document.createElement("b"); b.textContent = title; tip.appendChild(b);
+  for (const [k, v] of rows) {
+    const r = document.createElement("div"); r.className = "row";
+    const a = document.createElement("span"); a.textContent = k; a.style.color = "#52514e";
+    const c = document.createElement("span"); c.textContent = v; c.style.fontWeight = "600";
+    r.append(a, c); tip.appendChild(r);
+  }
+  tip.style.display = "block";
+  const x = Math.min(window.innerWidth - tip.offsetWidth - 12, evt.clientX + 14);
+  const y = Math.min(window.innerHeight - tip.offsetHeight - 12, evt.clientY + 14);
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+function hideTip() { tip.style.display = "none"; }
+
+/* ---------- generic line chart ---------- */
+function lineChart(host, { series, xDomain, yDomain, xLog, yLog, xLabel, yLabel, xTicks, yTicks, xFmt, yFmt, height = 300, diag, hover, marks = [], refLines = [] }) {
+  const W = host.clientWidth || 560, H = height, m = { l: 52, r: 16, t: 10, b: 40 };
+  host.replaceChildren();
+  const svg = el("svg", { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": yLabel + " versus " + xLabel }, host);
+  const sx = (v) => { const [a, b] = xDomain; const t = xLog ? (Math.log10(v) - Math.log10(a)) / (Math.log10(b) - Math.log10(a)) : (v - a) / (b - a); return m.l + t * (W - m.l - m.r); };
+  const sy = (v) => { const [a, b] = yDomain; const t = yLog ? (Math.log10(v) - Math.log10(a)) / (Math.log10(b) - Math.log10(a)) : (v - a) / (b - a); return H - m.b - t * (H - m.t - m.b); };
+  for (const t of yTicks) { el("line", { x1: m.l, x2: W - m.r, y1: sy(t), y2: sy(t), stroke: C.grid }, svg); txt(svg, m.l - 8, sy(t) + 4, yFmt(t), { "text-anchor": "end" }); }
+  for (const t of xTicks) txt(svg, sx(t), H - m.b + 18, xFmt(t), { "text-anchor": "middle" });
+  el("line", { x1: m.l, x2: W - m.r, y1: H - m.b, y2: H - m.b, stroke: C.axis }, svg);
+  txt(svg, (m.l + W - m.r) / 2, H - 4, xLabel, { "text-anchor": "middle", fill: C.ink2 });
+  txt(svg, 12, m.t + 4, yLabel, { fill: C.ink2, transform: `rotate(-90 12 ${m.t + 4})`, "text-anchor": "end" });
+  if (diag) el("line", { x1: sx(diag[0]), y1: sy(diag[0]), x2: sx(diag[1]), y2: sy(diag[1]), stroke: C.axis, "stroke-dasharray": "4 4" }, svg);
+  for (const r of refLines) { el("line", { x1: sx(xDomain[0]), x2: sx(xDomain[1]), y1: sy(r.y), y2: sy(r.y), stroke: C.ink2, "stroke-dasharray": "4 4" }, svg); txt(svg, W - m.r, sy(r.y) - 6, r.label, { "text-anchor": "end", fill: C.ink2 }); }
+  for (const s of series) {
+    const d = s.points.map((p, i) => (i ? "L" : "M") + sx(p.x).toFixed(1) + " " + sy(p.y).toFixed(1)).join(" ");
+    el("path", { d, fill: "none", stroke: s.color, "stroke-width": 2, "stroke-linejoin": "round" }, svg);
+    if (s.dots) for (const p of s.points) el("circle", { cx: sx(p.x), cy: sy(p.y), r: 4, fill: s.color, stroke: C.surface, "stroke-width": 2 }, svg);
+    if (s.label) { const p = s.points[s.labelAt ?? s.points.length - 1]; txt(svg, sx(p.x) + (s.dx ?? 6), sy(p.y) + (s.dy ?? 4), s.label, { fill: C.ink, "font-weight": 600, "text-anchor": s.anchor || "start" }); }
+  }
+  for (const k of marks) { el("circle", { cx: sx(k.x), cy: sy(k.y), r: 7, fill: k.color || C.ink, stroke: C.surface, "stroke-width": 2 }, svg); if (k.label) txt(svg, sx(k.x) + (k.dx ?? 10), sy(k.y) + (k.dy ?? -10), k.label, { fill: C.ink, "font-weight": 600, "text-anchor": k.anchor || "start" }); }
+  if (hover) {
+    const cross = el("line", { y1: m.t, y2: H - m.b, stroke: C.ink2, "stroke-width": 1, opacity: 0 }, svg);
+    const dots = series.map((s) => el("circle", { r: 5, fill: s.color, stroke: C.surface, "stroke-width": 2, opacity: 0 }, svg));
+    const hit = el("rect", { x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b, fill: "transparent" }, svg);
+    hit.addEventListener("pointermove", (e) => {
+      const rect = svg.getBoundingClientRect(); const px = e.clientX - rect.left;
+      let best = null;
+      series.forEach((s, i) => {
+        let bi = 0, bd = Infinity; s.points.forEach((p, j) => { const dd = Math.abs(sx(p.x) - px); if (dd < bd) { bd = dd; bi = j; } });
+        const p = s.points[bi]; dots[i].setAttribute("cx", sx(p.x)); dots[i].setAttribute("cy", sy(p.y)); dots[i].setAttribute("opacity", 1);
+        if (!best) best = p;
+      });
+      cross.setAttribute("x1", sx(best.x)); cross.setAttribute("x2", sx(best.x)); cross.setAttribute("opacity", 0.4);
+      const info = hover(series.map((s) => { let bi = 0, bd = Infinity; s.points.forEach((p, j) => { const dd = Math.abs(sx(p.x) - px); if (dd < bd) { bd = dd; bi = j; } }); return s.points[bi]; }));
+      showTip(e, info.title, info.rows);
+    });
+    hit.addEventListener("pointerleave", () => { hideTip(); cross.setAttribute("opacity", 0); dots.forEach((d) => d.setAttribute("opacity", 0)); });
+  }
+  return { svg, sx, sy };
+}
+
+/* ---------- forest plot ---------- */
+function forest(host, rows, { domain, fmt, ticks }) {
+  const W = host.clientWidth || 560, rowH = 44, m = { l: 190, r: 70, t: 10, b: 34 }, H = m.t + m.b + rows.length * rowH;
+  host.replaceChildren();
+  const svg = el("svg", { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Differences with 95% intervals" }, host);
+  const sx = (v) => m.l + (v - domain[0]) / (domain[1] - domain[0]) * (W - m.l - m.r);
+  for (const t of ticks) { el("line", { x1: sx(t), x2: sx(t), y1: m.t, y2: H - m.b, stroke: t === 0 ? C.axis : C.grid }, svg); txt(svg, sx(t), H - m.b + 18, fmt(t), { "text-anchor": "middle" }); }
+  rows.forEach((r, i) => {
+    const y = m.t + i * rowH + rowH / 2;
+    txt(svg, 0, y + 4, r.name, { fill: r.muted ? C.muted : C.ink, "font-size": 13, "font-style": r.muted ? "italic" : "normal" });
+    el("line", { x1: sx(r.ci[0]), x2: sx(r.ci[1]), y1: y, y2: y, stroke: r.color, "stroke-width": 2, "stroke-linecap": "round" }, svg);
+    el("circle", { cx: sx(r.est), cy: y, r: 6, fill: r.hollow ? C.surface : r.color, stroke: r.color, "stroke-width": 2 }, svg);
+    txt(svg, W - m.r + 8, y + 4, fmt(r.est), { fill: C.ink, "font-weight": 600, "font-size": 12 });
+    const hit = el("rect", { x: 0, y: y - rowH / 2, width: W, height: rowH, fill: "transparent" }, svg);
+    hit.addEventListener("pointermove", (e) => showTip(e, r.name, [["Estimate", fmt(r.est)], ["95% CI", fmt(r.ci[0]) + " to " + fmt(r.ci[1])]]));
+    hit.addEventListener("pointerleave", hideTip);
+  });
+}
+
+/* ---------- static content ---------- */
+function fillStatic() {
+  const ds = D.dataset;
+  document.querySelectorAll('[data-k="patients"]').forEach((n) => n.textContent = (ds.total_patients || 40336).toLocaleString());
+  document.querySelectorAll('[data-k="testPatients"]').forEach((n) => n.textContent = T.patients.toLocaleString());
+  const rec = S.as_recorded, hid = S.labs_hidden;
+  const tiles = [
+    [f3(rec.utility), "Early-warning utility", "95% CI " + f3(rec.utility_ci[0]) + "–" + f3(rec.utility_ci[1]) + " · labs as recorded"],
+    [f3(rec.auroc), "AUROC", "labs as recorded · " + f3(hid.auroc) + " with labs hidden"],
+    [pct(rec.warned), "Septic patients alarmed before onset", pct(rec.false_alarm_patients) + " of non-septic patients also alarmed"],
+    [sgn(S.patient_specific.utility_delta), "Gain from learned lab ordering", "vs " + sgn(rec.utility_delta) + " if all labs were known"],
+  ];
+  const host = document.getElementById("heroTiles");
+  for (const [v, l, s] of tiles) {
+    const c = document.createElement("div"); c.className = "card tile";
+    const a = document.createElement("div"); a.className = "v"; a.textContent = v;
+    const b = document.createElement("div"); b.className = "l"; b.textContent = l;
+    const d = document.createElement("div"); d.className = "s"; d.textContent = s;
+    c.append(a, b, d); host.appendChild(c);
+  }
+  setText("f1", f3(rec.utility));
+  setText("f2a", pct(1 - hid.coverage)); setText("f2b", pct(hid.escalated_positive_capture));
+  setText("f3a", sgn(rec.utility_delta)); setText("f3b", sgn(S.oracle_upper_bound.utility_delta));
+  setText("tau", D.protocol.abstention_threshold.toFixed(3));
+  setText("alertH", pct(D.protocol.alert_thresholds.labs_hidden_and_policies, 2));
+  setText("alertR", pct(D.protocol.alert_thresholds.as_recorded, 2));
+  setText("uHead", f3(rec.utility));
+  setText("oracleU", f3(S.oracle_upper_bound.utility_delta)); setText("recU", f3(rec.utility_delta));
+
+  const sp = D.splits;
+  const tab = document.createElement("table");
+  tab.innerHTML = "<thead><tr><th>Split</th><th class='n'>Patients</th><th class='n'>Septic</th><th class='n'>Prevalence</th><th>Use</th></tr></thead>";
+  const tb = document.createElement("tbody");
+  const uses = { train: "fit model, calibration, selector", val: "choose thresholds", test: "final evaluation only" };
+  for (const k of ["train", "val", "test"]) {
+    const tr = document.createElement("tr");
+    for (const [v, cls] of [[k, ""], [sp[k].patients.toLocaleString(), "n"], [sp[k].sepsis_positive.toLocaleString(), "n"], [pct(sp[k].prevalence), "n"], [uses[k], ""]]) { const td = document.createElement("td"); td.textContent = v; if (cls) td.className = cls; tr.appendChild(td); }
+    tb.appendChild(tr);
+  }
+  tab.appendChild(tb); document.getElementById("splitTable").appendChild(tab);
+
+  const steps = [["40,336 stays", "PhysioNet 2019 · 2 hospitals"], ["Patient splits", "70 / 15 / 15"], ["Past-only features", "last value · age · observed"], ["Mask-aware model", "XGBoost, labs hidden at random"], ["Calibration", "Platt per missingness state"], ["Frozen protocol", "validation-only thresholds"], ["One test run", "logged in the ledger"]];
+  const pl = document.getElementById("pipeline");
+  steps.forEach(([b, s], i) => {
+    const d = document.createElement("div"); d.className = "step";
+    const bb = document.createElement("b"); bb.textContent = b; const ss = document.createElement("span"); ss.textContent = s; d.append(bb, ss); pl.appendChild(d);
+    if (i < steps.length - 1) { const a = document.createElement("div"); a.className = "arrow"; a.textContent = "→"; a.setAttribute("aria-hidden", "true"); pl.appendChild(a); }
+  });
+
+  const dt = document.createElement("table");
+  dt.innerHTML = "<thead><tr><th>Held-out test</th><th class='n'>AUROC</th><th class='n'>AUPRC</th><th class='n'>Brier</th><th class='n'>Positive rate</th></tr></thead>";
+  const db = document.createElement("tbody");
+  for (const k of ["as_recorded", "labs_hidden"]) {
+    const tr = document.createElement("tr");
+    for (const [v, n] of [[NAMES[k], 0], [f3(S[k].auroc), 1], [f3(S[k].auprc), 1], [S[k].brier.toFixed(4), 1], [pct(T.positive_rows / T.rows, 2), 1]]) { const td = document.createElement("td"); td.textContent = v; if (n) td.className = "n"; tr.appendChild(td); }
+    db.appendChild(tr);
+  }
+  dt.appendChild(db); document.getElementById("discTable").appendChild(dt);
+
+  const wt = document.getElementById("warnTiles");
+  for (const [v, l] of [[f3(S.as_recorded.utility), "utility, labs as recorded"], [f3(S.labs_hidden.utility), "utility, labs hidden"], [pct(S.as_recorded.warned), "septic patients alarmed before onset"], [pct(S.as_recorded.false_alarm_patients), "non-septic patients ever alarmed"]]) {
+    const c = document.createElement("div"); c.className = "tile";
+    const a = document.createElement("div"); a.className = "v"; a.style.fontSize = "32px"; a.textContent = v;
+    const b = document.createElement("div"); b.className = "l"; b.textContent = l; c.append(a, b); wt.appendChild(c);
+  }
+  setText("leadCap", "Never alarming scores 0; alarming every hour scores " + f3(T.always_alert_utility) + ". Median time from first alarm to onset: " + S.as_recorded.lead_median + " h (first alarm anywhere in the stay, so an upper bound).");
+
+  const lg = document.createElement("table");
+  lg.innerHTML = "<thead><tr><th>#</th><th>Date</th><th>What was evaluated</th></tr></thead>";
+  const lb = document.createElement("tbody");
+  for (const e of D.ledger) {
+    const tr = document.createElement("tr");
+    for (const v of [e.index, e.timestamp.slice(0, 10), e.purpose]) { const td = document.createElement("td"); td.textContent = v; tr.appendChild(td); }
+    if (e.index === D.ledger.length) tr.style.fontWeight = "600";
+    lb.appendChild(tr);
+  }
+  lg.appendChild(lb); document.getElementById("ledger").appendChild(lg);
+  const pb = document.getElementById("protocolBox"); const pr = D.protocol;
+  pb.textContent = "Frozen " + pr.frozen_at.slice(0, 10) + " · confidence threshold " + pr.abstention_threshold.toFixed(4) + " · alarm thresholds " + pr.alert_thresholds.labs_hidden_and_policies.toFixed(4) + " / " + pr.alert_thresholds.as_recorded.toFixed(4) + " · model sha256 " + pr.artifact_sha256.model + "… The evaluator refuses to run if any frozen file changes.";
+}
+
+function legend(id, items) {
+  const h = document.getElementById(id); h.replaceChildren();
+  for (const [color, label] of items) { const s = document.createElement("span"); const i = document.createElement("i"); i.style.background = color; s.append(i, document.createTextNode(label)); h.appendChild(s); }
+}
+
+/* ---------- charts ---------- */
+function drawCharts() {
+  // missingness
+  const mh = document.getElementById("missChart"); mh.replaceChildren();
+  const rows = [...D.missingness].sort((a, b) => a.missing - b.missing);
+  const W = mh.clientWidth || 560, rowH = 15, m = { l: 112, r: 48, t: 4, b: 24 }, H = m.t + m.b + rows.length * rowH;
+  const svg = el("svg", { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Missing share by measurement" }, mh);
+  const sx = (v) => m.l + v / 100 * (W - m.l - m.r);
+  for (const t of [0, 25, 50, 75, 100]) { el("line", { x1: sx(t), x2: sx(t), y1: m.t, y2: H - m.b, stroke: C.grid }, svg); txt(svg, sx(t), H - 6, t + "%", { "text-anchor": "middle" }); }
+  rows.forEach((r, i) => {
+    const y = m.t + i * rowH;
+    txt(svg, m.l - 8, y + 11, r.feature, { "text-anchor": "end", "font-size": 10.5, fill: C.ink2 });
+    el("rect", { x: m.l, y: y + 3, width: Math.max(2, sx(r.missing) - m.l), height: rowH - 6, rx: 2, fill: C.s1 }, svg);
+    if (r.feature === "Lactate" || r.feature === "HR") txt(svg, sx(r.missing) + 6, y + 11, r.missing.toFixed(1) + "%", { fill: C.ink, "font-size": 11, "font-weight": 600 });
+    const hit = el("rect", { x: 0, y, width: W, height: rowH, fill: "transparent" }, svg);
+    hit.addEventListener("pointermove", (e) => showTip(e, r.feature, [["Hours missing", r.missing.toFixed(1) + "%"]]));
+    hit.addEventListener("pointerleave", hideTip);
+  });
+
+  // ROC
+  legend("rocLegend", [[C.s1, "Labs as recorded · AUROC " + f3(S.as_recorded.auroc)], [C.s2, "Labs hidden · AUROC " + f3(S.labs_hidden.auroc)]]);
+  const toXY = (pts) => pts.map((p) => ({ x: p.x, y: p.y }));
+  lineChart(document.getElementById("rocChart"), {
+    series: [{ points: toXY(T.roc.as_recorded), color: C.s1 }, { points: toXY(T.roc.labs_hidden), color: C.s2 }],
+    xDomain: [0, 1], yDomain: [0, 1], xTicks: [0, .25, .5, .75, 1], yTicks: [0, .25, .5, .75, 1], xFmt: (v) => v.toFixed(2), yFmt: (v) => v.toFixed(2),
+    xLabel: "False positive rate", yLabel: "True positive rate", diag: [0, 1],
+    hover: (ps) => ({ title: "FPR " + ps[0].x.toFixed(2), rows: [["Labs as recorded TPR", ps[0].y.toFixed(3)], ["Labs hidden TPR", ps[1].y.toFixed(3)]] }),
+  });
+
+  // Calibration
+  legend("calLegend", [[C.s1, "Labs as recorded"], [C.s2, "Labs hidden"]]);
+  const cal = (k) => T.calibration[k].map((b) => ({ x: Math.max(0.002, b.predicted), y: Math.max(0.001, b.observed), rows: b.rows }));
+  lineChart(document.getElementById("calChart"), {
+    series: [{ points: cal("as_recorded"), color: C.s1, dots: true }, { points: cal("labs_hidden"), color: C.s2, dots: true }],
+    xDomain: [0.002, 1], yDomain: [0.001, 1], xLog: true, yLog: true, xTicks: [0.003, 0.01, 0.03, 0.1, 0.3, 1], yTicks: [0.001, 0.01, 0.1, 1],
+    xFmt: (v) => pct(v, v < 0.01 ? 1 : 0), yFmt: (v) => pct(v, v < 0.01 ? 1 : 0), xLabel: "Predicted risk", yLabel: "Observed rate", diag: [0.002, 1],
+    hover: (ps) => ({ title: "Predicted " + pct(ps[0].x, 2), rows: [["Observed (recorded)", pct(ps[0].y, 2)], ["Rows in bin", ps[0].rows.toLocaleString()], ["Observed (hidden)", pct(ps[1].y, 2)]] }),
+  });
+
+  // Utility vs threshold
+  const uc = D.protocol.utility_curves_validation;
+  legend("utilLegend", [[C.s1, "Labs as recorded"], [C.s2, "Labs hidden"]]);
+  const up = (k) => uc[k].map((p) => ({ x: p.threshold, y: p.normalized_utility, rate: p.alert_rate }));
+  const ur = up("as_recorded"), uh = up("labs_hidden_and_policies");
+  const best = (arr, t) => arr.reduce((a, b) => Math.abs(b.x - t) < Math.abs(a.x - t) ? b : a);
+  const tR = D.protocol.alert_thresholds.as_recorded, tH = D.protocol.alert_thresholds.labs_hidden_and_policies;
+  lineChart(document.getElementById("utilChart"), {
+    series: [{ points: ur, color: C.s1 }, { points: uh, color: C.s2 }],
+    xDomain: [0.007, 0.6], yDomain: [-0.05, 0.5], xLog: true, xTicks: [0.01, 0.03, 0.1, 0.3], yTicks: [0, 0.1, 0.2, 0.3, 0.4, 0.5],
+    xFmt: (v) => pct(v, 0), yFmt: (v) => v.toFixed(1), xLabel: "Alarm threshold (predicted risk)", yLabel: "Normalized utility",
+    marks: [{ x: best(ur, tR).x, y: best(ur, tR).y, color: C.s1, label: "frozen " + pct(tR, 2), dx: 10, dy: -10 }, { x: best(uh, tH).x, y: best(uh, tH).y, color: C.s2 }],
+    hover: (ps) => ({ title: "Threshold " + pct(ps[0].x, 2), rows: [["Utility (recorded)", ps[0].y.toFixed(3)], ["Hours alarmed", pct(ps[0].rate)], ["Utility (hidden)", ps[1].y.toFixed(3)]] }),
+  });
+
+  // Risk-coverage
+  const rc = T.risk_coverage.map((p) => ({ x: p.coverage, y: p.risk, th: p.threshold, cap: p.escalated_positive_capture }));
+  lineChart(document.getElementById("rcChart"), {
+    series: [{ points: rc, color: C.s2 }],
+    xDomain: [0.5, 1], yDomain: [0, 0.02], xTicks: [0.5, 0.6, 0.7, 0.8, 0.9, 1], yTicks: [0, 0.005, 0.01, 0.015, 0.02],
+    xFmt: (v) => pct(v, 0), yFmt: (v) => pct(v, 1), xLabel: "Coverage (hours the model decides)", yLabel: "Risk on decided hours",
+    refLines: [{ y: T.predict_negative_risk, label: "always “no sepsis”: " + pct(T.predict_negative_risk, 2) }],
+    marks: [{ x: S.labs_hidden.coverage, y: S.labs_hidden.risk, color: C.ink, label: "frozen: " + pct(S.labs_hidden.coverage) + " coverage, " + pct(S.labs_hidden.risk, 2) + " risk", anchor: "end", dx: -12, dy: -12 }],
+    hover: (ps) => ({ title: "Coverage " + pct(ps[0].x), rows: [["Risk", pct(ps[0].y, 2)], ["Confidence threshold", ps[0].th.toFixed(3)], ["Sepsis hours escalated", pct(ps[0].cap)]] }),
+  });
+
+  // escalation bar
+  const eb = document.getElementById("escBar"); eb.replaceChildren();
+  const EW = eb.clientWidth || 500, cov = S.labs_hidden.coverage;
+  const s2 = el("svg", { width: EW, height: 120, viewBox: `0 0 ${EW} 120`, role: "img", "aria-label": "Hours decided versus escalated" }, eb);
+  el("rect", { x: 0, y: 24, width: EW * cov - 2, height: 36, rx: 4, fill: "#d9d8d1" }, s2);
+  el("rect", { x: EW * cov, y: 24, width: EW * (1 - cov), height: 36, rx: 4, fill: C.warn }, s2);
+  txt(s2, 0, 16, "Decided with confidence · " + pct(cov), { fill: C.ink2, "font-size": 12 });
+  txt(s2, EW, 16, "Escalated · " + pct(1 - cov), { fill: C.ink, "font-size": 12, "font-weight": 600, "text-anchor": "end" });
+  txt(s2, EW, 86, "contains " + pct(S.labs_hidden.escalated_positive_capture) + " of all sepsis hours", { fill: C.ink, "font-size": 15, "font-weight": 600, "text-anchor": "end" });
+  setText("escText", "At the frozen threshold the model makes a call on " + pct(cov) + " of hours with " + pct(S.labs_hidden.risk, 2) + " error. The " + pct(1 - cov) + " it escalates hold " + pct(S.labs_hidden.escalated_positive_capture) + " of sepsis hours, so abstention acts as a targeted alarm. After one more hour of waiting, " + pct(T.wait_recheck.resolved_after_wait_rate) + " of escalated hours become confident.");
+
+  // forests
+  const B = T.bootstrap;
+  const fr = [
+    ["as_recorded", "Labs as recorded", C.s1, false, false],
+    ["fixed_order", "Fixed order", C.ink, false, false],
+    ["random", "Random group", C.ink, false, false],
+    ["patient_specific", "Patient-specific (ours)", C.ink, false, false],
+    ["oracle_upper_bound", "Oracle (uses labels)", C.muted, true, true],
+  ];
+  forest(document.getElementById("dUtil"), fr.map(([k, n, c, h, mu]) => ({ name: n, est: S[k].utility_delta, ci: S[k].utility_delta_ci, color: c, hollow: h, muted: mu })), { domain: [-0.01, 0.07], ticks: [0, 0.02, 0.04, 0.06], fmt: (v) => sgn(v) });
+  forest(document.getElementById("dAuroc"), fr.map(([k, n, c, h, mu]) => ({ name: n, est: B[k].auroc.est, ci: B[k].auroc.ci, color: c, hollow: h, muted: mu })), { domain: [-0.005, 0.05], ticks: [0, 0.01, 0.02, 0.03, 0.04, 0.05], fmt: (v) => sgn(v) });
+}
+
+/* ---------- live demo ---------- */
+const st = { pi: 0, h: 0, ordered: {}, revealed: false, timer: null, showRec: false };
+const GROUPS = Object.keys(D.lab_groups);
+const TAU = D.protocol.abstention_threshold, ALERT = D.protocol.alert_thresholds.labs_hidden_and_policies;
+const conf = (p) => Math.max(p, 1 - p);
+const UNITS = { pH: "", PaCO2: " mmHg", HCO3: " mmol/L", Lactate: " mmol/L", WBC: " ×10³/µL", Creatinine: " mg/dL", BUN: " mg/dL", Bilirubin_total: " mg/dL", Platelets: " ×10³/µL", Hgb: " g/dL" };
+
+function buildCases() {
+  const host = document.getElementById("cases"); host.replaceChildren();
+  let randomCount = 0;
+  D.patients.forEach((p, i) => {
+    if (p.case === "Random patient") { randomCount++; return; }
+    const b = document.createElement("button"); b.type = "button"; b.textContent = p.case; b.dataset.i = i;
+    b.addEventListener("click", () => selectPatient(i)); host.appendChild(b);
+  });
+  const sel = document.createElement("select"); sel.setAttribute("aria-label", "Random held-out patient");
+  sel.style.cssText = "font:inherit;font-size:13px;border:1px solid rgba(11,11,11,.1);border-radius:8px;padding:6px 10px;background:#fcfcfb;min-height:36px";
+  const o0 = document.createElement("option"); o0.textContent = "Surprise me (" + randomCount + " more patients)…"; o0.value = ""; sel.appendChild(o0);
+  D.patients.forEach((p, i) => { if (p.case !== "Random patient") return; const o = document.createElement("option"); o.value = i; o.textContent = "Patient " + p.id + " · " + p.hours.length + " h"; sel.appendChild(o); });
+  sel.addEventListener("change", () => { if (sel.value !== "") selectPatient(+sel.value); });
+  host.appendChild(sel);
+}
+function selectPatient(i) {
+  stop(); st.pi = i; st.h = 0; st.ordered = {}; st.revealed = false; setText("revealBtn", "Reveal outcome");
+  document.querySelectorAll("#cases button").forEach((b) => b.classList.toggle("on", +b.dataset.i === i));
+  const p = D.patients[i], sl = document.getElementById("hourSlider");
+  sl.max = p.hours.length - 1; sl.value = 0;
+  setText("ptTitle", "Hospital " + p.hospital + " · " + p.age + " y · " + p.gender + " · " + p.hours.length + " h in ICU");
+  setText("ptWhy", p.case === "Random patient" ? "Random held-out patient" : p.case + ": " + p.why);
+  render();
+}
+function stop() { if (st.timer) { clearInterval(st.timer); st.timer = null; } setText("playBtn", "Play"); }
+function play() {
+  if (st.timer) return stop();
+  const p = D.patients[st.pi]; if (st.h >= p.hours.length - 1) st.h = 0;
+  setText("playBtn", "Pause");
+  st.timer = setInterval(() => { if (st.h >= p.hours.length - 1) { stop(); return; } st.h++; render(); }, 700);
+}
+function fixedChoice(p, h) { return GROUPS.find((g) => p.available[g][h]) || null; }
+
+function render() {
+  const p = D.patients[st.pi], h = st.h, n = p.hours.length;
+  document.getElementById("hourSlider").value = h;
+  const hid = p.p.labs_hidden, rec = p.p.as_recorded;
+  // river
+  const host = document.getElementById("riverChart"); host.replaceChildren();
+  const W = host.clientWidth || 700, H = 300, m = { l: 52, r: 110, t: 12, b: 34 };
+  const svg = el("svg", { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Hourly sepsis risk for this patient" }, host);
+  const sx = (i) => m.l + (n === 1 ? 0 : i / (n - 1)) * (W - m.l - m.r);
+  const lo = Math.log10(0.002);
+  const sy = (v) => H - m.b - (Math.log10(Math.max(0.002, v)) - lo) / (0 - lo) * (H - m.t - m.b);
+  const bw = (W - m.l - m.r) / Math.max(1, n - 1);
+  for (let i = 0; i <= h; i++) if (conf(hid[i]) < TAU) el("rect", { x: sx(i) - bw / 2, y: m.t, width: bw, height: H - m.t - m.b, fill: C.warnBg }, svg);
+  for (const t of [0.003, 0.01, 0.03, 0.1, 0.3, 1]) { el("line", { x1: m.l, x2: W - m.r, y1: sy(t), y2: sy(t), stroke: C.grid }, svg); txt(svg, m.l - 8, sy(t) + 4, pct(t, t < 0.01 ? 1 : 0), { "text-anchor": "end" }); }
+  el("line", { x1: m.l, x2: W - m.r, y1: sy(1 - TAU), y2: sy(1 - TAU), stroke: C.ink2, "stroke-dasharray": "4 4" }, svg);
+  txt(svg, W - m.r + 6, sy(1 - TAU) - 2, "confident", { fill: C.ink2 }); txt(svg, W - m.r + 6, sy(1 - TAU) + 10, "below " + pct(1 - TAU, 1), { fill: C.ink2 });
+  el("line", { x1: m.l, x2: W - m.r, y1: sy(ALERT), y2: sy(ALERT), stroke: C.crit, "stroke-dasharray": "2 4" }, svg);
+  txt(svg, W - m.r + 6, sy(ALERT) + 14, "alarm ≥ " + pct(ALERT, 1), { fill: C.crit });
+  const path = (arr, upto) => arr.slice(0, upto + 1).map((v, i) => (i ? "L" : "M") + sx(i).toFixed(1) + " " + sy(v).toFixed(1)).join(" ");
+  el("path", { d: path(hid, n - 1), fill: "none", stroke: C.s2, "stroke-width": 1.5, opacity: 0.15 }, svg);
+  if (st.showRec) el("path", { d: path(rec, h), fill: "none", stroke: C.s1, "stroke-width": 2 }, svg);
+  el("path", { d: path(hid, h), fill: "none", stroke: C.s2, "stroke-width": 2.5, "stroke-linejoin": "round" }, svg);
+  for (let i = 0; i <= h; i++) if (hid[i] >= ALERT) el("rect", { x: sx(i) - 2, y: H - m.b - 8, width: 4, height: 8, fill: C.crit }, svg);
+  for (const [k, g] of Object.entries(st.ordered)) { const i = +k; const v = p.p["group_" + g][i]; el("circle", { cx: sx(i), cy: sy(v), r: 6, fill: C.surface, stroke: C.ink, "stroke-width": 2 }, svg); el("line", { x1: sx(i), x2: sx(i), y1: sy(hid[i]), y2: sy(v), stroke: C.ink, "stroke-width": 1 }, svg); }
+  el("circle", { cx: sx(h), cy: sy(hid[h]), r: 7, fill: C.s2, stroke: C.surface, "stroke-width": 2 }, svg);
+  el("line", { x1: sx(h), x2: sx(h), y1: m.t, y2: H - m.b, stroke: C.ink, opacity: 0.25 }, svg);
+  const showOnset = p.septic && (st.revealed || h === n - 1);
+  if (showOnset) {
+    const oi = p.hours.indexOf(p.onset_hour); const ox = oi >= 0 ? sx(oi) : W - m.r;
+    el("line", { x1: ox, x2: ox, y1: m.t, y2: H - m.b, stroke: C.crit, "stroke-width": 2 }, svg);
+    txt(svg, ox - 6, m.t + 12, "clinical onset", { fill: C.crit, "text-anchor": "end", "font-weight": 600 });
+  }
+  txt(svg, m.l, H - 8, "hour " + p.hours[0], {}); txt(svg, W - m.r, H - 8, "hour " + p.hours[n - 1], { "text-anchor": "end" });
+  const hit = el("rect", { x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b, fill: "transparent" }, svg);
+  hit.addEventListener("pointermove", (e) => { const r = svg.getBoundingClientRect(); const i = Math.max(0, Math.min(n - 1, Math.round((e.clientX - r.left - m.l) / bw))); if (i > h) { hideTip(); return; } showTip(e, "ICU hour " + p.hours[i], [["Risk, labs hidden", pct(hid[i], 2)], ["Risk, labs as recorded", pct(rec[i], 2)], ["Confidence", pct(conf(hid[i]))]]); });
+  hit.addEventListener("pointerleave", hideTip);
+  hit.addEventListener("click", (e) => { const r = svg.getBoundingClientRect(); st.h = Math.max(0, Math.min(n - 1, Math.round((e.clientX - r.left - m.l) / bw))); render(); });
+
+  // decision panel
+  const ph = hid[h], cf = conf(ph), sure = cf >= TAU, alarm = ph >= ALERT;
+  setText("hourLabel", "ICU hour " + p.hours[h] + " · risk " + pct(ph, 2) + " · confidence " + pct(cf));
+  const badges = document.getElementById("badges"); badges.replaceChildren();
+  const badge = (cls, s) => { const b = document.createElement("span"); b.className = "pill " + cls; b.textContent = s; badges.appendChild(b); };
+  if (alarm) badge("alarm", "▲ Early-warning alarm"); else badge("ok", "No alarm");
+  badge(sure ? "ok" : "esc", sure ? "✓ Confident" : "● Not confident");
+  const g = st.ordered[h];
+  let decision, why;
+  if (sure) { decision = ph >= 0.5 ? "Predict sepsis" : "Rule out"; why = "Confidence " + pct(cf) + " ≥ " + pct(TAU) + ": the model makes a call this hour."; }
+  else if (!g) { decision = "Order a lab"; why = "Confidence " + pct(cf) + " is below " + pct(TAU) + ". Pick a lab group below (only groups actually recorded for this patient can be ordered)."; }
+  else { const pa = p.p["group_" + g][h], ca = conf(pa); if (ca >= TAU) { decision = "Resolved: " + (pa >= 0.5 ? "predict sepsis" : "rule out"); why = "After " + D.lab_groups[g].label.toLowerCase() + " labs, risk " + pct(ph, 2) + " → " + pct(pa, 2) + ", confidence " + pct(ca) + "."; } else { decision = "Escalate"; why = "After " + D.lab_groups[g].label.toLowerCase() + " labs, risk " + pct(ph, 2) + " → " + pct(pa, 2) + ". Still not confident (" + pct(ca) + "): hand to a clinician or re-check next hour."; } }
+  setText("decision", decision); setText("decisionWhy", why);
+  document.getElementById("decision").style.color = sure || (g && conf(p.p["group_" + g][h]) >= TAU) ? C.ink : "#8a5a00";
+  const labs = document.getElementById("labs"); labs.replaceChildren();
+  for (const grp of GROUPS) {
+    const b = document.createElement("button"); b.type = "button"; b.className = "lab" + (g === grp ? " chosen" : "");
+    const av = p.available[grp][h]; b.disabled = sure || !av;
+    const t = document.createElement("b"); t.textContent = D.lab_groups[grp].label;
+    const s = document.createElement("small"); s.textContent = av ? (sure ? "not needed" : "recorded · click to order") : "never measured yet";
+    b.append(t, s);
+    if (g === grp || (st.revealed && av)) {
+      const v = document.createElement("div"); v.className = "vals";
+      v.textContent = Object.entries(p.labs[grp]).map(([lab, o]) => o.value[h] == null ? lab + " —" : lab + " " + o.value[h] + (UNITS[lab] || "") + (o.age[h] ? " (" + o.age[h] + " h ago)" : "")).join(" · ");
+      b.appendChild(v);
+    }
+    b.addEventListener("click", () => { st.ordered[h] = grp; render(); });
+    labs.appendChild(b);
+  }
+  const fc = fixedChoice(p, h), pc = p.policy_choice.patient_specific[h];
+  setText("policyLine", sure ? "" : "Fixed order would pick: " + (fc ? D.lab_groups[fc].label : "none available") + " · Patient-specific selector would pick: " + (pc ? D.lab_groups[pc].label : "none available"));
+  const out = document.getElementById("outcome");
+  if (st.revealed || h === n - 1) {
+    if (p.septic) {
+      const alarmsBefore = p.hours.map((hr, i) => hid[i] >= ALERT && hr < p.onset_hour ? hr : null).filter((x) => x != null);
+      out.textContent = "Outcome: septic, clinical onset at hour " + p.onset_hour + ". " + (alarmsBefore.length ? "First alarm at hour " + alarmsBefore[0] + " (" + (p.onset_hour - alarmsBefore[0]) + " h earlier)." : "No alarm before onset: a miss.");
+    } else out.textContent = "Outcome: not septic. Alarm hours in this stay: " + hid.filter((v) => v >= ALERT).length + ".";
+  } else out.textContent = "";
+  // vitals
+  const vh = document.getElementById("vitals"); vh.replaceChildren();
+  const VN = { HR: "Heart rate", MAP: "MAP", Resp: "Resp. rate", Temp: "Temp °C", O2Sat: "SpO₂ %" };
+  for (const [k, label] of Object.entries(VN)) {
+    const arr = p.vitals[k], c = document.createElement("div"); c.className = "vital";
+    const a = document.createElement("div"); a.className = "k"; a.textContent = label;
+    const b = document.createElement("div"); b.className = "x"; b.textContent = arr[h] == null ? "—" : arr[h];
+    c.append(a, b);
+    const vals = arr.slice(0, h + 1).map((v, i) => [i, v]).filter(([, v]) => v != null);
+    if (vals.length > 1) {
+      const all = arr.filter((v) => v != null), mn = Math.min(...all), mx = Math.max(...all), sw = 120, shh = 24;
+      const sp = el("svg", { width: "100%", height: shh, viewBox: `0 0 ${sw} ${shh}`, preserveAspectRatio: "none", "aria-hidden": "true" }, c);
+      el("path", { d: vals.map(([i, v], j) => (j ? "L" : "M") + (i / Math.max(1, n - 1) * sw).toFixed(1) + " " + (shh - 2 - (v - mn) / Math.max(1e-6, mx - mn) * (shh - 4)).toFixed(1)).join(" "), fill: "none", stroke: C.ink2, "stroke-width": 1.5, "vector-effect": "non-scaling-stroke" }, sp);
+    }
+    vh.appendChild(c);
+  }
+}
+
+/* ---------- navigation + notes ---------- */
+const NOTES = {
+  overview: ["One sentence: an AI that knows when its evidence is not enough.", "Point at the four tiles: utility 0.419, AUROC 0.840, 84% warned early, lab-ordering gain ≈ 0.", "Say upfront: one frozen protocol, one final test run; earlier test accesses are disclosed at the end."],
+  data: ["Lactate is missing in 97% of hours; vitals mostly present.", "Splits are by patient, stratified by hospital and sepsis.", "Labels turn positive 6 h before clinical onset; utility rewards alarms 12 h before to 3 h after onset."],
+  method: ["Features use only the past: last value, hours since measured, observed flag.", "The model is trained with labs randomly hidden so it works at any level of missing data.", "Two thresholds, both frozen on validation: confidence (predict vs escalate) and alarm (early warning)."],
+  prediction: ["Labs add discrimination: AUROC 0.806 → 0.840 (Δ +0.034, CI 0.024–0.046).", "Calibration tracks the diagonal below ~10% risk, where almost all hours sit; over-predicts at the top (few rows).", "Brier scores are near the base-rate floor because positives are only 1.8% of hours."],
+  warning: ["The first version scored utility 0.02 because it alarmed at p ≥ 0.5; the threshold must be chosen on validation.", "Frozen threshold gives 0.419 on test, CI 0.380–0.457.", "Be honest: 31.6% of non-septic patients also get an alarm; lead time is an upper bound."],
+  selective: ["Hover along the curve: lower threshold = more coverage, more risk.", "Frozen point: 90.8% coverage at 1.05% risk, below the 1.81% of always saying no.", "The 9.2% escalated hours hold 47.5% of sepsis hours: abstention is a targeted alarm."],
+  acquisition: ["All realistic policies sit at zero; random is slightly negative.", "Recorded labs are worth +0.039; the oracle that peeks reaches only +0.009.", "Conclusion: lab value is diffuse; one-step acquisition is the wrong unit. This is the open problem."],
+  demo: ["Start with ‘Early warning’. Press Play, pause when the band turns amber.", "Click the recommended lab group: show the real values and how risk moves.", "Reveal outcome: first alarm vs clinical onset. Then show ‘False alarm’ or ‘Missed case’ to stay honest."],
+  integrity: ["Five test accesses; the first four were development runs, disclosed in the ledger.", "Protocol files are hashed; the evaluator refuses to run if they change.", "Limitations: retrospective, one dataset, simulated acquisition, calibration tail."],
+};
+function setupNav() {
+  const nav = document.getElementById("nav"), secs = [...document.querySelectorAll("section")];
+  for (const s of secs) { const a = document.createElement("a"); a.href = "#" + s.id; a.textContent = s.dataset.title; a.dataset.id = s.id; nav.appendChild(a); }
+  const notes = document.getElementById("notes");
+  let current = secs[0].id;
+  const showNotes = (id) => { setText("notesTitle", "Speaker notes · " + document.getElementById(id).dataset.title); const ul = document.getElementById("notesBody"); ul.replaceChildren(); for (const t of NOTES[id] || []) { const li = document.createElement("li"); li.textContent = t; ul.appendChild(li); } };
+  const io = new IntersectionObserver((es) => { for (const e of es) if (e.isIntersecting) { current = e.target.id; nav.querySelectorAll("a").forEach((a) => a.classList.toggle("on", a.dataset.id === current)); showNotes(current); } }, { rootMargin: "-45% 0px -50% 0px" });
+  secs.forEach((s) => io.observe(s));
+  const toggleNotes = () => { notes.style.display = notes.style.display === "block" ? "none" : "block"; };
+  document.getElementById("notesBtn").addEventListener("click", toggleNotes);
+  document.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+    const i = secs.findIndex((s) => s.id === current);
+    if (e.key === "n" || e.key === "N") toggleNotes();
+    else if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); secs[Math.min(secs.length - 1, i + 1)].scrollIntoView(); }
+    else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); secs[Math.max(0, i - 1)].scrollIntoView(); }
+    else if (e.key === " " && current === "demo") { e.preventDefault(); play(); }
+  });
+  showNotes(current);
+}
+function setupDemo() {
+  buildCases();
+  document.getElementById("playBtn").addEventListener("click", play);
+  document.getElementById("prevBtn").addEventListener("click", () => { stop(); st.h = Math.max(0, st.h - 1); render(); });
+  document.getElementById("nextBtn").addEventListener("click", () => { stop(); st.h = Math.min(D.patients[st.pi].hours.length - 1, st.h + 1); render(); });
+  document.getElementById("hourSlider").addEventListener("input", (e) => { stop(); st.h = +e.target.value; render(); });
+  document.getElementById("revealBtn").addEventListener("click", () => { st.revealed = !st.revealed; setText("revealBtn", st.revealed ? "Hide outcome" : "Reveal outcome"); render(); });
+  document.getElementById("recToggle").addEventListener("change", (e) => { st.showRec = e.target.checked; render(); });
+  selectPatient(0);
+}
+if (!D) { document.body.textContent = "dashboard/data.js not found. Run: make dashboard"; }
+else {
+  fillStatic(); drawCharts(); setupNav(); setupDemo();
+  let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { drawCharts(); render(); }, 150); });
+}
+</script>
+</body>
+</html>
