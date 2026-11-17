@@ -43,3 +43,24 @@ def test_future_onset_rows_validate_binary_labels():
         assert "only 0 and 1" in str(error)
     else:
         raise AssertionError("Expected binary-label validation")
+
+
+def test_vectorized_targets_match_naive_definition_on_shuffled_patients():
+    import numpy as np
+
+    rng = np.random.default_rng(7)
+    rows = []
+    for patient in range(25):
+        hours = np.sort(rng.choice(np.arange(1, 80), size=rng.integers(1, 30), replace=False))
+        for hour in hours:
+            rows.append({"patient_id": f"p{patient}", "ICULOS": int(hour), "SepsisLabel": int(rng.random() < 0.15)})
+    frame = pd.DataFrame(rows).sample(frac=1.0, random_state=3).reset_index(drop=True)
+    result = add_horizon_targets(frame, horizons=(1, 6, 24))
+    for horizon in (1, 6, 24):
+        expected = []
+        for _, row in frame.iterrows():
+            same = frame[(frame.patient_id == row.patient_id)
+                         & (frame.ICULOS > row.ICULOS)
+                         & (frame.ICULOS <= row.ICULOS + horizon)]
+            expected.append(int(same.SepsisLabel.any()))
+        assert result[f"SepsisWithin{horizon}h"].tolist() == expected

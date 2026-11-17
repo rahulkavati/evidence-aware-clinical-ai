@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
+import numpy as np
 import pandas as pd
 
 
@@ -25,17 +26,29 @@ def add_horizon_targets(
 
     result = frame.copy()
     result["SepsisLabel"] = result["SepsisLabel"].astype(int)
-    grouped = result.groupby("patient_id", sort=False)
+    patient_codes = pd.factorize(result["patient_id"])[0]
+    hours_all = result["ICULOS"].to_numpy(dtype=float)
+    labels_all = result["SepsisLabel"].to_numpy(dtype=int)
+    order = np.lexsort((hours_all, patient_codes))
+    codes = patient_codes[order]
+    hours = hours_all[order]
+    labels = labels_all[order]
+    # Prefix sums of positive labels within each patient (in hour order).
+    cumulative = np.cumsum(labels)
+    starts = np.r_[0, np.flatnonzero(codes[1:] != codes[:-1]) + 1]
+    patient_start = np.repeat(starts, np.diff(np.r_[starts, len(codes)]))
+    before_start = np.where(patient_start > 0, cumulative[patient_start - 1], 0)
     for horizon in horizons:
         name = f"SepsisWithin{int(horizon)}h"
-        values = pd.Series(0, index=result.index, dtype="int8")
-        for _, patient in grouped:
-            hours = patient["ICULOS"].to_numpy()
-            labels = patient["SepsisLabel"].to_numpy(dtype=int)
-            for index, hour in zip(patient.index, hours):
-                future = (hours > hour) & (hours <= hour + int(horizon))
-                values.loc[index] = int(labels[future].any())
+        # Composite sort key keeps the binary search inside each patient.
+        key = codes * 1e7 + hours
+        upper = np.searchsorted(key, codes * 1e7 + hours + int(horizon), side="right")
+        upper_sum = np.where(upper > 0, cumulative[upper - 1], 0)
+        future_positive = upper_sum - cumulative  # strictly after current row
+        values = np.zeros(len(result), dtype="int8")
+        values[order] = (future_positive > 0).astype("int8")
         result[name] = values
+    del before_start
     return result
 
 
