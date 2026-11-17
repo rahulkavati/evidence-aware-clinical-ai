@@ -79,22 +79,75 @@ These questions are provisional; novelty has not yet been established.
 
 ## Project Status
 
-**Phase:** Completed retrospective validation study.
+**Phase:** Completed retrospective study with a single frozen final evaluation.
 
-Completed validation milestones include G1 mask-aware headroom, independent
-calibration, selective prediction, robustness analysis, training-derived VOI
-acquisition, and acquisition-after-abstention analysis. The held-out test split
-has not been accessed for these development decisions.
+### Final held-out results (6,051 patients, 232,215 hourly rows)
 
-The frozen protocol, validation sensitivity analyses, reproducibility
-materials, and the single locked next-phase held-out evaluation are complete.
-The results remain retrospective research findings and do not establish
-prospective clinical utility.
+Thresholds were selected on validation data only and frozen in
+[`configs/final_protocol.json`](configs/final_protocol.json). Full report:
+[`experiments/results/final/final_test_evaluation.md`](experiments/results/final/final_test_evaluation.md).
 
-The latest validation-only next-phase policy results are recorded in
-[`experiments/results/next_phase/validation_policy_evaluation.md`](experiments/results/next_phase/validation_policy_evaluation.md).
-The locked held-out results are recorded in
-[`experiments/results/next_phase/heldout_policy_evaluation.md`](experiments/results/next_phase/heldout_policy_evaluation.md).
+| Finding | Result |
+|---|---|
+| Early-warning utility, labs as recorded (official PhysioNet 2019 score) | **0.419** (95% CI 0.380–0.457) |
+| Early-warning utility, all 26 labs hidden | 0.380 (0.340–0.421) |
+| Value of the recorded labs (utility difference) | +0.039 (0.015–0.065) |
+| AUROC, labs as recorded / labs hidden | 0.840 / 0.806 |
+| Selective prediction at 1% validation risk target | 90.8% coverage, 1.05% risk; escalated 9.2% of hours, which contained 47.5% of positive hours |
+| One-step lab acquisition (fixed, random, patient-specific) vs labs hidden | No utility gain; best ΔAUROC +0.002 (fixed order) |
+| Oracle acquisition ceiling (uses labels) | ΔAUPRC +0.148, utility +0.009: real but small headroom |
+
+**Main conclusion:** recorded laboratory results add meaningful predictive value,
+but none of the deployable one-step acquisition policies recovers it. The
+oracle ceiling shows the headroom is concentrated in a small set of rows,
+which defines the open problem for future acquisition policies.
+
+### Methodological notes
+
+- Every access to the held-out split, including four development-phase accesses
+  before the final protocol, is disclosed in
+  [`experiments/results/final/test_access_ledger.json`](experiments/results/final/test_access_ledger.json).
+- Earlier next-phase reports are kept for history and marked superseded: they
+  scored utility at a fixed 0.5 alert cut-off and their oracle reduced to the
+  fixed order.
+- Only the validation patients' raw PSV files are stored locally. All experiments
+  run from `data/processed/*.parquet`; `make check-data` verifies them against
+  the split manifests. `bash scripts/download_physionet2019.sh` restores the raw files.
+
+## How to Run
+
+Requires Python 3.11–3.14. On macOS:
+
+```bash
+make setup        # once: create .venv and install pinned dependencies
+make check-data   # verify processed data matches the split manifests
+make test         # full test suite (148 tests)
+make validate     # final evaluation on validation (about 5 minutes)
+```
+
+Further targets:
+
+```bash
+make train        # retrain the all-26-lab model + calibrators (about 1 minute)
+make freeze       # re-select thresholds on validation (refuses if already frozen)
+make final-test   # locked held-out evaluation; appended to the access ledger
+```
+
+`experiments/run_final_evaluation.py --stage freeze|predict|evaluate|bootstrap|report`
+runs individual stages; held-out access additionally requires `--locked-test`.
+
+### Repository layout
+
+| Path | Contents |
+|---|---|
+| `src/data` | Leakage-safe temporal features, patient-level splits, lab groups, masking |
+| `src/models` | Logistic regression, XGBoost, mask-aware XGBoost, sequence baselines |
+| `src/uncertainty` | Platt / isotonic calibration and robustness analyses |
+| `src/acquisition` | Fixed, random, VOI, risk-averse and patient-specific acquisition policies |
+| `src/evaluation` | Selective prediction, PhysioNet utility, early warning, paired bootstrap |
+| `experiments/` | Runnable experiment scripts; `results/` holds every committed report |
+| `configs/final_protocol.json` | Frozen thresholds and artifact hashes for the final evaluation |
+| `docs/` | Research problem, protocol, audits, literature and gate documents |
 
 ## Long-Term Direction
 
