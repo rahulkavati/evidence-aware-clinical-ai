@@ -1,3 +1,5 @@
+> **Superseded.** This report predates the final protocol. Its PhysioNet utility used a fixed 0.5 alert cut-off (not validation-tuned), its oracle reduced to the fixed order, and it was one of several held-out accesses. Final numbers: [`experiments/results/final/final_test_evaluation.md`](final_test_evaluation.md); access history: [`test_access_ledger.json`](test_access_ledger.json).
+
 # Locked held-out evaluation
 
 Single final evaluation using the frozen validation-selected threshold and fixed one-step policy.

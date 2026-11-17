@@ -1,3 +1,5 @@
+> **Superseded.** This report predates the final protocol. Its PhysioNet utility used a fixed 0.5 alert cut-off (not validation-tuned), its oracle reduced to the fixed order, and it was one of several held-out accesses. Final numbers: [`experiments/results/final/final_test_evaluation.md`](../final/final_test_evaluation.md); access history: [`test_access_ledger.json`](../final/test_access_ledger.json).
+
 # Next-phase validation policy evaluation
 
 This report records the validation-only run completed after the policy-runtime

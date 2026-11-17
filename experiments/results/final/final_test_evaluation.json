@@ -1,0 +1,1109 @@
+{
+  "protocol": {
+    "frozen_at": "2026-11-17T15:05:59+00:00",
+    "git_commit_at_freeze": "39835f95f103a472871331d4fb8f1c82e35af97c",
+    "model": "All-26-lab mask-aware XGBoost with state-specific Platt calibration",
+    "artifact_sha256": {
+      "model": "2cbf2d6698280e669e8d57d3ab7d3a99462d0483b3b5250e053bb999a9706ac9",
+      "calibrator": "c2366044136f291951f732cbb7d32ee431e4b5a2203e7e2c91259c7c7c31f818",
+      "selector": "c3be8865fac32ac4741c4a5d88511a2ae677e623374aebf060722009baabc6e2",
+      "train_parquet": "8d2f524ae581cdb827f65cbe0bcb5ab43a2feadfecbfc85b731da24c4a7b04cc",
+      "validation_parquet": "21c7aa46caf6f32292c3cb03f5251f2ead2656a79a903c268a5579ecb6a13862"
+    },
+    "abstention_threshold": 0.9678114602035706,
+    "abstention_rule": "retain a prediction when max(p, 1-p) >= threshold; otherwise escalate",
+    "abstention_threshold_source": "validation selection half, selective risk <= 1%",
+    "alert_thresholds": {
+      "as_recorded": 0.02539279556205635,
+      "labs_hidden_and_policies": 0.02170039264097658
+    },
+    "alert_threshold_source": "validation selection half, maximum normalized PhysioNet utility",
+    "alert_threshold_curves": {
+      "as_recorded": [
+        {
+          "threshold": 0.008275043642086033,
+          "normalized_utility": 0.14071138786678053,
+          "alert_rate": 0.5000042709854872
+        },
+        {
+          "threshold": 0.008574422379393052,
+          "normalized_utility": 0.15813756014718516,
+          "alert_rate": 0.4855854239807293
+        },
+        {
+          "threshold": 0.008876094092671857,
+          "normalized_utility": 0.1781127150360101,
+          "alert_rate": 0.4711751189469458
+        },
+        {
+          "threshold": 0.009188511835675768,
+          "normalized_utility": 0.19510331163317368,
+          "alert_rate": 0.4567648139131623
+        },
+        {
+          "threshold": 0.009535773334931637,
+          "normalized_utility": 0.21046325125011958,
+          "alert_rate": 0.4423545088793788
+        },
+        {
+          "threshold": 0.009891312575079369,
+          "normalized_utility": 0.22907821492593755,
+          "alert_rate": 0.42794420384559534
+        },
+        {
+          "threshold": 0.01026364677857352,
+          "normalized_utility": 0.2460625216215376,
+          "alert_rate": 0.41353389881181185
+        },
+        {
+          "threshold": 0.010648118965501873,
+          "normalized_utility": 0.2638409283894712,
+          "alert_rate": 0.399115051807054
+        },
+        {
+          "threshold": 0.01105179541642759,
+          "normalized_utility": 0.2759474164229333,
+          "alert_rate": 0.3847047467732705
+        },
+        {
+          "threshold": 0.011443982521222628,
+          "normalized_utility": 0.2928782589552486,
+          "alert_rate": 0.37029444173948695
+        },
+        {
+          "threshold": 0.011881207654603616,
+          "normalized_utility": 0.3064723087083699,
+          "alert_rate": 0.35589267867667784
+        },
+        {
+          "threshold": 0.012341276647505934,
+          "normalized_utility": 0.3225021228417784,
+          "alert_rate": 0.34147383167191997
+        },
+        {
+          "threshold": 0.012821326785498011,
+          "normalized_utility": 0.33916249960688233,
+          "alert_rate": 0.3270635266381365
+        },
+        {
+          "threshold": 0.013350717737486124,
+          "normalized_utility": 0.3583734314557983,
+          "alert_rate": 0.3126446796333786
+        },
+        {
+          "threshold": 0.013902841764916839,
+          "normalized_utility": 0.37078183476428667,
+          "alert_rate": 0.2982343745995951
+        },
+        {
+          "threshold": 0.014482111731371093,
+          "normalized_utility": 0.38237097839418843,
+          "alert_rate": 0.28382406956581163
+        },
+        {
+          "threshold": 0.015104900896641028,
+          "normalized_utility": 0.3926015032864739,
+          "alert_rate": 0.26941376453202814
+        },
+        {
+          "threshold": 0.015773617366088257,
+          "normalized_utility": 0.3999009340503823,
+          "alert_rate": 0.2550034594982446
+        },
+        {
+          "threshold": 0.016519121934407126,
+          "normalized_utility": 0.40737176463188357,
+          "alert_rate": 0.24059315446446114
+        },
+        {
+          "threshold": 0.017343837864667293,
+          "normalized_utility": 0.4140327703871433,
+          "alert_rate": 0.22618284943067762
+        },
+        {
+          "threshold": 0.018308814390811615,
+          "normalized_utility": 0.42301632229455555,
+          "alert_rate": 0.21176400242591975
+        },
+        {
+          "threshold": 0.019380103346175282,
+          "normalized_utility": 0.42105701795766814,
+          "alert_rate": 0.19735369739213626
+        },
+        {
+          "threshold": 0.020529925551500395,
+          "normalized_utility": 0.4299902506525766,
+          "alert_rate": 0.18294339235835277
+        },
+        {
+          "threshold": 0.02185846369363715,
+          "normalized_utility": 0.43825675378180273,
+          "alert_rate": 0.16853308732456926
+        },
+        {
+          "threshold": 0.023481678607301024,
+          "normalized_utility": 0.4397207283706004,
+          "alert_rate": 0.15412278229078577
+        },
+        {
+          "threshold": 0.02539279556205635,
+          "normalized_utility": 0.4403151240683079,
+          "alert_rate": 0.13971247725700228
+        },
+        {
+          "threshold": 0.027668552458432007,
+          "normalized_utility": 0.43960436519168417,
+          "alert_rate": 0.1252936302522444
+        },
+        {
+          "threshold": 0.030508045893855574,
+          "normalized_utility": 0.431510834355442,
+          "alert_rate": 0.11088332521846091
+        },
+        {
+          "threshold": 0.03387237513157358,
+          "normalized_utility": 0.42236060005660875,
+          "alert_rate": 0.09647302018467742
+        },
+        {
+          "threshold": 0.038297356512162546,
+          "normalized_utility": 0.4108076233606942,
+          "alert_rate": 0.08206271515089392
+        },
+        {
+          "threshold": 0.0435721477609638,
+          "normalized_utility": 0.3826964808000755,
+          "alert_rate": 0.06765241011711043
+        },
+        {
+          "threshold": 0.05135717450706733,
+          "normalized_utility": 0.34504041261754276,
+          "alert_rate": 0.05324210508332693
+        },
+        {
+          "threshold": 0.06354832589921475,
+          "normalized_utility": 0.2889156209705321,
+          "alert_rate": 0.038823258078569046
+        },
+        {
+          "threshold": 0.08380309538999538,
+          "normalized_utility": 0.20924301034688841,
+          "alert_rate": 0.024412953044785555
+        },
+        {
+          "threshold": 0.14095395340679384,
+          "normalized_utility": 0.11383149353712632,
+          "alert_rate": 0.010002648011002058
+        },
+        {
+          "threshold": 0.17089533488402886,
+          "normalized_utility": 0.08823159417555142,
+          "alert_rate": 0.007004416198993756
+        },
+        {
+          "threshold": 0.20388306208209922,
+          "normalized_utility": 0.06990596597163265,
+          "alert_rate": 0.005005594990988221
+        },
+        {
+          "threshold": 0.26451570213195225,
+          "normalized_utility": 0.03538855866905666,
+          "alert_rate": 0.0030067737829826855
+        },
+        {
+          "threshold": 0.3209930978829465,
+          "normalized_utility": 0.020539673554108802,
+          "alert_rate": 0.002007363178979918
+        },
+        {
+          "threshold": 0.4538010036562818,
+          "normalized_utility": 0.005528823473912497,
+          "alert_rate": 0.0010079525749771502
+        }
+      ],
+      "labs_hidden_and_policies": [
+        {
+          "threshold": 0.009667515352356923,
+          "normalized_utility": 0.09387206340220941,
+          "alert_rate": 0.5000042709854872
+        },
+        {
+          "threshold": 0.009896711873885336,
+          "normalized_utility": 0.1113768594521522,
+          "alert_rate": 0.4855854239807293
+        },
+        {
+          "threshold": 0.010133377902489844,
+          "normalized_utility": 0.12831713683681117,
+          "alert_rate": 0.4711836609179202
+        },
+        {
+          "threshold": 0.010374512988245108,
+          "normalized_utility": 0.1444900462307786,
+          "alert_rate": 0.4567648139131623
+        },
+        {
+          "threshold": 0.010614318339413403,
+          "normalized_utility": 0.16262225996163396,
+          "alert_rate": 0.4423545088793788
+        },
+        {
+          "threshold": 0.01087682831843045,
+          "normalized_utility": 0.18047300059754204,
+          "alert_rate": 0.42794420384559534
+        },
+        {
+          "threshold": 0.011147359371298734,
+          "normalized_utility": 0.19808944240022788,
+          "alert_rate": 0.41353389881181185
+        },
+        {
+          "threshold": 0.011427698105210405,
+          "normalized_utility": 0.2137906091769671,
+          "alert_rate": 0.399115051807054
+        },
+        {
+          "threshold": 0.01170788338785481,
+          "normalized_utility": 0.22790357580903944,
+          "alert_rate": 0.3847132887442449
+        },
+        {
+          "threshold": 0.012003852023377544,
+          "normalized_utility": 0.23903670157562065,
+          "alert_rate": 0.37029444173948695
+        },
+        {
+          "threshold": 0.012325994403263008,
+          "normalized_utility": 0.2577161367424607,
+          "alert_rate": 0.35588413670570346
+        },
+        {
+          "threshold": 0.012662925880082708,
+          "normalized_utility": 0.2713227662987084,
+          "alert_rate": 0.34147383167191997
+        },
+        {
+          "threshold": 0.013033041220906889,
+          "normalized_utility": 0.284652640186182,
+          "alert_rate": 0.3270635266381365
+        },
+        {
+          "threshold": 0.013432423177782805,
+          "normalized_utility": 0.2990093405038217,
+          "alert_rate": 0.3126446796333786
+        },
+        {
+          "threshold": 0.013834633255603098,
+          "normalized_utility": 0.30760291851432636,
+          "alert_rate": 0.2982343745995951
+        },
+        {
+          "threshold": 0.014259486089609122,
+          "normalized_utility": 0.32346605025631464,
+          "alert_rate": 0.28382406956581163
+        },
+        {
+          "threshold": 0.014752551529879645,
+          "normalized_utility": 0.33754442242979005,
+          "alert_rate": 0.26941376453202814
+        },
+        {
+          "threshold": 0.015270116228042691,
+          "normalized_utility": 0.340360725854641,
+          "alert_rate": 0.2550034594982446
+        },
+        {
+          "threshold": 0.0158715290874494,
+          "normalized_utility": 0.35071704877818755,
+          "alert_rate": 0.24059315446446114
+        },
+        {
+          "threshold": 0.01655135449723564,
+          "normalized_utility": 0.3552866622637361,
+          "alert_rate": 0.22618284943067762
+        },
+        {
+          "threshold": 0.01728546728411526,
+          "normalized_utility": 0.3625357738151403,
+          "alert_rate": 0.21176400242591975
+        },
+        {
+          "threshold": 0.018149399740604123,
+          "normalized_utility": 0.36841054187502,
+          "alert_rate": 0.19735369739213626
+        },
+        {
+          "threshold": 0.019139753716389176,
+          "normalized_utility": 0.3789508444192853,
+          "alert_rate": 0.18294339235835277
+        },
+        {
+          "threshold": 0.020305399669773686,
+          "normalized_utility": 0.3860191213007519,
+          "alert_rate": 0.16853308732456926
+        },
+        {
+          "threshold": 0.02170039264097658,
+          "normalized_utility": 0.3921910872094856,
+          "alert_rate": 0.15412278229078577
+        },
+        {
+          "threshold": 0.023478340230993808,
+          "normalized_utility": 0.3917995408371862,
+          "alert_rate": 0.13971247725700228
+        },
+        {
+          "threshold": 0.025540360046035,
+          "normalized_utility": 0.3872252099254651,
+          "alert_rate": 0.1252936302522444
+        },
+        {
+          "threshold": 0.0282276402805741,
+          "normalized_utility": 0.38013177343774596,
+          "alert_rate": 0.11088332521846091
+        },
+        {
+          "threshold": 0.031643722009929855,
+          "normalized_utility": 0.36836022266251567,
+          "alert_rate": 0.09647302018467742
+        },
+        {
+          "threshold": 0.03613153688403962,
+          "normalized_utility": 0.3562961914646036,
+          "alert_rate": 0.08206271515089392
+        },
+        {
+          "threshold": 0.042611842886432966,
+          "normalized_utility": 0.3336729880177379,
+          "alert_rate": 0.06765241011711043
+        },
+        {
+          "threshold": 0.051546315639234425,
+          "normalized_utility": 0.29651224958329425,
+          "alert_rate": 0.05324210508332693
+        },
+        {
+          "threshold": 0.06305619297349398,
+          "normalized_utility": 0.25023429883322357,
+          "alert_rate": 0.038823258078569046
+        },
+        {
+          "threshold": 0.08177610548116068,
+          "normalized_utility": 0.1875774444129951,
+          "alert_rate": 0.024412953044785555
+        },
+        {
+          "threshold": 0.11988261003322552,
+          "normalized_utility": 0.12122999025065263,
+          "alert_rate": 0.010002648011002058
+        },
+        {
+          "threshold": 0.13368290955630377,
+          "normalized_utility": 0.10003616693398742,
+          "alert_rate": 0.007004416198993756
+        },
+        {
+          "threshold": 0.15043754392321262,
+          "normalized_utility": 0.0793958549548699,
+          "alert_rate": 0.005005594990988221
+        },
+        {
+          "threshold": 0.17992667209517355,
+          "normalized_utility": 0.054920275497688534,
+          "alert_rate": 0.0030067737829826855
+        },
+        {
+          "threshold": 0.20856643923451387,
+          "normalized_utility": 0.043390885932635216,
+          "alert_rate": 0.002007363178979918
+        },
+        {
+          "threshold": 0.26627959985058836,
+          "normalized_utility": 0.02715036009686449,
+          "alert_rate": 0.0010079525749771502
+        }
+      ]
+    },
+    "policies": {
+      "acquisition_scope": "one clinical lab group, only for rows the labs-hidden baseline abstains on, only if historically observed",
+      "fixed_order": [
+        "blood_gas",
+        "inflammation_perfusion",
+        "organ_function",
+        "hematology_coagulation"
+      ],
+      "random_seed": 42,
+      "patient_specific": "logistic selectors fit on training policy_fit cohort; target = crossing the rule-out boundary 1 - threshold",
+      "oracle_upper_bound": "uses labels; evaluation ceiling only"
+    },
+    "validation_report_scope": "validation evaluation half (patient-disjoint from the selection half)",
+    "bootstrap": {
+      "resamples": 200,
+      "utility_resamples": 1000,
+      "seed": 42
+    }
+  },
+  "evaluation": {
+    "split": "test",
+    "patients": 6051,
+    "rows": 232215,
+    "positive_rows": 4203,
+    "systems": {
+      "labs_hidden": {
+        "discrimination": {
+          "auroc": 0.8062464078041333,
+          "auprc": 0.10415089156301957,
+          "brier": 0.017014421766875457
+        },
+        "selective": {
+          "total_count": 232215,
+          "retained_count": 210961,
+          "abstained_count": 21254,
+          "coverage": 0.9084727515449045,
+          "risk": 0.010461649309588029,
+          "brier_score": 0.010279996983106988,
+          "positive_count": 4203,
+          "retained_positive_count": 2207,
+          "abstained_positive_count": 1996,
+          "abstained_positive_capture": 0.47489888175113015,
+          "retained_sensitivity": 0.0,
+          "retained_specificity": 1.0,
+          "retained_ppv": null,
+          "retained_npv": 0.989538350690412
+        },
+        "escalation_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 282,
+          "septic_warning_rate": 0.6409090909090909,
+          "median_lead_time_hours": 30.5,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 1060,
+          "non_septic_flag_rate": 0.18891463197291036,
+          "hourly_flag_rate": 0.0915272484550955
+        },
+        "alert_threshold": 0.02170039264097658,
+        "early_warning_utility": {
+          "normalized_utility": 0.3798052864191565,
+          "ci95": [
+            0.34029762224810917,
+            0.42077522055408334
+          ],
+          "valid_replicates": 1000,
+          "n_resamples": 1000,
+          "seed": 42,
+          "patients": 6051
+        },
+        "alert_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 351,
+          "septic_warning_rate": 0.7977272727272727,
+          "median_lead_time_hours": 31.0,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 1945,
+          "non_septic_flag_rate": 0.3466405275351987,
+          "hourly_flag_rate": 0.14806106410007966
+        },
+        "eligible_rows": null
+      },
+      "as_recorded": {
+        "discrimination": {
+          "auroc": 0.8399204904497451,
+          "auprc": 0.10510398822158258,
+          "brier": 0.017127757717770514
+        },
+        "selective": {
+          "total_count": 232215,
+          "retained_count": 208336,
+          "abstained_count": 23879,
+          "coverage": 0.8971685722283229,
+          "risk": 0.009307080869364872,
+          "brier_score": 0.009133825018946913,
+          "positive_count": 4203,
+          "retained_positive_count": 1939,
+          "abstained_positive_count": 2264,
+          "abstained_positive_capture": 0.5386628598620034,
+          "retained_sensitivity": 0.0,
+          "retained_specificity": 1.0,
+          "retained_ppv": null,
+          "retained_npv": 0.9906929191306352
+        },
+        "escalation_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 335,
+          "septic_warning_rate": 0.7613636363636364,
+          "median_lead_time_hours": 29.0,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 1268,
+          "non_septic_flag_rate": 0.22598467296382108,
+          "hourly_flag_rate": 0.10283142777167711
+        },
+        "alert_threshold": 0.02539279556205635,
+        "early_warning_utility": {
+          "normalized_utility": 0.4185219539952141,
+          "ci95": [
+            0.3797526572052599,
+            0.4566854822079739
+          ],
+          "valid_replicates": 1000,
+          "n_resamples": 1000,
+          "seed": 42,
+          "patients": 6051,
+          "difference_vs_reference": 0.03871666757605757,
+          "difference_ci95": [
+            0.014745394133119698,
+            0.06484690450656516
+          ]
+        },
+        "alert_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 370,
+          "septic_warning_rate": 0.8409090909090909,
+          "median_lead_time_hours": 29.0,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 1774,
+          "non_septic_flag_rate": 0.3161646765282481,
+          "hourly_flag_rate": 0.13915121762160068
+        },
+        "eligible_rows": null
+      },
+      "fixed_order": {
+        "discrimination": {
+          "auroc": 0.8081250077295563,
+          "auprc": 0.1137500004906529,
+          "brier": 0.016875718415432027
+        },
+        "selective": {
+          "total_count": 232215,
+          "retained_count": 213281,
+          "abstained_count": 18934,
+          "coverage": 0.91846349288375,
+          "risk": 0.01070887702139431,
+          "brier_score": 0.010517145281258826,
+          "positive_count": 4203,
+          "retained_positive_count": 2284,
+          "abstained_positive_count": 1919,
+          "abstained_positive_capture": 0.456578634308827,
+          "retained_sensitivity": 0.0,
+          "retained_specificity": 1.0,
+          "retained_ppv": null,
+          "retained_npv": 0.9892911229786057
+        },
+        "escalation_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 275,
+          "septic_warning_rate": 0.625,
+          "median_lead_time_hours": 29.0,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 888,
+          "non_septic_flag_rate": 0.15826055961504187,
+          "hourly_flag_rate": 0.08153650711625003
+        },
+        "alert_threshold": 0.02170039264097658,
+        "early_warning_utility": {
+          "normalized_utility": 0.37984659874815857,
+          "ci95": [
+            0.3404096596818077,
+            0.41985133361623894
+          ],
+          "valid_replicates": 1000,
+          "n_resamples": 1000,
+          "seed": 42,
+          "patients": 6051,
+          "difference_vs_reference": 4.1312329002063386e-05,
+          "difference_ci95": [
+            -0.0014308446382453057,
+            0.001018594678286004
+          ]
+        },
+        "alert_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 351,
+          "septic_warning_rate": 0.7977272727272727,
+          "median_lead_time_hours": 31.0,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 1944,
+          "non_septic_flag_rate": 0.34646230618428087,
+          "hourly_flag_rate": 0.14749262536873156
+        },
+        "eligible_rows": 20594
+      },
+      "random": {
+        "discrimination": {
+          "auroc": 0.8058553105150028,
+          "auprc": 0.10148812298274593,
+          "brier": 0.01702932919700629
+        },
+        "selective": {
+          "total_count": 232215,
+          "retained_count": 213890,
+          "abstained_count": 18325,
+          "coverage": 0.9210860624851969,
+          "risk": 0.011066436018514189,
+          "brier_score": 0.010857758013490346,
+          "positive_count": 4203,
+          "retained_positive_count": 2367,
+          "abstained_positive_count": 1836,
+          "abstained_positive_capture": 0.43683083511777304,
+          "retained_sensitivity": 0.0,
+          "retained_specificity": 1.0,
+          "retained_ppv": null,
+          "retained_npv": 0.9889335639814858
+        },
+        "escalation_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 277,
+          "septic_warning_rate": 0.6295454545454545,
+          "median_lead_time_hours": 31.0,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 922,
+          "non_septic_flag_rate": 0.16432008554624844,
+          "hourly_flag_rate": 0.07891393751480309
+        },
+        "alert_threshold": 0.02170039264097658,
+        "early_warning_utility": {
+          "normalized_utility": 0.3767754557997055,
+          "ci95": [
+            0.3369782694695634,
+            0.4161473142712593
+          ],
+          "valid_replicates": 1000,
+          "n_resamples": 1000,
+          "seed": 42,
+          "patients": 6051,
+          "difference_vs_reference": -0.0030298306194510016,
+          "difference_ci95": [
+            -0.005872102998890192,
+            -0.0006413305326087253
+          ]
+        },
+        "alert_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 351,
+          "septic_warning_rate": 0.7977272727272727,
+          "median_lead_time_hours": 31.0,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 1943,
+          "non_septic_flag_rate": 0.34628408483336304,
+          "hourly_flag_rate": 0.14597678875180328
+        },
+        "eligible_rows": 20594
+      },
+      "patient_specific": {
+        "discrimination": {
+          "auroc": 0.8064315853301968,
+          "auprc": 0.1005992855339833,
+          "brier": 0.017054875766038053
+        },
+        "selective": {
+          "total_count": 232215,
+          "retained_count": 214179,
+          "abstained_count": 18036,
+          "coverage": 0.9223305987985272,
+          "risk": 0.010911433894079252,
+          "brier_score": 0.010710934767048041,
+          "positive_count": 4203,
+          "retained_positive_count": 2337,
+          "abstained_positive_count": 1866,
+          "abstained_positive_capture": 0.4439685938615275,
+          "retained_sensitivity": 0.0,
+          "retained_specificity": 1.0,
+          "retained_ppv": null,
+          "retained_npv": 0.9890885661059208
+        },
+        "escalation_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 270,
+          "septic_warning_rate": 0.6136363636363636,
+          "median_lead_time_hours": 29.5,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 869,
+          "non_septic_flag_rate": 0.15487435394760293,
+          "hourly_flag_rate": 0.07766940120147277
+        },
+        "alert_threshold": 0.02170039264097658,
+        "early_warning_utility": {
+          "normalized_utility": 0.37894162489964234,
+          "ci95": [
+            0.3393337213548689,
+            0.41912104137450373
+          ],
+          "valid_replicates": 1000,
+          "n_resamples": 1000,
+          "seed": 42,
+          "patients": 6051,
+          "difference_vs_reference": -0.0008636615195141695,
+          "difference_ci95": [
+            -0.0045131792484482585,
+            0.00209639332470348
+          ]
+        },
+        "alert_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 351,
+          "septic_warning_rate": 0.7977272727272727,
+          "median_lead_time_hours": 30.0,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 1942,
+          "non_septic_flag_rate": 0.3461058634824452,
+          "hourly_flag_rate": 0.1448872811833861
+        },
+        "eligible_rows": 20594
+      },
+      "oracle_upper_bound": {
+        "discrimination": {
+          "auroc": 0.8183288062498466,
+          "auprc": 0.25223054996482597,
+          "brier": 0.016068292516630937
+        },
+        "selective": {
+          "total_count": 232215,
+          "retained_count": 217218,
+          "abstained_count": 14997,
+          "coverage": 0.9354176086816097,
+          "risk": 0.010187921811267943,
+          "brier_score": 0.010028188917642102,
+          "positive_count": 4203,
+          "retained_positive_count": 2213,
+          "abstained_positive_count": 1990,
+          "abstained_positive_capture": 0.47347133000237923,
+          "retained_sensitivity": 0.0,
+          "retained_specificity": 1.0,
+          "retained_ppv": null,
+          "retained_npv": 0.9898120781887321
+        },
+        "escalation_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 269,
+          "septic_warning_rate": 0.6113636363636363,
+          "median_lead_time_hours": 25.0,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 635,
+          "non_septic_flag_rate": 0.11317055783282837,
+          "hourly_flag_rate": 0.06458239131839029
+        },
+        "alert_threshold": 0.02170039264097658,
+        "early_warning_utility": {
+          "normalized_utility": 0.388922839482115,
+          "ci95": [
+            0.3501592440051768,
+            0.42853499724143496
+          ],
+          "valid_replicates": 1000,
+          "n_resamples": 1000,
+          "seed": 42,
+          "patients": 6051,
+          "difference_vs_reference": 0.009117553062958472,
+          "difference_ci95": [
+            0.007123584305113577,
+            0.011597447758792446
+          ]
+        },
+        "alert_patient_level": {
+          "septic_patients": 440,
+          "septic_patients_warned_before_onset": 351,
+          "septic_warning_rate": 0.7977272727272727,
+          "median_lead_time_hours": 30.0,
+          "non_septic_patients": 5611,
+          "non_septic_patients_ever_flagged": 1934,
+          "non_septic_flag_rate": 0.34468009267510247,
+          "hourly_flag_rate": 0.1407574876730616
+        },
+        "eligible_rows": 20594
+      }
+    },
+    "references": {
+      "never_alert_utility": 0.0,
+      "always_alert_utility": -0.5845320404393141,
+      "selective_trivial_baselines": {
+        "predict_negative_everywhere": {
+          "total_count": 232215,
+          "retained_count": 232215,
+          "abstained_count": 0,
+          "coverage": 1.0,
+          "risk": 0.01809960596860668,
+          "brier_score": 0.01809960596860668,
+          "positive_count": 4203,
+          "retained_positive_count": 4203,
+          "abstained_positive_count": 0,
+          "abstained_positive_capture": 0.0,
+          "retained_sensitivity": 0.0,
+          "retained_specificity": 1.0,
+          "retained_ppv": null,
+          "retained_npv": 0.9819003940313933
+        },
+        "abstain_highest_risk_fraction": {
+          "total_count": 232215,
+          "retained_count": 213638,
+          "abstained_count": 18577,
+          "coverage": 0.920000861270805,
+          "risk": 0.01089693781068911,
+          "brier_score": 0.010693407872103221,
+          "positive_count": 4203,
+          "retained_positive_count": 2328,
+          "abstained_positive_count": 1875,
+          "abstained_positive_capture": 0.44610992148465384,
+          "retained_sensitivity": 0.0,
+          "retained_specificity": 1.0,
+          "retained_ppv": null,
+          "retained_npv": 0.9891030621893109
+        }
+      }
+    },
+    "wait_recheck": {
+      "baseline_abstained_rows": 21254,
+      "rows_with_future_observation": 20662,
+      "median_delay_hours": 1.0,
+      "resolved_after_wait_rate": 0.11213822476042977,
+      "next_observation_metrics": {
+        "total_count": 20662,
+        "retained_count": 2317,
+        "abstained_count": 18345,
+        "coverage": 0.11213822476042977,
+        "risk": 0.0440224428139836,
+        "brier_score": 0.04241451241061198,
+        "positive_count": 1948,
+        "retained_positive_count": 102,
+        "abstained_positive_count": 1846,
+        "abstained_positive_capture": 0.9476386036960985,
+        "retained_sensitivity": 0.0,
+        "retained_specificity": 1.0,
+        "retained_ppv": null,
+        "retained_npv": 0.9559775571860164
+      }
+    },
+    "horizons": {
+      "6": {
+        "rows": 228012,
+        "positive_rate": 0.009403013876462642,
+        "auroc": 0.8045548566505228,
+        "auprc": 0.052378488843407706,
+        "brier": 0.009278781605707203,
+        "note": "current-label model on currently negative rows; descriptive, not horizon-trained"
+      },
+      "12": {
+        "rows": 228012,
+        "positive_rate": 0.017595565145694086,
+        "auroc": 0.8033196938203248,
+        "auprc": 0.09822825351478992,
+        "brier": 0.01659436764129313,
+        "note": "current-label model on currently negative rows; descriptive, not horizon-trained"
+      },
+      "24": {
+        "rows": 228012,
+        "positive_rate": 0.031143097731698332,
+        "auroc": 0.7999580262247403,
+        "auprc": 0.1706959982016339,
+        "brier": 0.02869254345140352,
+        "note": "current-label model on currently negative rows; descriptive, not horizon-trained"
+      }
+    }
+  },
+  "paired_bootstrap_vs_labs_hidden": {
+    "as_recorded": {
+      "observed": {
+        "auroc": 0.03367408264561189,
+        "auprc": 0.0009530966585630102,
+        "brier_improvement": -0.00011333595089505627
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.023884854975604046,
+          0.04552963021788794
+        ],
+        "auprc": [
+          -0.01203933450121066,
+          0.015615914083248583
+        ],
+        "brier_improvement": [
+          -0.00039440759873423623,
+          0.00015829759968282437
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 200,
+        "auprc": 200,
+        "brier_improvement": 200
+      },
+      "n_resamples": 200,
+      "seed": 42,
+      "row_count": 232215,
+      "patient_count": 6051,
+      "positive_label_count": 4203
+    },
+    "fixed_order": {
+      "observed": {
+        "auroc": 0.0018785999254230523,
+        "auprc": 0.009599108927633326,
+        "brier_improvement": 0.00013870335144343035
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.0009946193237578922,
+          0.0026947101176055233
+        ],
+        "auprc": [
+          -0.005747488015904971,
+          0.02763582395225339
+        ],
+        "brier_improvement": [
+          -2.9224395328618955e-05,
+          0.00028298582905948
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 200,
+        "auprc": 200,
+        "brier_improvement": 200
+      },
+      "n_resamples": 200,
+      "seed": 42,
+      "row_count": 232215,
+      "patient_count": 6051,
+      "positive_label_count": 4203
+    },
+    "random": {
+      "observed": {
+        "auroc": -0.0003910972891304487,
+        "auprc": -0.0026627685802736445,
+        "brier_improvement": -1.4907430130831761e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.001131873234246622,
+          0.00033985274919733636
+        ],
+        "auprc": [
+          -0.009235800977669812,
+          0.003859690046896081
+        ],
+        "brier_improvement": [
+          -8.580721836906812e-05,
+          6.553210230398311e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 200,
+        "auprc": 200,
+        "brier_improvement": 200
+      },
+      "n_resamples": 200,
+      "seed": 42,
+      "row_count": 232215,
+      "patient_count": 6051,
+      "positive_label_count": 4203
+    },
+    "patient_specific": {
+      "observed": {
+        "auroc": 0.0001851775260635069,
+        "auprc": -0.003551606029036272,
+        "brier_improvement": -4.045399916259573e-05
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          -0.0010188648548967478,
+          0.0012390604953538083
+        ],
+        "auprc": [
+          -0.009872867281048569,
+          0.004391272818888309
+        ],
+        "brier_improvement": [
+          -0.00012361826098339487,
+          5.067976621095165e-05
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 200,
+        "auprc": 200,
+        "brier_improvement": 200
+      },
+      "n_resamples": 200,
+      "seed": 42,
+      "row_count": 232215,
+      "patient_count": 6051,
+      "positive_label_count": 4203
+    },
+    "oracle_upper_bound": {
+      "observed": {
+        "auroc": 0.01208239844571335,
+        "auprc": 0.1480796584018064,
+        "brier_improvement": 0.00094612925024452
+      },
+      "confidence_intervals_95": {
+        "auroc": [
+          0.010325790278638846,
+          0.013716206086947003
+        ],
+        "auprc": [
+          0.12439608307848224,
+          0.17790198314108016
+        ],
+        "brier_improvement": [
+          0.0008098185352119321,
+          0.0011293025534129702
+        ]
+      },
+      "valid_bootstrap_replicates": {
+        "auroc": 200,
+        "auprc": 200,
+        "brier_improvement": 200
+      },
+      "n_resamples": 200,
+      "seed": 42,
+      "row_count": 232215,
+      "patient_count": 6051,
+      "positive_label_count": 4203
+    }
+  },
+  "test_access_ledger": {
+    "description": "Every known access to held-out test labels. Entries 1-4 are reconstructed from committed reports and git history; later entries are appended automatically by experiments/run_final_evaluation.py.",
+    "accesses": [
+      {
+        "index": 1,
+        "timestamp": "2026-11-11T17:43:21+00:00",
+        "source": "experiments/run_locked_evaluation.py",
+        "git_commit": "4d2d100",
+        "abstention_threshold": 0.9626458569402422,
+        "purpose": "G1 six-lab model, fixed-order one-step acquisition (experiments/results/final/locked_test_evaluation.md)."
+      },
+      {
+        "index": 2,
+        "timestamp": "2026-11-12T19:05:15+00:00",
+        "source": "experiments/run_all_lab_training_evaluation.py --include-held-out",
+        "git_commit": "57f314e",
+        "abstention_threshold": 0.9743948721,
+        "purpose": "All-26-lab model, hidden versus visible states (experiments/results/next_phase/all_lab_held_out_evaluation.md)."
+      },
+      {
+        "index": 3,
+        "timestamp": "2026-11-12T19:26:25+00:00",
+        "source": "experiments/run_complete_next_phase.py --split test",
+        "git_commit": "69be0f0",
+        "abstention_threshold": 0.9743948721,
+        "purpose": "Group policies, wait/re-check and horizons (experiments/results/next_phase/complete_next_phase_report.md)."
+      },
+      {
+        "index": 4,
+        "timestamp": "2026-11-13T21:05:00+00:00",
+        "source": "experiments/run_complete_next_phase.py --split test --policies-only",
+        "git_commit": "39835f9",
+        "abstention_threshold": 0.9669101582337782,
+        "purpose": "Re-run after model stabilization (experiments/results/next_phase/heldout_policy_evaluation.md)."
+      },
+      {
+        "index": 5,
+        "timestamp": "2026-11-17T15:08:12+00:00",
+        "source": "experiments/run_final_evaluation.py",
+        "git_commit": "39835f95f103a472871331d4fb8f1c82e35af97c",
+        "working_tree_clean": false,
+        "protocol_sha256": "5ef0194ce3581fff975bd0f15e4f1b68286af9982a82d2b9fa86036c53545fe3",
+        "abstention_threshold": 0.9678114602035706,
+        "alert_thresholds": {
+          "as_recorded": 0.02539279556205635,
+          "labs_hidden_and_policies": 0.02170039264097658
+        },
+        "purpose": "Single final evaluation under the frozen final protocol."
+      }
+    ]
+  }
+}
