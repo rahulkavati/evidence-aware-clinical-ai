@@ -43,6 +43,16 @@ SHOWCASE_LABS = {
 }
 VITALS = {"HR": "Heart rate", "MAP": "Mean arterial pressure", "Resp": "Respiratory rate", "Temp": "Temperature", "O2Sat": "SpO2"}
 ONSET_OFFSET = 6
+PROJECT = {
+    "title": "Knowing When the Evidence Is Not Enough",
+    "subtitle": "Selective Prediction and Laboratory Acquisition for Early Sepsis Warning",
+    "author": "Rahul Kavati",
+    "degree": "Master of Science in Computer Science",
+    "university": "California State University, Dominguez Hills",
+    "type": "Master's Project",
+    "term": "Fall 2026",
+    "repository": "https://github.com/rahulkavati/evidence-aware-clinical-ai",
+}
 MAX_HOURS = 72
 
 
@@ -221,6 +231,7 @@ def build() -> dict[str, Any]:
     missing = pd.read_csv(MISSINGNESS, index_col=0)["missing_percentage"]
     labs_and_vitals = [c for c in missing.index if c not in {"Unit1", "Unit2", "HospAdmTime", "Gender", "Age", "ICULOS", "SepsisLabel"}]
     return {
+        "project": PROJECT,
         "generated_from": {"final_report": str(FINAL.relative_to(ROOT)), "predictions": str(CACHE.relative_to(ROOT))},
         "dataset": json.loads(DATASET_SUMMARY.read_text()) if DATASET_SUMMARY.exists() else {},
         "splits": json.loads(SPLITS.read_text()),
@@ -249,6 +260,9 @@ def build() -> dict[str, Any]:
 
 
 def main() -> None:
+    print(f"{PROJECT['type']}: {PROJECT['title']}")
+    print(f"{PROJECT['author']} | {PROJECT['degree']} | {PROJECT['university']} | {PROJECT['term']}")
+    print("Building dashboard data from the frozen final results...")
     data = build()
     OUTPUT.write_text("window.DASH = " + json.dumps(data, separators=(",", ":"), default=float) + ";\n", encoding="utf-8")
     print(f"Wrote {OUTPUT} ({OUTPUT.stat().st_size / 1e6:.1f} MB) with {len(data['patients'])} patients")

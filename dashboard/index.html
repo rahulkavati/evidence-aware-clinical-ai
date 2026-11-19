@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Evidence-Aware Clinical AI — Results &amp; Live Demo</title>
+<title>Rahul Kavati · M.S. Computer Science Project · Evidence-Aware Clinical AI</title>
 <style>
 :root{
   --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6d68; --axis:#c3c2b7; --grid:#e1e0d9; --ring:rgba(11,11,11,0.10);
@@ -87,12 +87,22 @@ input[type=range]{flex:1;accent-color:var(--ink);min-width:200px}
 #notes ul{margin:0;padding-left:18px}
 #notes li{margin:4px 0}
 body.present section{min-height:100vh}
+.who{font-size:12px;color:var(--ink2);white-space:nowrap}
+.byline{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--ink2);margin:0 0 22px}
+.byline b{color:var(--ink);font-weight:600}
+footer{border-top:1px solid var(--grid);max-width:1280px;margin:0 auto;padding:18px 32px 40px;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:space-between}
+#splash{position:fixed;inset:0;z-index:100;background:var(--page);display:flex;align-items:center;justify-content:center;transition:opacity .5s}
+#splash.hide{opacity:0;pointer-events:none}
+#splash .in{text-align:center;max-width:720px;padding:24px}
+#splash .t{font-size:34px;font-weight:600;line-height:1.15;margin:10px 0 8px}
+#splash .s{font-size:17px;color:var(--ink2);margin:0 0 26px}
+#splash .m{font-size:15px;color:var(--ink2);line-height:1.7}
 .kbd{font-size:11px;border:1px solid var(--ring);border-radius:4px;padding:1px 5px;color:var(--muted)}
 </style>
 </head>
 <body>
 <header><div class="bar">
-  <div class="brand">Evidence-Aware Clinical AI</div>
+  <div class="brand">Evidence-Aware Clinical AI <span class="who" id="whoTop">· Rahul Kavati · CSUDH</span></div>
   <nav id="nav"></nav>
   <div class="tools">
     <button id="notesBtn" type="button" title="Speaker notes (N)">Notes <span class="kbd">N</span></button>
@@ -101,8 +111,9 @@ body.present section{min-height:100vh}
 
 <main>
 <section id="overview" data-title="Overview">
-  <p class="kicker">Master's project · Computer Science</p>
+  <p class="kicker" id="kicker">Master's Project · M.S. Computer Science · California State University, Dominguez Hills</p>
   <h1>Can an AI tell when its evidence isn't enough, and decide what to do about it?</h1>
+  <div class="byline" id="byline"><span>By <b>Rahul Kavati</b></span><span>Master of Science in Computer Science</span><span>California State University, Dominguez Hills</span><span>Fall 2026</span></div>
   <p class="lead">Early sepsis prediction on <span data-k="patients"></span> real ICU stays. The system predicts, orders a lab group, or escalates when it is not confident. Every number below comes from one frozen protocol evaluated once on <span data-k="testPatients"></span> held-out patients.</p>
   <div class="grid4" id="heroTiles"></div>
   <div class="card" style="margin-top:24px">
@@ -241,6 +252,14 @@ body.present section{min-height:100vh}
   </div>
 </section>
 </main>
+<footer id="footer"><span>Rahul Kavati · Master's Project, M.S. Computer Science · California State University, Dominguez Hills · Fall 2026</span><span id="repo">github.com/rahulkavati/evidence-aware-clinical-ai</span></footer>
+<div id="splash" role="dialog" aria-label="Project title"><div class="in">
+  <p class="kicker" id="spKicker">Master's Project · M.S. Computer Science</p>
+  <div class="t" id="spTitle">Knowing When the Evidence Is Not Enough</div>
+  <p class="s" id="spSub">Selective Prediction and Laboratory Acquisition for Early Sepsis Warning</p>
+  <div class="m" id="spMeta"><b>Rahul Kavati</b><br>California State University, Dominguez Hills<br>Fall 2026</div>
+  <p class="cap" style="margin-top:22px">Press any key to begin</p>
+</div></div>
 
 <div class="tip" id="tip"></div>
 <div id="notes"><h4 id="notesTitle">Speaker notes</h4><ul id="notesBody"></ul><p class="cap">← → move between sections · N hides notes</p></div>
@@ -697,9 +716,39 @@ function setupDemo() {
   document.getElementById("recToggle").addEventListener("change", (e) => { st.showRec = e.target.checked; render(); });
   selectPatient(0);
 }
+function fillProject() {
+  const P = D && D.project; if (!P) return;
+  setText("whoTop", "· " + P.author + " · CSUDH");
+  setText("kicker", P.type + " · M.S. Computer Science · " + P.university);
+  const by = document.getElementById("byline"); by.replaceChildren();
+  for (const [lab, val] of [["By ", P.author], ["", P.degree], ["", P.university], ["", P.term]]) {
+    const sp = document.createElement("span");
+    if (lab) { sp.append(document.createTextNode(lab)); const b = document.createElement("b"); b.textContent = val; sp.append(b); } else sp.textContent = val;
+    by.appendChild(sp);
+  }
+  setText("spKicker", P.type + " · " + P.degree);
+  setText("spTitle", P.title); setText("spSub", P.subtitle);
+  const m = document.getElementById("spMeta"); m.replaceChildren();
+  const b = document.createElement("b"); b.textContent = P.author; m.append(b);
+  for (const line of [P.university, P.term]) { m.append(document.createElement("br"), document.createTextNode(line)); }
+  setText("repo", P.repository.replace("https://", ""));
+  setText("footer", ""); const f = document.getElementById("footer");
+  const l = document.createElement("span"); l.textContent = P.author + " · " + P.type + ", " + P.degree + " · " + P.university + " · " + P.term;
+  const r = document.createElement("span"); r.textContent = P.repository.replace("https://", "");
+  f.replaceChildren(l, r);
+  document.title = P.author + " · " + P.type + " · " + P.title;
+}
+function hideSplash() { const s = document.getElementById("splash"); if (s && !s.classList.contains("hide")) { s.classList.add("hide"); setTimeout(() => s.remove(), 600); } }
+document.getElementById("splash").addEventListener("click", hideSplash);
+// The title card stays up until the presenter presses a key (or clicks).
+// That first key only dismisses the card; it doesn't also move a section.
+window.addEventListener("keydown", (e) => {
+  const s = document.getElementById("splash");
+  if (s && !s.classList.contains("hide")) { e.preventDefault(); e.stopImmediatePropagation(); hideSplash(); }
+}, true);
 if (!D) { document.body.textContent = "dashboard/data.js not found. Run: make dashboard"; }
 else {
-  fillStatic(); drawCharts(); setupNav(); setupDemo();
+  fillProject(); fillStatic(); drawCharts(); setupNav(); setupDemo();
   let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { drawCharts(); render(); }, 150); });
 }
 </script>
