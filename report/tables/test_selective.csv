@@ -1,0 +1,7 @@
+system,coverage,risk,escalated_positive_capture,septic_escalated_before_onset,nonseptic_escalated,eligible_rows
+All labs hidden (baseline),0.9085,0.0105,0.4749,0.6409,0.1889,
+Labs as recorded,0.8972,0.0093,0.5387,0.7614,0.226,
+Fixed clinical order,0.9185,0.0107,0.4566,0.625,0.1583,20594.0
+Random group,0.9211,0.0111,0.4368,0.6295,0.1643,20594.0
+Patient-specific selector,0.9223,0.0109,0.444,0.6136,0.1549,20594.0
+Oracle (uses labels),0.9354,0.0102,0.4735,0.6114,0.1132,20594.0
